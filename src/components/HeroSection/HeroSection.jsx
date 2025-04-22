@@ -61,7 +61,7 @@ const HeroSection = () => {
                         src={searchSvg}
                         style={{
                             filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.3s ease'
+                            transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('search')}
                         alt=""
@@ -70,7 +70,7 @@ const HeroSection = () => {
                         src={favSvg}
                         style={{
                             filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.3s ease'
+                            transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('favorites')}
                         alt=""
@@ -79,7 +79,7 @@ const HeroSection = () => {
                         src={profileSvg}
                         style={{
                             filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.3s ease'
+                            transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('profile')}
                         alt=""
@@ -88,7 +88,7 @@ const HeroSection = () => {
                         src={cartSvg}
                         style={{
                             filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.3s ease'
+                            transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('cart')}
                         alt=""
