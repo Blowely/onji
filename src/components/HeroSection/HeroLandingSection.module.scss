@@ -19,6 +19,8 @@
   z-index: 10;
   height: 70px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-family: 'Graphik-Medium', sans-serif;
+  transition: background 0.3s ease;
 
   .logo {
     color: #000;
@@ -101,4 +103,13 @@
       }
     }
   }
+}
+
+.categoryTableWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: white;
+  margin-top: 70px;
+  transition: opacity 0.3s ease;
 }
