@@ -15,6 +15,7 @@ import Order from "./pages/Order";
 import Trace from "./pages/Trace";
 import CategoriesTree from "./components/CategoriesTree/CategoriesTree";
 import SBPayment from "./pages/SBPayment/SBPayment";
+import HomeV2 from "./pages/HomeV2";
 
 export function PrivateAppRouter({
   searchValue,
@@ -41,7 +42,7 @@ export function PrivateAppRouter({
         <Route
           path={`/men-products`}
           element={
-            <Home
+            <HomeV2
               cartItems={cartItems}
               searchValue={searchValue}
               setSearchValue={setSearchValue}
@@ -55,7 +56,7 @@ export function PrivateAppRouter({
         <Route
           path={`/women-products`}
           element={
-            <Home
+            <HomeV2
               cartItems={cartItems}
               searchValue={searchValue}
               setSearchValue={setSearchValue}

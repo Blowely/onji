@@ -196,3 +196,35 @@ footer {
   border-color: rgb(1, 194, 195);
   background-color: rgb(1, 194, 195);
 }
+
+.ant-menu-title-content:hover {
+  color: #656565;
+}
+
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item:hover::after {
+  border-bottom: 1px solid black;
+  margin-bottom: 0.5px;
+}
+
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected {
+  color: black;
+
+  &::after {
+    border-bottom: 1px solid black;
+    margin-bottom: 0.5px;
+  }
+}
+
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item::after {
+  border-bottom: 1px solid transparent;
+  margin-bottom: 0.5px;
+}
+
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.ant-menu-item {
+  pointer-events: auto;
+}
