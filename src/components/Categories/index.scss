@@ -1,0 +1,84 @@
+.card-wrapper {
+  margin-top: 10px;
+  display: flex;
+  //gap: 10px;
+  height: auto;
+  width: 100%;
+  padding: 0 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  justify-content: space-evenly;
+
+  @media (max-width: 768px) {
+    justify-content: unset;
+    > div {
+      min-width: 23.5%!important;
+      width: 23.5%!important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    justify-content: space-between;
+    padding: 0 20px;
+
+    > div {
+      transition: color 0.2s ease;
+      &:hover {
+        color: #8c8c8c;
+        transition: color 0.2s ease;
+      }
+    }
+  }
+
+}
+
+.cat-card {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    background-color: #f8f8f8;
+    padding-bottom: 13px;
+    border-radius: 20px;
+  }
+
+  &:hover {
+    > img {
+      transition: transform 0.2s ease;
+      transform: scale(1.04);
+    }
+  }
+
+  img {
+    transition: transform 0.2s ease;
+    max-width: 100%;
+    display: block;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  > div {
+    display: flex;
+    justify-content: center;
+    padding-top: 1px;
+    font-weight: 300;
+    font-size: .8rem;
+    line-height: 18.75px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    @media (min-width: 768px) {
+      margin-top: -30px;
+      font-weight: 600;
+    }
+  }
+}

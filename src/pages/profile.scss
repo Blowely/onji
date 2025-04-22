@@ -1,0 +1,34 @@
+.content-block-profile {
+  height: 100%;
+
+  @media (max-width: 768px) {
+    padding-top: unset!important;
+  }
+}
+
+.profile-items-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 80px;
+}
+
+.balance-wrapper {
+  height: 110px;
+  display: grid;
+  gap: 10px;
+
+  & > button {
+    width: 150px;
+  }
+}
+
+.fillUpBtn {
+  height: 40px!important;
+}
+
+.link {
+  margin-top: 15px;
+  padding: 16px;
+  font-size: 15px;
+}

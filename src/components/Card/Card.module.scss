@@ -1,0 +1,119 @@
+.card {
+  border: 1px solid #f8f8f8;
+  border-top: 0;
+  border-left: 0;
+  padding: 15px;
+  cursor: pointer;
+  color: black;
+  transition: box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  width: 100%;
+  position: relative;
+
+  @media (min-width: 768px) {
+    &:hover {
+      > div {
+        transition: transform 0.2s ease;
+        > img {
+          transition: transform 0.2s ease;
+          transform: scale(1.03);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .card:hover {
+      pointer-events: none!important;
+    }
+  }
+
+  .plus {
+    cursor: pointer;
+  }
+
+
+  .favorite {
+    position: absolute;
+    cursor: pointer;
+  }
+
+  span {
+    text-transform: uppercase;
+  }
+
+  b {
+    font-size: 13px;
+  }
+
+  h5 {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .cardText {
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    align-self: start;
+  }
+
+  &:hover {
+    @media (min-width: 768px) {
+      box-shadow: 0px 0px 40px -32px rgba(0,0,0,0.75);
+    }
+  }
+
+  :first-child:nth-last-child(1) {
+    @media (max-width: 600px) {
+      max-height: 299px!important;
+    }
+
+  }
+
+  .contentLoader {
+    position: absolute;
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+  }
+
+  .contentImgLoader {
+    position: absolute;
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+
+    /*> rect {
+      width: calc(100% - 30px);
+      height: calc(100% - 30px);
+    }*/
+  }
+
+  img {
+    width: 100% !important;
+    aspect-ratio: 64 / 41 !important;
+    object-fit: contain!important;
+    transition: transform 0.2s ease;
+  }
+}
+
+.imgStyleWrapper {
+  width: 100%;
+}
+
+.price {
+  font-size: 20px!important;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-top: 10px;
+  line-height: 23.44px;
+  font-family: Roboto Condensed, sans-serif;
+  color: black;
+  align-self: start;
+}
+

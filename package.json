@@ -1,0 +1,73 @@
+{
+  "name": "onji",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "animejs": "^3.2.1",
+    "antd": "^5.24.4",
+    "axios": "^1.3.5",
+    "classnames": "^2.5.1",
+    "formik": "^2.4.1",
+    "less": "^4.1.3",
+    "loader-utils": "3.2.1",
+    "lucide-react": "^0.475.0",
+    "macro-css": "^1.0.5",
+    "moment": "^2.29.4",
+    "pure-react-carousel": "^1.30.1",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.4",
+    "react-error-overlay": "^6.0.11",
+    "react-image-gallery": "^1.4.0",
+    "react-medium-image-zoom": "^5.2.14",
+    "react-modal": "^3.16.1",
+    "react-redux": "^8.0.5",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.11.0",
+    "react-scripts": "5.0.1",
+    "swiper": "^11.0.4",
+    "use-timer": "^2.0.1",
+    "web-vitals": "^2.1.4",
+    "world_countries_lists": "^2.8.1"
+  },
+  "scripts": {
+    "start": "set PORT=3006 && react-scripts start",
+    "start_mac": "PORT=3006 react-scripts start",
+    "build": "react-scripts build",
+    "build:prod": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "sass": "^1.66.1",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^0.23.1",
+    "webpack": "^5.89.0"
+  }
+}

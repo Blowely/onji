@@ -1,0 +1,198 @@
+.ant-input-affix-wrapper {
+  border-radius: 20px!important;
+  background-color: #efefef;
+  border-color: #efefef;
+}
+
+.ant-input-outlined:focus-within {
+  border-color: rgb(1, 194, 195)!important;
+}
+.ant-input-outlined:focus {
+  border-color: rgb(1, 194, 195) !important;
+}
+.ant-input-outlined:active  {
+  border-color: rgb(1, 194, 195)!important;
+}
+
+.ant-input-outlined:hover {
+  border-color: rgb(1, 194, 195)!important;
+}
+
+.ant-input {
+  background-color: #efefef;
+}
+
+
+.ant-input:focus-within {
+  border-color: rgb(1, 194, 195)!important;
+}
+.ant-input:focus {
+  border-color: rgb(1, 194, 195) !important;
+}
+.ant-input:active  {
+  border-color: rgb(1, 194, 195)!important;
+}
+
+.ant-input:hover {
+  border-color: rgb(1, 194, 195)!important;
+}
+
+.ant-tag {
+  border-radius: 20px;
+  padding: 4px 8px;
+  margin: 3px 8px 3px 0;
+  font-weight: 300;
+  font-size: 0.9rem;
+  line-height: 18.75px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ant-btn{
+  background-color: #efefef;
+  border-radius: 20px;
+}
+
+.ant-btn-primary {
+  background-color: rgb(1, 194, 195);
+  &:not(:disabled):hover {
+    background-color: rgb(1, 194, 195);
+  }
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+  border-color: rgb(1, 194, 195);
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-input:hover {
+  border-color: rgb(1, 194, 195);
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-carousel .slick-dots li.slick-active button {
+  background: #a1dfe1;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-btn-default:not(:disabled):hover {
+  color: rgb(1, 194, 195);
+  border-color: rgb(1, 194, 195);
+}
+
+:where(.css-dev-only-do-not-override-15rg2km) a:hover {
+  color: black;
+}
+
+.swiper-pagination-bullet {
+  width: 6px!important;
+  height: 6px!important;
+  background: #b5b5b5!important;
+}
+
+.swiper-pagination-bullet-active {
+  width: 6px!important;
+  height: 6px!important;
+  background: rgb(1, 194, 195) !important;
+}
+
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: rgb(1, 194, 195);
+  text-shadow: 0 0 0.25px rgb(1, 194, 195);
+}
+
+.ant-tabs .ant-tabs-ink-bar {
+  background: rgb(1, 194, 195);
+}
+
+.ant-tabs .ant-tabs-tab:hover {
+  color: rgb(1, 194, 195);
+}
+
+.ant-btn.ant-btn-sm {
+  border-radius: 20px!important;
+}
+
+footer {
+  border-top: 1px solid rgba(236, 236, 236, 0.8);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.ant-modal {
+  @media (max-width: 768px) {
+    max-width: 100vw!important;
+    margin: 0 !important;
+  }
+}
+
+.ant-modal-body {
+  max-height: calc(100vh - 40vh);
+  overflow: auto;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: rgb(1, 194, 195) !important; /* Новый цвет */
+  border-color: rgb(1, 194, 195) !important; /* Граница */
+}
+
+.ant-input {
+  border-radius: 20px!important;
+}
+
+.ant-collapse>.ant-collapse-item:last-child {
+  border-radius: 0 0 20px 20px;
+}
+
+.ant-collapse .ant-collapse-item:last-child >.ant-collapse-content {
+  border-radius: 0 0 20px 20px;
+}
+
+.ant-drawer .ant-drawer-body {
+  padding: 0;
+}
+
+.ant-collapse  {
+  border: 1px solid white;
+}
+
+.ant-collapse-item {
+  border: 1px solid white!important;
+}
+
+.swiper-zoom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  color: rgb(1, 194, 195);
+}
+
+.ant-drawer-title {
+  font-size: 17px;
+}
+
+.ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner {
+  border-color: rgb(1, 194, 195) !important;
+}
+
+.ant-select-dropdown {
+  border-radius: 20px!important;
+}
+
+.ant-select-item {
+  border-radius: 20px!important;
+}
+
+.ant-btn-variant-solid:not(:disabled):not(.ant-btn-disabled):hover {
+  background: #00d1d2;
+}
+
+.ant-result-info .ant-result-icon > .anticon {
+  color: rgb(1, 194, 195) !important;
+}
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: rgb(1, 194, 195);
+  background-color: rgb(1, 194, 195);
+}
