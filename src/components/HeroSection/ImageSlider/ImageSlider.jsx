@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Carousel } from 'antd';
 import './ImageSlider.scss';
 
-const ImageSlider = ({onSlideChange}) => {
+const ImageSlider = ({ onSlideChange }) => {
+    const carouselRef = useRef(null);
     const slides = [
         {
             id: 1,
@@ -20,15 +21,25 @@ const ImageSlider = ({onSlideChange}) => {
         }
     ];
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (carouselRef.current) {
+                carouselRef.current.next(); // Переключение на следующий слайд
+            }
+        }, 5000); // Интервал 5 секунд
+
+        return () => clearInterval(interval); // Очистка интервала при размонтировании
+    }, []);
+
     return (
         <div className="beeon-slider">
             <Carousel
-                autoplay={{ dotDuration: true }}
-                autoplaySpeed={3000}
-                afterChange={onSlideChange}
+                ref={carouselRef}
+                autoplay={false} // Отключаем встроенный autoplay
+                beforeChange={onSlideChange}
                 adaptiveHeight={true}
                 infinite={true}
-                effect="fade"
+                effect="scrollx"
                 dotPosition="bottom"
                 draggable
             >

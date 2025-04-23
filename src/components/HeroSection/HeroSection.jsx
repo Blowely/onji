@@ -13,7 +13,7 @@ const HeroSection = () => {
     const navigate = useNavigate();
     const gender = localStorage.getItem("gender") || "men";
     const [showCategories, setShowCategories] = useState(false);
-    const [navTextColor, setNavTextColor] = useState('#ffffff');
+    const [navTextColor, setNavTextColor] = useState('#000000');
 
     const onNavItemClick = (url) => {
         navigate(`/${url}`);
@@ -23,8 +23,8 @@ const HeroSection = () => {
         setShowCategories(isHovering);
     }
 
-    const handleSlideChange = (currentSlide) => {
-        const newColor = currentSlide === 0 ? '#000000' : '#ffffff';
+    const handleSlideChange = (_, nextSlide) => {
+        const newColor = nextSlide === 0 ? '#000000' : '#ffffff';
         setNavTextColor(newColor);
     }
 
@@ -40,7 +40,10 @@ const HeroSection = () => {
             <div className={styles.navbar} style={{
                 background: showCategories ? 'white' : 'transparent',
                 color: finalTextColor,
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                borderBottomColor: showCategories || navTextColor === "#000000"
+                    ? 'rgba(0, 0, 0, 0.2)'
+                    : 'rgba(255,255,255,0.2)',
             }}>
                 <div className={styles.logo} onClick={() => onNavItemClick(`${gender}-products`)}>ONJI</div>
                 <Menu
