@@ -4,6 +4,28 @@
   display: flex;
 }
 
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 212px;
+}
+
+.titleText {
+  font-family: "Graphik Medium", sans-serif;
+  font-size: 34.9px;
+  font-weight: 500;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.motionRow {
+  width: 100%;
+}
+
 .item {
   position: relative;
   height: 100%;
