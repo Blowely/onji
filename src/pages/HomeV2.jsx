@@ -38,6 +38,7 @@ import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import IconHeartSmall from "../assets/svg/iconHeartSmall";
 import {clearCart} from "../common/cartSlice";
 import HeroSection from "../components/HeroSection/HeroSection";
+import Stories from "../components/Stories/Stories";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -541,6 +542,11 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             </Modal>
         )}
         <HeroSection />
+
+        <div className="storiesWrapper">
+          <Stories />
+        </div>
+
         <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
              ref={filtersRef}>
           <Filters
