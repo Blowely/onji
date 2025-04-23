@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Добавлен useEffect
 import { Menu } from 'antd';
 import styles from './HeroLandingSection.module.scss';
 import searchSvg from '../../assets/svg/v2/search.svg';
@@ -14,37 +14,56 @@ const HeroSection = () => {
     const gender = localStorage.getItem("gender") || "men";
     const [showCategories, setShowCategories] = useState(false);
     const [navTextColor, setNavTextColor] = useState('#000000');
+    const [isScrolled, setIsScrolled] = useState(false); // Новое состояние для скролла
+
+    // Обработчик скролла
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            setIsScrolled(scrollTop > 10); // Меняем фон, если прокрутка > 10px
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const onNavItemClick = (url) => {
         navigate(`/${url}`);
-    }
+    };
 
     const handleMenuHover = (isHovering) => {
         setShowCategories(isHovering);
-    }
+    };
 
     const handleSlideChange = (_, nextSlide) => {
         const newColor = nextSlide === 0 ? '#000000' : '#ffffff';
         setNavTextColor(newColor);
-    }
+    };
 
-    // Определяем окончательный цвет текста
-    const getFinalTextColor = () => {
-        return showCategories ? '#000000' : navTextColor;
-    }
+    // Определяем окончательный цвет текста и фона
+    const getFinalStyles = () => {
+        const background = showCategories || isScrolled ? 'white' : 'transparent';
+        const textColor = showCategories || isScrolled ? '#000000' : navTextColor;
+        const borderColor = showCategories || navTextColor === "#000000" || isScrolled
+            ? 'rgba(0, 0, 0, 0.2)'
+            : 'rgba(255, 255, 255, 0.2)';
 
-    const finalTextColor = getFinalTextColor();
+        return { background, textColor, borderColor };
+    };
+
+    const { background, textColor, borderColor } = getFinalStyles();
 
     return (
         <div className={styles.heroContainer}>
-            <div className={styles.navbar} style={{
-                background: showCategories ? 'white' : 'transparent',
-                color: finalTextColor,
-                transition: 'all 0.3s ease',
-                borderBottomColor: showCategories || navTextColor === "#000000"
-                    ? 'rgba(0, 0, 0, 0.2)'
-                    : 'rgba(255,255,255,0.2)',
-            }}>
+            <div
+                className={styles.navbar}
+                style={{
+                    background,
+                    color: textColor,
+                    transition: 'all 0.3s ease',
+                    borderBottom: `1px solid ${borderColor}`,
+                }}
+            >
                 <div className={styles.logo} onClick={() => onNavItemClick(`${gender}-products`)}>ONJI</div>
                 <Menu
                     mode="horizontal"
@@ -63,7 +82,7 @@ const HeroSection = () => {
                     <img
                         src={searchSvg}
                         style={{
-                            filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
                             transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('search')}
@@ -72,7 +91,7 @@ const HeroSection = () => {
                     <img
                         src={favSvg}
                         style={{
-                            filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
                             transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('favorites')}
@@ -81,7 +100,7 @@ const HeroSection = () => {
                     <img
                         src={profileSvg}
                         style={{
-                            filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
                             transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('profile')}
@@ -90,7 +109,7 @@ const HeroSection = () => {
                     <img
                         src={cartSvg}
                         style={{
-                            filter: finalTextColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
                             transition: 'filter 0.1s ease'
                         }}
                         onClick={() => onNavItemClick('cart')}
