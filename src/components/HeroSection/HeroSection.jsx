@@ -60,15 +60,19 @@ const HeroSection = () => {
                 style={{
                     background,
                     color: textColor,
-                    transition: 'all 0.3s ease',
                     borderBottom: `1px solid ${borderColor}`,
+                    height: isScrolled && '59px'
                 }}
             >
                 <div className={styles.logo} onClick={() => onNavItemClick(`${gender}-products`)}>ONJI</div>
                 <Menu
                     mode="horizontal"
                     className={styles.menu}
-                    style={{ color: 'inherit' }}
+                    style={{
+                        color: 'inherit',
+                        height: isScrolled && '59px',
+                        transition: 'all 0.3s ease',
+                    }}
                     onMouseEnter={() => handleMenuHover(true)}
                     onMouseLeave={() => handleMenuHover(false)}
                 >
@@ -123,7 +127,8 @@ const HeroSection = () => {
                 style={{
                     opacity: showCategories ? '1' : '0',
                     pointerEvents: showCategories ? 'auto' : 'none',
-                    transition: 'opacity 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    marginTop: isScrolled && '59px'
                 }}
                 onMouseEnter={() => showCategories && handleMenuHover(true)}
                 onMouseLeave={() => handleMenuHover(false)}
