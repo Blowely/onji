@@ -1,0 +1,26 @@
+.catalogControlsWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 81px;
+  height: 62px;
+}
+
+.catalogControlsBlock {
+  display: flex;
+  gap: 81px;
+}
+
+.catalogControlItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #000;
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}

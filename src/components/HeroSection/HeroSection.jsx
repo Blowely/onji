@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Добавлен useEffect
+import React, {useState, useEffect, useRef} from 'react'; // Добавлен useEffect
 import { Menu } from 'antd';
 import styles from './HeroLandingSection.module.scss';
 import searchSvg from '../../assets/svg/v2/search.svg';
@@ -8,6 +8,7 @@ import cartSvg from '../../assets/svg/v2/cart.svg';
 import { useNavigate } from "react-router-dom";
 import CategoryTable from "../CategoryTable/CategoryTable";
 import ImageSlider from "./ImageSlider/ImageSlider";
+import CatalogControls from "./CatalogControls/CatalogControls";
 
 const HeroSection = () => {
     const navigate = useNavigate();
@@ -15,12 +16,22 @@ const HeroSection = () => {
     const [showCategories, setShowCategories] = useState(false);
     const [navTextColor, setNavTextColor] = useState('#000000');
     const [isScrolled, setIsScrolled] = useState(false); // Новое состояние для скролла
+    const [isScrolledToTop, setIsScrolledToTop] = useState(false); // Новое состояние для скролла
+    const scrolledValRef = useRef(null);
 
     // Обработчик скролла
     useEffect(() => {
         const handleScroll = () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
             setIsScrolled(scrollTop > 10); // Меняем фон, если прокрутка > 10px
+
+            if (scrollTop < scrolledValRef.current) {
+                setIsScrolledToTop(true);
+            } else {
+                setIsScrolledToTop(false);
+            }
+            scrolledValRef.current = scrollTop
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -122,6 +133,18 @@ const HeroSection = () => {
                 </div>
             </div>
             <ImageSlider onSlideChange={handleSlideChange} />
+            {/*<div
+                className={styles.categoryTableWrapper}
+                style={{
+                    opacity: isScrolledToTop ? '1' : '0',
+                    transition: 'all 0.3s ease',
+                    marginTop: isScrolledToTop && '59px',
+                    borderBottom: `1px solid ${borderColor}`,
+                }}
+            >
+                <CatalogControls />
+            </div>*/}
+
             <div
                 className={styles.categoryTableWrapper}
                 style={{

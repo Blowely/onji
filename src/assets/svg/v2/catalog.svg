@@ -1,0 +1,8 @@
+<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line y1="0.5" x2="16" y2="0.5" stroke="black"/>
+    <line y1="16.5" x2="16" y2="16.5" stroke="black"/>
+    <line y1="8.5" x2="9" y2="8.5" stroke="black"/>
+    <line x1="16.5" y1="17" x2="16.5" stroke="black"/>
+    <line x1="0.5" y1="17" x2="0.5" stroke="black"/>
+    <line x1="8.5" y1="17" x2="8.5" stroke="black"/>
+</svg>
