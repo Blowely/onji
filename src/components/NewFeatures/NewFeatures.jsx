@@ -9,6 +9,7 @@ import p6 from "../../assets/newFeatures/p6.png";
 import styles from "./NewFeaturesStyles.module.scss";
 import {ArrowLeftIcon} from "../../assets/svg/v2/ArrowLeftIcon";
 import {ArrowRightIcon} from "../../assets/svg/v2/ArrowRightIcon";
+import {useNavigate} from "react-router-dom";
 
 const remoteItems = [
     [
@@ -48,6 +49,7 @@ const remoteItems = [
     [
         {
             img: p5,
+            spuId: 21720097,
             title: 'ADIDAS INTIMIDATION LOW',
             category: 'КРОССОВКИ',
             price: '11609',
@@ -55,6 +57,7 @@ const remoteItems = [
         },
         {
             img: p6,
+            spuId: 21748134,
             title: 'ASICS GEL-NYC',
             category: 'КРОССОВКИ',
             price: '13109',
@@ -62,6 +65,7 @@ const remoteItems = [
         },
         {
             img: p3,
+            spuId: 15370782,
             title: 'ADIDAS FW24 BASIC DOWN',
             category: 'ЗИМНЯЯ КУРТКА',
             price: '5999',
@@ -69,6 +73,7 @@ const remoteItems = [
         },
         {
             img: p4,
+            spuId: 1388043,
             title: 'MICHAEL MICHAEL KORS',
             category: 'ЖЕНСКАЯ СУМКА',
             price: '5999',
@@ -78,6 +83,8 @@ const remoteItems = [
 ]
 
 const NewFeatures = () => {
+    const navigate = useNavigate();
+
     const [itemsIndex, setItemsIndex] = useState(0);
 
 
@@ -152,7 +159,7 @@ const NewFeatures = () => {
                 {remoteItems[itemsIndex].map((item, index) => {
                     return (
                         <Col span={6} key={index}>
-                            <div className={styles.item}>
+                            <div className={styles.item} onClick={() => navigate('?spuId=' + item.spuId)}>
                                 <img
                                     src={item.img}
                                     alt="Image"
