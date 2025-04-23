@@ -31,14 +31,12 @@ import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 import ConverseIcon from "../assets/svg/brands/converse-icon";
 import FilaIcon from "../assets/svg/brands/fila-icon";
-import Sidebar from "../components/Sidebar/Sidebar";
 import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelector";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
-import IconHeartSmall from "../assets/svg/iconHeartSmall";
-import {clearCart} from "../common/cartSlice";
 import HeroSection from "../components/HeroSection/HeroSection";
 import Stories from "../components/Stories/Stories";
+import NewFeatures from "../components/NewFeatures/NewFeatures";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -546,6 +544,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         <div className="storiesWrapper">
           <Stories />
         </div>
+
+        <NewFeatures />
 
         <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
              ref={filtersRef}>
