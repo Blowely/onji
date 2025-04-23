@@ -12,12 +12,12 @@
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 0px 70px;
+  padding: 0 81px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 10;
-  height: 70px;
+  height: 100px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-family: 'Graphik-Medium', sans-serif;
   transition: background 0.3s ease;
@@ -38,7 +38,7 @@
     justify-content: center;
     background: transparent;
     border-bottom: none;
-    height: 70px!important;
+    height: 100px;
     width: calc(100vw - 140px);
     position: absolute;
     pointer-events: none;
@@ -76,7 +76,7 @@
   display: flex;
   justify-content: center;
   background: white;
-  margin-top: 70px;
+  margin-top: 100px;
   transition: opacity 0.3s ease;
   z-index: 3;
 }
