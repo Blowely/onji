@@ -588,7 +588,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
           </div>
         </div>}
         {!isDesktopScreen && <MainLogoComponent />}
-        {!spuId &&
+        {/*{!spuId &&
             <Header search={search}
                     showFilters={showFilters}
                     setOffset={setOffset}
@@ -596,7 +596,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                     setShowFilters={setShowFilters}
                     isEnabledFilters={isEnabledFilters}
             />
-        }
+        }*/}
 
         <div className="productsListWrapper">
 

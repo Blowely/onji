@@ -9,7 +9,7 @@
 }
 
 .navbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   padding: 0px 70px;
@@ -70,7 +70,7 @@
 }
 
 .categoryTableWrapper {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   display: flex;
