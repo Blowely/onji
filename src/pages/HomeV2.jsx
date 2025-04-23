@@ -236,8 +236,6 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   }, []);
 
   const renderItems = () => {
-    console.log('isLoading',isLoading);
-    console.log('loading',loading);
     let productsItems = productsSlice[trimCollectionValue] || []
 
     productsItems = [...productsItems, ...[...Array(15)]];
