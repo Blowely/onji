@@ -87,11 +87,19 @@ const remoteItems = [
     ]
 ]
 
-
 const slideVariants = {
-    initial: (direction) => ({ x: direction > 0 ? 300 : -300, opacity: 0 }),
-    animate: { x: 0, opacity: 1 },
-    exit: (direction) => ({ x: direction > 0 ? -300 : 300, opacity: 0 }),
+    enter: (direction) => ({
+        x: direction > 0 ? "100%" : "-100%",
+        opacity: 0.5,
+    }),
+    center: {
+        x: 0,
+        opacity: 1,
+    },
+    exit: (direction) => ({
+        x: direction > 0 ? "-100%" : "100%",
+        opacity: 0.5,
+    }),
 };
 
 const NewFeatures = () => {
@@ -115,19 +123,16 @@ const NewFeatures = () => {
 
     return (
         <div className={styles.sliderWrapper}>
+            {/* Заголовок и стрелочки (без изменений) */}
             <Row align="middle" className={styles.featuresBlockTitle}>
                 <Col style={{ width: "100%", position: "absolute" }}>
-                    <div className={styles.titleText}>
-                        новинки
-                    </div>
+                    <div className={styles.titleText}>новинки</div>
                 </Col>
                 <Col style={{ width: "100%" }}>
                     <Row align="middle" justify="end" style={{ marginRight: "25px" }}>
                         <Col>
                             <div
-                                className={itemsIndex === 0
-                                    ? styles.arrowInactiveContainer
-                                    : styles.arrowActiveContainer}
+                                className={itemsIndex === 0 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
                                 onClick={onPrev}
                             >
                                 <ArrowLeftIcon />
@@ -135,9 +140,7 @@ const NewFeatures = () => {
                         </Col>
                         <Col>
                             <div
-                                className={itemsIndex === remoteItems.length - 1
-                                    ? styles.arrowInactiveContainer
-                                    : styles.arrowActiveContainer}
+                                className={itemsIndex === remoteItems.length - 1 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
                                 onClick={onNext}
                             >
                                 <ArrowRightIcon />
@@ -147,17 +150,30 @@ const NewFeatures = () => {
                 </Col>
             </Row>
 
-            <div style={{ overflow: "hidden", marginTop: 34 }}>
-                <AnimatePresence mode="wait" custom={direction}>
+            {/* Контейнер с анимацией перекрытия */}
+            <div style={{
+                overflow: "hidden",
+                marginTop: 34,
+                position: "relative", // Чтобы слайды накладывались друг на друга
+                height: "500px", // Фиксированная высота для плавности
+            }}>
+                <AnimatePresence mode="popLayout" custom={direction}>
                     <motion.div
                         key={itemsIndex}
-                        className={styles.motionRow}
-                        variants={slideVariants}
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
                         custom={direction}
-                        transition={{ duration: 0.4 }}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{
+                            type: "tween",
+                            ease: "easeInOut",
+                            duration: 0.6,
+                        }}
+                        style={{
+                            position: "absolute",
+                            width: "100%",
+                        }}
                     >
                         <Row gutter={[40, 40]}>
                             {remoteItems[itemsIndex].map((item, index) => (
@@ -178,9 +194,7 @@ const NewFeatures = () => {
                                             <div className={styles.featureTitle}>{item.title}</div>
                                             <div className={styles.categoryName}>{item.category}</div>
                                             <div style={{ display: "flex", gap: "5px" }}>
-                                                <div className={styles.featurePrice}>
-                                                    от {item.price} ₽
-                                                </div>
+                                                <div className={styles.featurePrice}>от {item.price} ₽</div>
                                                 {item.discountedPrice && (
                                                     <div className={styles.featureDiscount}>
                                                         {item.discountedPrice} ₽
@@ -200,4 +214,3 @@ const NewFeatures = () => {
 };
 
 export default NewFeatures;
-
