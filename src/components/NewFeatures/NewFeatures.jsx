@@ -159,7 +159,7 @@ const NewFeatures = () => {
                         custom={direction}
                         transition={{ duration: 0.4 }}
                     >
-                        <Row gutter={[40, 40]} className={styles.customGap}>
+                        <Row gutter={[40, 40]}>
                             {remoteItems[itemsIndex].map((item, index) => (
                                 <Col span={6} key={item.spuId}>
                                     <div
