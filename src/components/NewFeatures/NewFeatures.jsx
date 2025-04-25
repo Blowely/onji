@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./NewFeaturesStyles.module.scss";
@@ -129,28 +129,50 @@ const NewFeatures = () => {
     const [itemsIndex, setItemsIndex] = useState(0);
     const [direction, setDirection] = useState(1);
     const [transitioning, setTransitioning] = useState(false);
+    const [defaultTranslate, setDefaultTranslate ] = useState("20%");
+    const [animating, setAnimating]         = useState(false);
+
 
     const onNext = () => {
         if (itemsIndex < remoteItems.length - 1 && !transitioning) {
+            setDefaultTranslate("20%");
+            setAnimating(false);
+
             setDirection(1);
             setTransitioning(true);
-            setTimeout(() => {
-                setItemsIndex(prev => prev + 1);
-                setTransitioning(false);
-            }, 450);
+
+            requestAnimationFrame(() => {
+                setAnimating(true);
+
+                setTimeout(() => {
+                    setItemsIndex(prev => prev + 1);
+                    setTransitioning(false);
+                    setAnimating(false);
+                }, 350);
+            });
         }
     };
 
     const onPrev = () => {
         if (itemsIndex > 0 && !transitioning) {
+            setDefaultTranslate("-20%");
+            setAnimating(false);
+
             setDirection(-1);
             setTransitioning(true);
-            setTimeout(() => {
-                setItemsIndex(prev => prev - 1);
-                setTransitioning(false);
-            }, 450);
+
+            requestAnimationFrame(() => {
+                setAnimating(true);
+
+                setTimeout(() => {
+                    setItemsIndex(prev => prev - 1);
+                    setTransitioning(false);
+                    setAnimating(false);
+                }, 350);
+            });
         }
     };
+
 
     return (
         <div className={styles.sliderWrapper}>
@@ -181,10 +203,11 @@ const NewFeatures = () => {
             </Row>
 
             <div style={{ marginTop: 34 }}>
-                <Row gutter={[40, 40]} className={styles.customGap}>
+                <Row gutter={[40, 40]} >
+                {/*<Row gutter={[40, 40]} className={styles.customGap}>*/}
                     {remoteItems[itemsIndex].map((item, index) => (
                         <Col span={6} key={`current-${item.spuId}`}>
-                            <div style={{ position: "relative", height: "500px", overflow: "hidden" }}>
+                            <div style={{position: "relative", height: "500px", overflow: "hidden"}}>
                                 {/* Текущий товар */}
                                 <div
                                     className={styles.item}
@@ -202,7 +225,9 @@ const NewFeatures = () => {
                                         /* при направлении >0 — скрываем правую половину */
                                         clipPath: transitioning && direction > 0
                                             ? "inset(0 100% 0 0)"   // верх, справа, низ, слева
-                                            : "inset(0 0 0 0)",
+                                            : transitioning && direction < 0
+                                                ? "inset(0 0 0 100%)"
+                                                : "inset(0 0 0 0)",
                                         zIndex: 2,
                                     }}
                                 >
@@ -228,6 +253,7 @@ const NewFeatures = () => {
                                     </div>
                                 </div>
 
+
                                 {/* Следующий/предыдущий товар (для анимации) */}
                                 <div
                                     className={styles.item}
@@ -235,9 +261,11 @@ const NewFeatures = () => {
                                         position: "absolute",
                                         width: "100%",
                                         zIndex: 1,
-                                        transition: "transform 0.35s ease-in-out",
-                                        transform: transitioning && direction > 0 ? "translateX(0%)" :
-                                            transitioning && direction < 0 ? "translateX(0%)" : "translateX(20%)",
+                                        transition: animating
+                                            ? "transform 0.35s ease-in-out"
+                                            : "none",
+                                        /* если animating=true — межкадровая цель — 0%, иначе рисуем defaultTranslate */
+                                        transform: `translateX(${animating ? "0%" : defaultTranslate})`,
                                     }}
                                 >
                                     <img
@@ -264,7 +292,7 @@ const NewFeatures = () => {
                                                 ? remoteItems[itemsIndex + 1]?.[index]?.category
                                                 : remoteItems[itemsIndex - 1]?.[index]?.category}
                                         </div>
-                                        <div style={{ display: "flex", gap: "5px" }}>
+                                        <div style={{display: "flex", gap: "5px"}}>
                                             <div className={styles.featurePrice}>
                                                 от {direction > 0
                                                 ? remoteItems[itemsIndex + 1]?.[index]?.price
