@@ -32,6 +32,7 @@
   display: grid;
   gap: 15px;
   cursor: pointer;
+  background: white;
 
   > img {
     width: 100%;
@@ -90,14 +91,14 @@
   text-decoration: line-through;
 }
 
-/*.customGap {
+.customGap {
   >:nth-child(2) {
     padding-right: 40px!important;
   }
   >:nth-child(3) {
     padding-left: 40px!important;
   }
-}*/
+}
 
 .arrowInactiveContainer {
   color: #B3B3B3;

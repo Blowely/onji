@@ -37,7 +37,7 @@ import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeroSection from "../components/HeroSection/HeroSection";
 import Stories from "../components/Stories/Stories";
 import NewFeatures from "../components/NewFeatures/NewFeatures";
-import Brands from "../components/Brands/NewFeatures";
+import Brands from "../components/Brands/Brands";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -578,7 +578,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
               </div>
           }
         </div>
-        {isDesktopScreen && <div className="info-block-wrapper">
+        {/*{isDesktopScreen && <div className="info-block-wrapper">
           <div className="info-block">
             <div>
                     <span onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}>
@@ -594,7 +594,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
               <span>repoizonstore@gmail.com</span>
             </div>
           </div>
-        </div>}
+        </div>}*/}
         {!isDesktopScreen && <MainLogoComponent />}
         {/*{!spuId &&
             <Header search={search}

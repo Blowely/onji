@@ -2,9 +2,9 @@ import { Col, Image, Row, Typography } from "antd";
 import React from "react";
 import arrow from "../../assets/svg/v2/arrow.svg";
 import arrowGrey from "../../assets/svg/v2/arrow-grey.svg";
-import nb from "../../assets/New-Balance.png";
+import nb from "../../assets/new-balance.png";
 import adidas from "../../assets/Adidas.png";
-import nike from "../../assets/Nike.png";
+import nike from "../../assets/nike.png";
 
 const { Title } = Typography;
 

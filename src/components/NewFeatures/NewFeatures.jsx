@@ -14,7 +14,10 @@ import p5 from "../../assets/newFeatures/p5.png";
 import p6 from "../../assets/newFeatures/p6.png";
 import p7 from "../../assets/newFeatures/p7.png";
 import p8 from "../../assets/newFeatures/p8.png";
-import p9 from "../../assets/newFeatures/p9.png";
+import p10 from "../../assets/newFeatures/p10.png";
+import p11 from "../../assets/newFeatures/p11.png";
+import p12 from "../../assets/newFeatures/p12.png";
+import p13 from "../../assets/newFeatures/p13.png";
 
 const remoteItems = [
     [
@@ -79,7 +82,7 @@ const remoteItems = [
         {
             img: p8,
             spuId: 14019955,
-            title: 'ADIDAS ORIGINALS ADISTAR CUSHION Y2K',
+            title: 'ADISTAR CUSHION Y2K',
             category: 'КРОССОВКИ',
             price: '8299',
             discountedPrice: ''
@@ -87,38 +90,38 @@ const remoteItems = [
     ],
     [
         {
-            img: p9,
-            spuId: 21720097,
-            title: 'ADIDAS INTIMIDATION LOW',
+            img: p10,
+            spuId: 8178446,
+            title: 'NIKE V2K RUN',
             category: 'КРОССОВКИ',
-            price: '11609',
+            price: '6799',
             discountedPrice: ''
         },
         {
-            img: p6,
-            spuId: 21748134,
-            title: 'ASICS GEL-NYC',
+            img: p11,
+            spuId: 19345510,
+            title: 'KITH x New Balance 991v2',
             category: 'КРОССОВКИ',
-            price: '13109',
+            price: '55349',
             discountedPrice: ''
         },
         {
-            img: p7,
-            spuId: 1303659,
-            title: 'NIKE AIR FORCE 1 LOW "SASHIKO"',
-            category: 'КРОССОВКИ',
-            price: '14919',
+            img: p12,
+            spuId: 21450330,
+            title: 'adidas x BSTN x FC Bayern',
+            category: 'СПОРТИВНЫЕ КУРТКИ',
+            price: '20629',
             discountedPrice: ''
         },
         {
-            img: p8,
-            spuId: 14019955,
-            title: 'ADIDAS ORIGINALS ADISTAR CUSHION Y2K',
+            img: p13,
+            spuId: 19133994,
+            title: 'Nike Book 1 Air Zoom Spiridon',
             category: 'КРОССОВКИ',
-            price: '8299',
+            price: '13259',
             discountedPrice: ''
-        },
-    ]
+        }
+    ],
 ]
 
 const NewFeatures = () => {
@@ -134,7 +137,7 @@ const NewFeatures = () => {
             setTimeout(() => {
                 setItemsIndex(prev => prev + 1);
                 setTransitioning(false);
-            }, 300);
+            }, 600);
         }
     };
 
@@ -145,7 +148,7 @@ const NewFeatures = () => {
             setTimeout(() => {
                 setItemsIndex(prev => prev - 1);
                 setTransitioning(false);
-            }, 300);
+            }, 600);
         }
     };
 
@@ -178,10 +181,10 @@ const NewFeatures = () => {
             </Row>
 
             <div style={{ marginTop: 34 }}>
-                <Row gutter={[40, 40]}>
+                <Row gutter={[40, 40]} className={styles.customGap}>
                     {remoteItems[itemsIndex].map((item, index) => (
                         <Col span={6} key={`current-${item.spuId}`}>
-                            <div style={{ position: "relative", height: "300px", overflow: "hidden" }}>
+                            <div style={{ position: "relative", height: "500px", overflow: "hidden" }}>
                                 {/* Текущий товар */}
                                 <div
                                     className={styles.item}
@@ -189,10 +192,11 @@ const NewFeatures = () => {
                                     style={{
                                         position: "absolute",
                                         width: "100%",
-                                        transition: "transform 0.3s ease, opacity 0.3s ease",
+                                        //transition: "transform 0.6s ease, opacity 0.9s ease",
+                                        transition: "transform 0.6s ease",
                                         transform: transitioning && direction > 0 ? "translateX(-100%)" :
                                             transitioning && direction < 0 ? "translateX(100%)" : "translateX(0)",
-                                        opacity: transitioning ? 0.5 : 1
+                                        zIndex: 2,
                                     }}
                                 >
                                     <img src={item.img} alt="Image" />
@@ -218,63 +222,61 @@ const NewFeatures = () => {
                                 </div>
 
                                 {/* Следующий/предыдущий товар (для анимации) */}
-                                {transitioning && (
+                                <div
+                                    className={styles.item}
+                                    style={{
+                                        position: "absolute",
+                                        width: "100%",
+                                        zIndex: 1,
+                                        transition: "transform 0.6s ease",
+                                        transform: transitioning && direction > 0 ? "translateX(0%)" :
+                                            transitioning && direction < 0 ? "translateX(0%)" : "translateX(20%)",
+                                    }}
+                                >
+                                    <img
+                                        src={direction > 0
+                                            ? remoteItems[itemsIndex + 1]?.[index]?.img
+                                            : remoteItems[itemsIndex - 1]?.[index]?.img}
+                                        alt="Image"
+                                    />
                                     <div
-                                        className={styles.item}
                                         style={{
-                                            position: "absolute",
-                                            width: "100%",
-                                            transition: "transform 0.3s ease, opacity 0.3s ease",
-                                            transform: direction > 0 ? "translateX(0)" : "translateX(0)",
-                                            opacity: 1,
-                                            zIndex: -1
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: index > 1 ? "start" : "end",
+                                            gap: "5px",
                                         }}
                                     >
-                                        <img
-                                            src={direction > 0
-                                                ? remoteItems[itemsIndex + 1]?.[index]?.img
-                                                : remoteItems[itemsIndex - 1]?.[index]?.img}
-                                            alt="Image"
-                                        />
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                alignItems: index > 1 ? "start" : "end",
-                                                gap: "5px",
-                                            }}
-                                        >
-                                            <div className={styles.featureTitle}>
-                                                {direction > 0
-                                                    ? remoteItems[itemsIndex + 1]?.[index]?.title
-                                                    : remoteItems[itemsIndex - 1]?.[index]?.title}
+                                        <div className={styles.featureTitle}>
+                                            {direction > 0
+                                                ? remoteItems[itemsIndex + 1]?.[index]?.title
+                                                : remoteItems[itemsIndex - 1]?.[index]?.title}
+                                        </div>
+                                        <div className={styles.categoryName}>
+                                            {direction > 0
+                                                ? remoteItems[itemsIndex + 1]?.[index]?.category
+                                                : remoteItems[itemsIndex - 1]?.[index]?.category}
+                                        </div>
+                                        <div style={{ display: "flex", gap: "5px" }}>
+                                            <div className={styles.featurePrice}>
+                                                от {direction > 0
+                                                ? remoteItems[itemsIndex + 1]?.[index]?.price
+                                                : remoteItems[itemsIndex - 1]?.[index]?.price} ₽
                                             </div>
-                                            <div className={styles.categoryName}>
-                                                {direction > 0
-                                                    ? remoteItems[itemsIndex + 1]?.[index]?.category
-                                                    : remoteItems[itemsIndex - 1]?.[index]?.category}
-                                            </div>
-                                            <div style={{ display: "flex", gap: "5px" }}>
-                                                <div className={styles.featurePrice}>
-                                                    от {direction > 0
-                                                    ? remoteItems[itemsIndex + 1]?.[index]?.price
-                                                    : remoteItems[itemsIndex - 1]?.[index]?.price} ₽
+                                            {direction > 0
+                                                ? remoteItems[itemsIndex + 1]?.[index]?.discountedPrice && (
+                                                <div className={styles.featureDiscount}>
+                                                    {remoteItems[itemsIndex + 1]?.[index]?.discountedPrice} ₽
                                                 </div>
-                                                {direction > 0
-                                                    ? remoteItems[itemsIndex + 1]?.[index]?.discountedPrice && (
-                                                    <div className={styles.featureDiscount}>
-                                                        {remoteItems[itemsIndex + 1]?.[index]?.discountedPrice} ₽
-                                                    </div>
-                                                )
-                                                    : remoteItems[itemsIndex - 1]?.[index]?.discountedPrice && (
-                                                    <div className={styles.featureDiscount}>
-                                                        {remoteItems[itemsIndex - 1]?.[index]?.discountedPrice} ₽
-                                                    </div>
-                                                )}
-                                            </div>
+                                            )
+                                                : remoteItems[itemsIndex - 1]?.[index]?.discountedPrice && (
+                                                <div className={styles.featureDiscount}>
+                                                    {remoteItems[itemsIndex - 1]?.[index]?.discountedPrice} ₽
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
-                                )}
+                                </div>
                             </div>
                         </Col>
                     ))}
