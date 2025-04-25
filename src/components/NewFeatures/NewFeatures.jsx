@@ -137,7 +137,7 @@ const NewFeatures = () => {
             setTimeout(() => {
                 setItemsIndex(prev => prev + 1);
                 setTransitioning(false);
-            }, 600);
+            }, 450);
         }
     };
 
@@ -148,7 +148,7 @@ const NewFeatures = () => {
             setTimeout(() => {
                 setItemsIndex(prev => prev - 1);
                 setTransitioning(false);
-            }, 600);
+            }, 450);
         }
     };
 
@@ -192,14 +192,21 @@ const NewFeatures = () => {
                                     style={{
                                         position: "absolute",
                                         width: "100%",
-                                        //transition: "transform 0.6s ease, opacity 0.9s ease",
-                                        transition: "transform 0.6s ease",
-                                        transform: transitioning && direction > 0 ? "translateX(-100%)" :
-                                            transitioning && direction < 0 ? "translateX(100%)" : "translateX(0)",
+                                        overflow: "hidden",
+                                        transition: "transform 0.45s ease-in-out, clip-path 0.45s ease-in-out",
+                                        transform: transitioning && direction > 0
+                                            ? "translateX(-20%)"
+                                            : transitioning && direction < 0
+                                                ? "translateX(20%)"
+                                                : "translateX(0)",
+                                        /* при направлении >0 — скрываем правую половину */
+                                        clipPath: transitioning && direction > 0
+                                            ? "inset(0 100% 0 0)"   // верх, справа, низ, слева
+                                            : "inset(0 0 0 0)",
                                         zIndex: 2,
                                     }}
                                 >
-                                    <img src={item.img} alt="Image" />
+                                    <img src={item.img} alt="Image"/>
                                     <div
                                         style={{
                                             display: "flex",
@@ -210,7 +217,7 @@ const NewFeatures = () => {
                                     >
                                         <div className={styles.featureTitle}>{item.title}</div>
                                         <div className={styles.categoryName}>{item.category}</div>
-                                        <div style={{ display: "flex", gap: "5px" }}>
+                                        <div style={{display: "flex", gap: "5px"}}>
                                             <div className={styles.featurePrice}>от {item.price} ₽</div>
                                             {item.discountedPrice && (
                                                 <div className={styles.featureDiscount}>
@@ -228,7 +235,7 @@ const NewFeatures = () => {
                                         position: "absolute",
                                         width: "100%",
                                         zIndex: 1,
-                                        transition: "transform 0.6s ease",
+                                        transition: "transform 0.35s ease-in-out",
                                         transform: transitioning && direction > 0 ? "translateX(0%)" :
                                             transitioning && direction < 0 ? "translateX(0%)" : "translateX(20%)",
                                     }}
