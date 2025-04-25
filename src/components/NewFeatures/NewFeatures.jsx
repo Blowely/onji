@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 
 import styles from "./NewFeaturesStyles.module.scss";
 import { ArrowLeftIcon } from "../../assets/svg/v2/ArrowLeftIcon";
@@ -15,6 +14,7 @@ import p5 from "../../assets/newFeatures/p5.png";
 import p6 from "../../assets/newFeatures/p6.png";
 import p7 from "../../assets/newFeatures/p7.png";
 import p8 from "../../assets/newFeatures/p8.png";
+import p9 from "../../assets/newFeatures/p9.png";
 
 const remoteItems = [
     [
@@ -84,46 +84,73 @@ const remoteItems = [
             price: '8299',
             discountedPrice: ''
         },
+    ],
+    [
+        {
+            img: p9,
+            spuId: 21720097,
+            title: 'ADIDAS INTIMIDATION LOW',
+            category: 'КРОССОВКИ',
+            price: '11609',
+            discountedPrice: ''
+        },
+        {
+            img: p6,
+            spuId: 21748134,
+            title: 'ASICS GEL-NYC',
+            category: 'КРОССОВКИ',
+            price: '13109',
+            discountedPrice: ''
+        },
+        {
+            img: p7,
+            spuId: 1303659,
+            title: 'NIKE AIR FORCE 1 LOW "SASHIKO"',
+            category: 'КРОССОВКИ',
+            price: '14919',
+            discountedPrice: ''
+        },
+        {
+            img: p8,
+            spuId: 14019955,
+            title: 'ADIDAS ORIGINALS ADISTAR CUSHION Y2K',
+            category: 'КРОССОВКИ',
+            price: '8299',
+            discountedPrice: ''
+        },
     ]
 ]
-
-const slideVariants = {
-    enter: (direction) => ({
-        x: direction > 0 ? "100%" : "-100%",
-        opacity: 0.5,
-    }),
-    center: {
-        x: 0,
-        opacity: 1,
-    },
-    exit: (direction) => ({
-        x: direction > 0 ? "-100%" : "100%",
-        opacity: 0.5,
-    }),
-};
 
 const NewFeatures = () => {
     const navigate = useNavigate();
     const [itemsIndex, setItemsIndex] = useState(0);
-    const [direction, setDirection] = useState(1); // 1 = next, -1 = prev
+    const [direction, setDirection] = useState(1);
+    const [transitioning, setTransitioning] = useState(false);
 
     const onNext = () => {
-        if (itemsIndex < remoteItems.length - 1) {
+        if (itemsIndex < remoteItems.length - 1 && !transitioning) {
             setDirection(1);
-            setItemsIndex(prev => prev + 1);
+            setTransitioning(true);
+            setTimeout(() => {
+                setItemsIndex(prev => prev + 1);
+                setTransitioning(false);
+            }, 300);
         }
     };
 
     const onPrev = () => {
-        if (itemsIndex > 0) {
+        if (itemsIndex > 0 && !transitioning) {
             setDirection(-1);
-            setItemsIndex(prev => prev - 1);
+            setTransitioning(true);
+            setTimeout(() => {
+                setItemsIndex(prev => prev - 1);
+                setTransitioning(false);
+            }, 300);
         }
     };
 
     return (
         <div className={styles.sliderWrapper}>
-            {/* Заголовок и стрелочки (без изменений) */}
             <Row align="middle" className={styles.featuresBlockTitle}>
                 <Col style={{ width: "100%", position: "absolute" }}>
                     <div className={styles.titleText}>новинки</div>
@@ -150,39 +177,65 @@ const NewFeatures = () => {
                 </Col>
             </Row>
 
-            {/* Контейнер с анимацией перекрытия */}
-            <div style={{
-                overflow: "hidden",
-                marginTop: 34,
-                position: "relative", // Чтобы слайды накладывались друг на друга
-                height: "500px", // Фиксированная высота для плавности
-            }}>
-                <AnimatePresence mode="popLayout" custom={direction}>
-                    <motion.div
-                        key={itemsIndex}
-                        custom={direction}
-                        variants={slideVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                            type: "tween",
-                            ease: "easeInOut",
-                            duration: 0.6,
-                        }}
-                        style={{
-                            position: "absolute",
-                            width: "100%",
-                        }}
-                    >
-                        <Row gutter={[40, 40]}>
-                            {remoteItems[itemsIndex].map((item, index) => (
-                                <Col span={6} key={item.spuId}>
+            <div style={{ marginTop: 34 }}>
+                <Row gutter={[40, 40]}>
+                    {remoteItems[itemsIndex].map((item, index) => (
+                        <Col span={6} key={`current-${item.spuId}`}>
+                            <div style={{ position: "relative", height: "300px", overflow: "hidden" }}>
+                                {/* Текущий товар */}
+                                <div
+                                    className={styles.item}
+                                    onClick={() => navigate(`?spuId=${item.spuId}`)}
+                                    style={{
+                                        position: "absolute",
+                                        width: "100%",
+                                        transition: "transform 0.3s ease, opacity 0.3s ease",
+                                        transform: transitioning && direction > 0 ? "translateX(-100%)" :
+                                            transitioning && direction < 0 ? "translateX(100%)" : "translateX(0)",
+                                        opacity: transitioning ? 0.5 : 1
+                                    }}
+                                >
+                                    <img src={item.img} alt="Image" />
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: index > 1 ? "start" : "end",
+                                            gap: "5px",
+                                        }}
+                                    >
+                                        <div className={styles.featureTitle}>{item.title}</div>
+                                        <div className={styles.categoryName}>{item.category}</div>
+                                        <div style={{ display: "flex", gap: "5px" }}>
+                                            <div className={styles.featurePrice}>от {item.price} ₽</div>
+                                            {item.discountedPrice && (
+                                                <div className={styles.featureDiscount}>
+                                                    {item.discountedPrice} ₽
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Следующий/предыдущий товар (для анимации) */}
+                                {transitioning && (
                                     <div
                                         className={styles.item}
-                                        onClick={() => navigate(`?spuId=${item.spuId}`)}
+                                        style={{
+                                            position: "absolute",
+                                            width: "100%",
+                                            transition: "transform 0.3s ease, opacity 0.3s ease",
+                                            transform: direction > 0 ? "translateX(0)" : "translateX(0)",
+                                            opacity: 1,
+                                            zIndex: -1
+                                        }}
                                     >
-                                        <img src={item.img} alt="Image" />
+                                        <img
+                                            src={direction > 0
+                                                ? remoteItems[itemsIndex + 1]?.[index]?.img
+                                                : remoteItems[itemsIndex - 1]?.[index]?.img}
+                                            alt="Image"
+                                        />
                                         <div
                                             style={{
                                                 display: "flex",
@@ -191,23 +244,41 @@ const NewFeatures = () => {
                                                 gap: "5px",
                                             }}
                                         >
-                                            <div className={styles.featureTitle}>{item.title}</div>
-                                            <div className={styles.categoryName}>{item.category}</div>
+                                            <div className={styles.featureTitle}>
+                                                {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.title
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.title}
+                                            </div>
+                                            <div className={styles.categoryName}>
+                                                {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.category
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.category}
+                                            </div>
                                             <div style={{ display: "flex", gap: "5px" }}>
-                                                <div className={styles.featurePrice}>от {item.price} ₽</div>
-                                                {item.discountedPrice && (
+                                                <div className={styles.featurePrice}>
+                                                    от {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.price
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.price} ₽
+                                                </div>
+                                                {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.discountedPrice && (
                                                     <div className={styles.featureDiscount}>
-                                                        {item.discountedPrice} ₽
+                                                        {remoteItems[itemsIndex + 1]?.[index]?.discountedPrice} ₽
+                                                    </div>
+                                                )
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.discountedPrice && (
+                                                    <div className={styles.featureDiscount}>
+                                                        {remoteItems[itemsIndex - 1]?.[index]?.discountedPrice} ₽
                                                     </div>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
-                                </Col>
-                            ))}
-                        </Row>
-                    </motion.div>
-                </AnimatePresence>
+                                )}
+                            </div>
+                        </Col>
+                    ))}
+                </Row>
             </div>
         </div>
     );
