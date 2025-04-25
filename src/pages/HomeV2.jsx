@@ -37,6 +37,7 @@ import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeroSection from "../components/HeroSection/HeroSection";
 import Stories from "../components/Stories/Stories";
 import NewFeatures from "../components/NewFeatures/NewFeatures";
+import Brands from "../components/Brands/NewFeatures";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -546,6 +547,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         </div>
 
         <NewFeatures />
+        <Brands />
 
         <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
              ref={filtersRef}>
