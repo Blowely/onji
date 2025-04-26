@@ -2,7 +2,7 @@ import { Col, Image, Row, Typography } from "antd";
 import React from "react";
 import arrow from "../../assets/svg/v2/arrow.svg";
 import arrowGrey from "../../assets/svg/v2/arrow-grey.svg";
-import styles from "./Brands.module.scss";
+import styles from "./BrandsV2.module.scss";
 import nb from "../../assets/new-balance.png";
 import adidas from "../../assets/Adidas.png";
 import nike from "../../assets/nike.png";
@@ -10,7 +10,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 
 const { Title } = Typography;
 
-const Brands = () => {
+const BrandsV2 = () => {
     return (
         <div style={{
             width: "100%",
@@ -99,4 +99,4 @@ const Brands = () => {
     );
 };
 
-export default Brands;
+export default BrandsV2;

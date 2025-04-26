@@ -38,6 +38,7 @@ import HeroSection from "../components/HeroSection/HeroSection";
 import Stories from "../components/Stories/Stories";
 import NewFeatures from "../components/NewFeatures/NewFeatures";
 import Brands from "../components/Brands/Brands";
+import BrandsV2 from "../components/BrandsV2/BrandsV2";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -547,7 +548,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         </div>
 
         <NewFeatures />
-        <Brands />
+        <BrandsV2 />
 
         <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
              ref={filtersRef}>
