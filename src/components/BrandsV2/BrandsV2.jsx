@@ -48,7 +48,7 @@ const BrandsV2 = () => {
     return (
         <div className={styles.container}>
             <Row align="middle" className={styles.header}>
-                <Col span={24} className={styles.title}>БРЕНДЫ</Col>
+                <Col span={24} className={styles.title}>бренды</Col>
                 <Col className={styles.controls}>
                     <div onClick={() => handleSlide(-1)}>
                         <ArrowLeftIcon />
