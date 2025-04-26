@@ -76,11 +76,15 @@ const BrandsV2 = () => {
                                 className={styles.slide}
                                 style={{
                                     width: `${100 / items.length}%`,
-                                    filter: originalItems[visibleIndex].filter,
                                 }}
                                 onClick={() => navigate(`?spuId=${originalItems[visibleIndex].spuId}`)}
                             >
-                                <img src={originalItems[visibleIndex].img} alt={originalItems[visibleIndex].title} />
+                                <img
+                                    src={originalItems[visibleIndex].img}
+                                    alt={originalItems[visibleIndex].title}
+                                    style={{filter: originalItems[visibleIndex].filter}}
+                                />
+                                <div className={styles.brandTitle}>{originalItems[visibleIndex].title}</div>
                             </div>
                         );
                     })}

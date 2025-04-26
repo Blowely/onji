@@ -58,6 +58,7 @@
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   padding: 0 22.5px;
+  padding-bottom: 100px;
 
   img {
     width: 100%;
@@ -66,7 +67,20 @@
     transition: transform 0.3s;
   }
 
-  &:hover img {
-    transform: scale(1.02);
+  &:hover {
+    color: gold;
   }
+}
+
+.brandTitle {
+  color: #000;
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 35.531px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 60px; /* 100.787% */
+  letter-spacing: -0.2px;
+  position: absolute;
+  margin-left: 40px;
+  margin-top: -25px;
 }
