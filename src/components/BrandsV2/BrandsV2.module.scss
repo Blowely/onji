@@ -1,13 +1,15 @@
-.featuresBlockTitleWrapper {
-  height: 35px;
+.brandsBlockTitleWrapper {
+  overflow: hidden;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
+  justify-content: center;
 }
 
 .sliderWrapper {
   position: relative;
   width: 100%;
-  max-width: 1440px;
   margin: 0 auto;
   padding-bottom: 212px;
 }
@@ -34,12 +36,8 @@
   cursor: pointer;
 
   > img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 395px!important;
     object-fit: contain;
-    padding: 20px;
-    filter: contrast(0.9);
-    background: white;
   }
 
   /*> div &.right {
@@ -127,4 +125,12 @@
     width: 100%;
     height: max-content;
   }
+}
+
+.brandsWrapper {
+  height: 500px;
+  background: #00d1e4;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: auto;
 }
