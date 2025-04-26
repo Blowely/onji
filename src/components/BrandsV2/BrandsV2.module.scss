@@ -29,14 +29,13 @@
 }
 
 .item {
-  position: relative;
-  height: 100%;
-  display: grid;
+  display: flex;
   gap: 15px;
   cursor: pointer;
 
   > img {
     height: 395px!important;
+    width: 700px;
     object-fit: contain;
   }
 
@@ -112,25 +111,17 @@
 
 .mySwiper {
   height: 395px;
-  width: 100%;
-}
-
-.slide {
-  display: flex;
-  justify-content: center;
-
-  > img {
-    object-fit: contain;
-    aspect-ratio: 198/79;
-    width: 100%;
-    height: max-content;
-  }
 }
 
 .brandsWrapper {
   height: 500px;
-  background: #00d1e4;
   display: flex;
   flex-wrap: nowrap;
   overflow: auto;
+  gap: 90px;
+
+  /*scrollbar-width: none; !* Firefox *!
+  &::-webkit-scrollbar {
+    display: none; !* Chrome/Safari/Webkit *!
+  }*/
 }

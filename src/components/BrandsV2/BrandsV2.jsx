@@ -13,17 +13,20 @@ const { Title } = Typography;
 
 const items = [
     {
-        img: nike,
+        img: adidas,
         title: "Nike",
+        filter: "contrast(0.9)"
     },
     {
         img: adidas,
         title: "Adidas",
+        filter: "brightness(0.5)"
     },
     {
-        img: nb,
+        img: adidas,
         title: "New balance",
-    },
+        filter: "invert(1)"
+    }
 ]
 
 const BrandsV2 = () => {
@@ -109,11 +112,8 @@ const BrandsV2 = () => {
                         <div
                             key={`current-${item.spuId}`}
                             className={styles.item}
+                            style={{filter: item.filter}}
                             onClick={() => navigate(`?spuId=${item.spuId}`)}
-                            style={{
-                                width: "100%",
-                                zIndex: 2,
-                            }}
                         >
                             <img src={item.img} alt="Image"/>
                         </div>
