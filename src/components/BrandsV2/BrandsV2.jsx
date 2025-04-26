@@ -1,91 +1,72 @@
-import { Col, Image, Row, Typography } from "antd";
-import React, {useState} from "react";
+import { Col, Row } from "antd";
+import React, { useState } from "react";
 import styles from "./BrandsV2.module.scss";
+import { ArrowLeftIcon } from "../../assets/svg/v2/ArrowLeftIcon";
+import { ArrowRightIcon } from "../../assets/svg/v2/ArrowRightIcon";
+import { useNavigate } from "react-router-dom";
 import adidas from "../../assets/Adidas.png";
-import {ArrowLeftIcon} from "../../assets/svg/v2/ArrowLeftIcon";
-import {ArrowRightIcon} from "../../assets/svg/v2/ArrowRightIcon";
-import {useNavigate} from "react-router-dom";
-
-const { Title } = Typography;
 
 const items = [
-    { img: adidas, title: "Nike", filter: "contrast(0.9)" },
-    { img: adidas, title: "Adidas", filter: "brightness(0.5)" },
-    { img: adidas, title: "New balance", filter: "invert(1)" }
-]
+    { img: adidas, title: "Nike", filter: "contrast(0.9)", spuId: 1 },
+    { img: adidas, title: "Adidas", filter: "brightness(0.5)", spuId: 2 },
+    { img: adidas, title: "New balance", filter: "invert(1)", spuId: 3 }
+];
 
 const BrandsV2 = () => {
     const navigate = useNavigate();
-    const [itemsIndex, setItemsIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(1);
     const [transitioning, setTransitioning] = useState(false);
 
-    const onNext = () => {
-        if (itemsIndex < items.length - 1) {
-            setTransitioning(true);
-            setItemsIndex(prev => prev + 1);
-            setTimeout(() => setTransitioning(false), 450);
-        }
-    };
+    const handleSlide = (newIndex) => {
+        if (newIndex < 0 || newIndex >= items.length || transitioning) return;
 
-    const onPrev = () => {
-        if (itemsIndex > 0) {
-            setTransitioning(true);
-            setItemsIndex(prev => prev - 1);
-            setTimeout(() => setTransitioning(false), 450);
-        }
+        setTransitioning(true);
+        setCurrentIndex(newIndex);
+        setTimeout(() => setTransitioning(false), 500);
     };
 
     return (
-        <div>
-            <Row align="middle" className={styles.brandsBlockTitleWrapper}>
-                <Col className={styles.titleContainer}>
-                    <div className={styles.titleText}>бренды</div>
-                </Col>
-                <Col className={styles.controlsContainer}>
-                    <Row align="middle" justify="end">
-                        <Col>
-                            <div
-                                className={itemsIndex === 0 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
-                                onClick={onPrev}
-                            >
-                                <ArrowLeftIcon/>
-                            </div>
-                        </Col>
-                        <Col>
-                            <div
-                                className={itemsIndex === items.length - 1 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
-                                onClick={onNext}
-                            >
-                                <ArrowRightIcon/>
-                            </div>
-                        </Col>
-                    </Row>
+        <div className={styles.container}>
+            <Row align="middle" className={styles.header}>
+                <Col span={24} className={styles.title}>БРЕНДЫ</Col>
+                <Col className={styles.controls}>
+                    <div
+                        onClick={() => handleSlide(currentIndex - 1)}
+                        className={currentIndex === 0 ? styles.disabled : ""}
+                    >
+                        <ArrowLeftIcon />
+                    </div>
+                    <div
+                        onClick={() => handleSlide(currentIndex + 1)}
+                        className={currentIndex === items.length - 1 ? styles.disabled : ""}
+                    >
+                        <ArrowRightIcon />
+                    </div>
                 </Col>
             </Row>
 
-            <div
-                className={styles.sliderWrapper}
-            >
+            <div className={styles.sliderWrapper}>
                 <div
-                    className={styles.brandsWrapper}
+                    className={styles.sliderTrack}
                     style={{
-                        width: `${items.length * 100}%`,
-                        transform: `translateX(-${itemsIndex * (100 / items.length)}%)`,
-                        transition: 'transform 0.45s ease-in-out'
+                        transform: `translateX(-${currentIndex * (100 / items.length)}%)`,
+                        transition: transitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+                        width: `${items.length * 100}%`
                     }}
                 >
                     {items.map((item, index) => (
                         <div
                             key={index}
-                            className={styles.item}
+                            className={styles.slide}
                             style={{
-                                filter: item.filter,
                                 width: `${100 / items.length}%`,
-                                flexBasis: `${100 / items.length}%`
+                                filter: item.filter,
+                                transform: `scale(${index === currentIndex ? 1: 0.8})`,
+                                objectFit: 'contain',
                             }}
                             onClick={() => navigate(`?spuId=${item.spuId}`)}
                         >
-                            <img src={item.img} alt={item.title}/>
+                            <img src={item.img} alt={item.title} />
                         </div>
                     ))}
                 </div>

@@ -1,68 +1,73 @@
-.brandsBlockTitleWrapper {
-  position: relative;
-  max-width: 1440px;
+.container {
+  //max-width: 1440px;
   margin: 0 auto;
-  height: 60px;
+  padding: 40px 0;
 }
 
-.titleContainer {
+.header {
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.title {
+  font-family: 'Graphik Medium', sans-serif;
+  font-size: 35px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.controls {
   position: absolute;
-  width: 100%;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  justify-content: center;
-}
+  gap: 15px;
 
-.controlsContainer {
-  position: absolute;
-  width: 100%;
-  padding-right: 25px;
+  div {
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover:not(.disabled) {
+      color: #A8BBA2;
+    }
+
+    &.disabled {
+      color: #B3B3B3;
+      pointer-events: none;
+    }
+  }
 }
 
 .sliderWrapper {
-  position: relative;
   overflow: hidden;
+  position: relative;
   width: 100%;
-  max-width: 1440px;
-  margin: 48px auto 212px;
+  padding: 0 29%;
+  //margin: 0 -20%;
 }
 
-.brandsWrapper {
+.sliderTrack {
   display: flex;
-  will-change: transform; // Аппаратное ускорение
+  height: 300px;
+  align-items: center;
 }
 
-.item {
-  padding: 0 45px;
-  cursor: pointer;
-  transition: filter 0.3s ease;
+.slide {
   flex-shrink: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  //padding: 0 2%;
 
-  // Размеры будут заданы через инлайн-стили
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
+    transition: transform 0.3s;
   }
-}
 
-.titleText {
-  font-family: "Graphik Medium", sans-serif;
-  font-size: 34.9px;
-  font-weight: 500;
-  color: black;
-}
-
-.arrowActiveContainer {
-  color: black;
-  cursor: pointer;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: #A8BBA2;
+  &:hover img {
+    transform: scale(1.05);
   }
-}
-
-.arrowInactiveContainer {
-  color: #B3B3B3;
-  pointer-events: none;
 }
