@@ -1,15 +1,21 @@
 .container {
   display: flex;
-  gap: 40px;
-  align-items: center;
+  gap: 26px;
   flex-wrap: nowrap;
   padding: 40px 0;
   max-width: 1440px;
+  width: 100%;
 }
 
 .columnsWrapper {
+  display: grid;
+  width: 50%;
+  gap: 24px;
+}
+
+.columnContainer {
+  gap: 26px;
   display: flex;
-  width: 100%;
 }
 
 .circle {
@@ -36,11 +42,19 @@
 .productCard {
   background: transparent;
   box-shadow: none;
+  cursor: pointer;
+
+  &:hover {
+    color: #A8BBA2;
+  }
 }
 
 .productImage {
-  width: 100%;
   object-fit: contain;
+  width: 350px;
+  height: 390px;
+  background: #ffffff;
+  aspect-ratio: 1 / 1;
   filter: contrast(0.9);
 }
 
@@ -57,4 +71,28 @@
   margin-top: 4px;
   font-size: 14px;
   font-weight: 500;
+}
+
+.showAll {
+  color: #000;
+  font-family: "Graphik Medium", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  //line-height: 38.5px; /* 192.5% */
+  letter-spacing: -0.4px;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+
+  &:hover {
+    color: #A8BBA2;
+  }
 }
