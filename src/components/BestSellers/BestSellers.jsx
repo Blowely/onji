@@ -1,35 +1,33 @@
 import React from 'react';
-import { Card, Row, Col } from 'antd';
 import styles from './BestSellers.module.scss';
 import p1 from "../../assets/newFeatures/p1.png";
 import p2 from "../../assets/newFeatures/p2.png";
 import p3 from "../../assets/newFeatures/p3.png";
 import p4 from "../../assets/newFeatures/p4.png";
-import Hits from "./RotatingTextCircle";
 import RotatingTextCircle from "./RotatingTextCircle";
 import {useNavigate} from "react-router-dom";
 
 const products = [
     {
-        name: 'NEW BALANCE 9060',
+        name: 'NIKE ZOOM',
         price: 'от 5999 ₽',
         spuId: 4239122,
         image: p1,
     },
     {
-        name: 'NIKE ZOOM',
+        name: 'NEW BALANCE 9060',
         price: 'от 5999 ₽',
         spuId: 4239122,
         image: p2,
     },
     {
-        name: 'ASICS GEL-NYC',
+        name: 'ADIDAS FW24 BASIC DOWN',
         price: 'от 5999 ₽',
         spuId: 4239122,
         image: p3,
     },
     {
-        name: 'ADIDAS OZWEEGO',
+        name: 'MICHAEL MICHAEL KORS',
         price: 'от 5999 ₽',
         spuId: 4239122,
         image: p4,
