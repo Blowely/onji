@@ -1,86 +1,60 @@
-/* Все ваши оригинальные стили остаются без изменений */
 .container {
-  margin: 0 auto;
-  padding: 40px 0;
-}
-
-.header {
-  position: relative;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-.title {
-  font-family: 'Graphik Medium', sans-serif;
-  font-size: 35px;
-  text-align: center;
-  color: #000;
-}
-
-.controls {
-  position: absolute;
-  right: 25px;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
-
-  div {
-    cursor: pointer;
-    transition: color 0.2s;
-
-    &:hover:not(.disabled) {
-      color: #A8BBA2;
-    }
-
-    &.disabled {
-      color: #B3B3B3;
-      pointer-events: none;
-    }
-  }
-}
-
-.sliderWrapper {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  padding: 0 29%;
-  margin-top: 22px;
-}
-
-.sliderTrack {
-  display: flex;
-  height: 100%;
+  gap: 40px;
   align-items: center;
+  flex-wrap: nowrap;
+  padding: 40px 0;
+  max-width: 1440px;
 }
 
-.slide {
-  flex-shrink: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  padding: 0 22.5px;
-  padding-bottom: 100px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.3s;
-  }
-
-  &:hover {
-    color: gold;
-  }
+.columnsWrapper {
+  display: flex;
+  width: 100%;
 }
 
-.brandTitle {
-  color: #000;
-  font-family: 'Graphik-Medium', sans-serif;
-  font-size: 35.531px;
-  font-style: normal;
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+.productsGrid {
+  flex: 1;
+}
+
+.productCard {
+  background: transparent;
+  box-shadow: none;
+}
+
+.productImage {
+  width: 100%;
+  object-fit: contain;
+  filter: contrast(0.9);
+}
+
+.productInfo {
+  margin-top: 12px;
+}
+
+.productName {
   font-weight: 600;
-  line-height: 60px; /* 100.787% */
-  letter-spacing: -0.2px;
-  position: absolute;
-  margin-left: 40px;
-  margin-top: -25px;
+  font-size: 16px;
+}
+
+.productPrice {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 500;
 }

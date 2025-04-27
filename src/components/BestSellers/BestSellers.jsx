@@ -1,95 +1,115 @@
-import { Col, Row } from "antd";
-import React, { useState, useEffect } from "react";
-import styles from "./BestSellers.module.scss";
-import { ArrowLeftIcon } from "../../assets/svg/v2/ArrowLeftIcon";
-import { ArrowRightIcon } from "../../assets/svg/v2/ArrowRightIcon";
-import { useNavigate } from "react-router-dom";
-import adidas from "../../assets/Adidas.png";
+import React from 'react';
+import { Card, Row, Col } from 'antd';
+import styles from './BestSellers.module.scss';
+import p1 from "../../assets/newFeatures/p1.png";
+import p2 from "../../assets/newFeatures/p2.png";
+import p3 from "../../assets/newFeatures/p3.png";
+import p4 from "../../assets/newFeatures/p4.png";
+import Hits from "./RotatingTextCircle";
+import RotatingTextCircle from "./RotatingTextCircle";
 
-const originalItems = [
-    { img: adidas, title: "Nike", filter: "contrast(0.9)", spuId: 1 },
-    { img: adidas, title: "Adidas", filter: "brightness(0.5)", spuId: 2 },
-    { img: adidas, title: "New balance", filter: "invert(1)", spuId: 3 }
+const products = [
+    {
+        name: 'NEW BALANCE 9060',
+        price: 'от 5999 ₽',
+        image: p1,
+    },
+    {
+        name: 'NIKE ZOOM',
+        price: 'от 5999 ₽',
+        image: p2,
+    },
+    {
+        name: 'ASICS GEL-NYC',
+        price: 'от 5999 ₽',
+        image: p3,
+    },
+    {
+        name: 'ADIDAS OZWEEGO',
+        price: 'от 5999 ₽',
+        image: p4,
+    },
 ];
 
 const BestSellers = () => {
-    const navigate = useNavigate();
-    const [items] = useState([...originalItems, ...originalItems, ...originalItems]);
-    const [currentIndex, setCurrentIndex] = useState(originalItems.length);
-    const [transitioning, setTransitioning] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => setTransitioning(false), 100);
-        return () => clearTimeout(timer);
-    }, []);
-
-    const handleSlide = (direction) => {
-        if (transitioning) return;
-
-        setTransitioning(true);
-        const newIndex = currentIndex + direction;
-
-        setCurrentIndex(newIndex);
-
-        setTimeout(() => {
-            if (newIndex >= originalItems.length * 2) {
-                setCurrentIndex(originalItems.length);
-            } else if (newIndex < originalItems.length) {
-                setCurrentIndex(originalItems.length * 2 - 1);
-            }
-            setTransitioning(false);
-        }, 500);
-    };
-
-    const getVisibleIndex = (index) => {
-        return ((index - originalItems.length) % originalItems.length + originalItems.length) % originalItems.length;
-    };
-
     return (
         <div className={styles.container}>
-            <Row align="middle" className={styles.header}>
-                <Col span={24} className={styles.title}>бренды</Col>
-                <Col className={styles.controls}>
-                    <div onClick={() => handleSlide(-1)}>
-                        <ArrowLeftIcon />
-                    </div>
-                    <div onClick={() => handleSlide(1)}>
-                        <ArrowRightIcon />
-                    </div>
-                </Col>
-            </Row>
-
-            <div className={styles.sliderWrapper}>
-                <div
-                    className={styles.sliderTrack}
-                    style={{
-                        transform: `translateX(-${currentIndex * (100 / items.length)}%)`,
-                        transition: transitioning ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
-                        width: `${items.length * 100}%`
-                    }}
-                >
-                    {items.map((item, index) => {
-                        const visibleIndex = getVisibleIndex(index);
-                        return (
-                            <div
-                                key={`${visibleIndex}-${index}`}
-                                className={styles.slide}
-                                style={{
-                                    width: `${100 / items.length}%`,
-                                }}
-                                onClick={() => navigate(`?spuId=${originalItems[visibleIndex].spuId}`)}
-                            >
-                                <img
-                                    src={originalItems[visibleIndex].img}
-                                    alt={originalItems[visibleIndex].title}
-                                    style={{filter: originalItems[visibleIndex].filter}}
-                                />
-                                <div className={styles.brandTitle}>{originalItems[visibleIndex].title}</div>
-                            </div>
-                        );
-                    })}
+            <div className={styles.columnsWrapper}>
+                <div>
+                    <RotatingTextCircle />
+                    <Card
+                        hoverable
+                        cover={<img alt={products[0].name} src={products[0].image} className={styles.productImage}/>}
+                        className={styles.productCard}
+                        bordered={false}
+                    >
+                        <div className={styles.productInfo}>
+                            <div className={styles.productName}>{products[0].name}</div>
+                            <div className={styles.productPrice}>{products[0].price}</div>
+                        </div>
+                    </Card>
                 </div>
+                <div>
+                    <Card
+                        hoverable
+                        cover={<img alt={products[0].name} src={products[0].image} className={styles.productImage}/>}
+                        className={styles.productCard}
+                        bordered={false}
+                    >
+                        <div className={styles.productInfo}>
+                            <div className={styles.productName}>{products[0].name}</div>
+                            <div className={styles.productPrice}>{products[0].price}</div>
+                        </div>
+                    </Card>
+                    <Card
+                        hoverable
+                        cover={<img alt={products[0].name} src={products[0].image} className={styles.productImage}/>}
+                        className={styles.productCard}
+                        bordered={false}
+                    >
+                        <div className={styles.productInfo}>
+                            <div className={styles.productName}>{products[0].name}</div>
+                            <div className={styles.productPrice}>{products[0].price}</div>
+                        </div>
+                    </Card>
+                </div>
+
             </div>
+            <div className={styles.columnsWrapper}>
+                <Card
+                    hoverable
+                    cover={<img alt={products[0].name} src={products[0].image} className={styles.productImage}/>}
+                    className={styles.productCard}
+                    bordered={false}
+                >
+                    <div className={styles.productInfo}>
+                        <div className={styles.productName}>{products[0].name}</div>
+                        <div className={styles.productPrice}>{products[0].price}</div>
+                    </div>
+                </Card>
+            </div>
+            {/*<div className={styles.circle}>
+                <span>хиты продаж</span>
+            </div>*/}
+
+
+            {/*<Row gutter={[24, 24]} className={styles.productsGrid}>
+                {products.map((product, index) => (
+                    <Col xs={24} sm={12} md={12} lg={12} xl={12} key={index}>
+                        <Card
+                            hoverable
+                            cover={<img alt={product.name} src={product.image} className={styles.productImage}/>}
+                            className={styles.productCard}
+                            bordered={false}
+                        >
+                            <div className={styles.productInfo}>
+                                <div className={styles.productName}>{product.name}</div>
+                                <div className={styles.productPrice}>{product.price}</div>
+                            </div>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>*/}
         </div>
     );
 };
