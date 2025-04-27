@@ -40,6 +40,7 @@ import NewFeatures from "../components/NewFeatures/NewFeatures";
 import Brands from "../components/Brands/Brands";
 import BrandsV2 from "../components/BrandsV2/BrandsV2";
 import BestSellers from "../components/BestSellers/BestSellers";
+import CatalogBtnBlock from "../components/CatalogBtnBlock/CatalogBtnBlock";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -551,6 +552,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         <NewFeatures />
         <BrandsV2 />
         <BestSellers />
+        <CatalogBtnBlock />
 
         <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
              ref={filtersRef}>
