@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Button } from "antd";
 import styles from "./CatalogBtnBlock.module.scss";
 
@@ -9,67 +9,89 @@ import p3 from "../../assets/newFeatures/p3.png";
 import p4 from "../../assets/newFeatures/p4.png";
 import p5 from "../../assets/newFeatures/p5.png";
 
-const images = [
-    p1, p2, p3,
-    p4, p5
-];
+const images = [p1, p2, p3, p4, p5];
+
+// Функция для перемешивания массива (алгоритм Фишера-Йетса)
+const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+};
+
+// Функция для создания бесконечной последовательности
+const createInfiniteSequence = (baseArray, length) => {
+    const shuffled = shuffleArray(baseArray);
+    const sequence = [];
+    while (sequence.length < length) {
+        sequence.push(...shuffled);
+    }
+    return sequence.slice(0, length);
+};
 
 const CatalogBtnBlock = () => {
+    // Мемоизируем перемешанные последовательности для каждой линии
+    const lines = useMemo(() => {
+        return [
+            createInfiniteSequence(images, 11),
+            createInfiniteSequence(images, 11),
+            createInfiniteSequence(images, 11),
+            createInfiniteSequence(images, 11)
+        ];
+    }, []);
+
+    const renderLine = (lineIndex) => {
+        const sequence = lines[lineIndex];
+        return (
+            <>
+                {sequence.map((img, index) => (
+                    <img
+                        key={`original-${lineIndex}-${index}`}
+                        src={img}
+                        alt="promo item"
+                        className={styles.item}
+                    />
+                ))}
+                {sequence.map((img, index) => (
+                    <img
+                        key={`duplicate-${lineIndex}-${index}`}
+                        src={img}
+                        alt="promo item"
+                        className={styles.item}
+                    />
+                ))}
+            </>
+        );
+    };
+
     return (
         <div className={styles.catalogBtnBlockWrapper}>
             <div className={styles.container}>
-                <div className={styles.lineWrapper}>
-                    {Array.from({length: 10}).map((_, index) => (
-                        <img
-                            key={index}
-                            src={images[index % images.length]}
-                            alt="promo item"
-                            className={styles.item}
-                        />
-                    ))}
-                </div>
-                <div className={styles.lineWrapper}>
-                    {Array.from({length: 13}).map((_, index) => (
-                        <img
-                            key={index}
-                            src={images[index % images.length]}
-                            alt="promo item"
-                            className={styles.item}
-                        />
-                    ))}
-                </div>
-                <div className={styles.lineWrapper}>
-                    {Array.from({length: 12}).map((_, index) => (
-                        <img
-                            key={index}
-                            src={images[index % images.length]}
-                            alt="promo item"
-                            className={styles.item}
-                        />
-                    ))}
-                </div>
-                <div className={styles.lineWrapper}>
-                    {Array.from({length: 15}).map((_, index) => (
-                        <img
-                            key={index}
-                            src={images[index % images.length]}
-                            alt="promo item"
-                            className={styles.item}
-                        />
-                    ))}
-                </div>
+                {/* Линия 1 */}
+                <div className={styles.lineWrapper}>{renderLine(0)}</div>
 
+                {/* Линия 2 */}
+                <div className={styles.lineWrapper}>{renderLine(1)}</div>
+
+                {/* Линия 3 */}
+                <div className={styles.lineWrapper}>{renderLine(2)}</div>
+
+                {/* Линия 4 */}
+                <div className={styles.lineWrapper}>{renderLine(3)}</div>
 
                 <div className={styles.centerBlock}>
                     <div className={styles.textBlock}>
-                        <div className={styles.text}>ОДЕЖДА<br/>И ОБУВЬ ЛЮБИМЫХ БРЕНДОВ<br/>В ОДНОМ МАГАЗИНЕ</div>
+                        <div className={styles.text}>
+                            ОДЕЖДА<br />И ОБУВЬ ЛЮБИМЫХ БРЕНДОВ<br />В ОДНОМ МАГАЗИНЕ
+                        </div>
                         <div className={styles.onji}>ONJI</div>
                         <div className={styles.catalogButton}>ПЕРЕЙТИ В КАТАЛОГ</div>
                     </div>
                 </div>
             </div>
         </div>
-
     );
 };
 
