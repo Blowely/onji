@@ -236,7 +236,7 @@ const NewFeatures = () => {
                                         style={{
                                             display: "flex",
                                             flexDirection: "column",
-                                            alignItems: index > 1 ? "start" : "end",
+                                            alignItems: "end",
                                             gap: "5px",
                                         }}
                                     >
@@ -278,7 +278,7 @@ const NewFeatures = () => {
                                         style={{
                                             display: "flex",
                                             flexDirection: "column",
-                                            alignItems: index > 1 ? "start" : "end",
+                                            alignItems: "end",
                                             gap: "5px",
                                         }}
                                     >
