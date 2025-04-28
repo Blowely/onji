@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './RotatingTextCircle.module.scss';
+import styles from './RotatingClothTextCircle.module.scss';
 
-const RotatingTextCircle = () => {
-    const text = 'хиты продаж ';
-    const letters = text.repeat(4).split('');
+const RotatingClothTextCircle = () => {
+    const text = 'одежда ';
+    const letters = text.repeat(7).split('');
 
     return (
         <div className={styles.circleContainer}>
@@ -28,4 +28,4 @@ const RotatingTextCircle = () => {
     );
 };
 
-export default RotatingTextCircle;
+export default RotatingClothTextCircle;

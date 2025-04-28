@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  gap: 26px;
+  flex-wrap: nowrap;
+  padding: 40px 0;
+  max-width: 1440px;
+  width: 100%;
+}
+
+.columnsWrapper {
+  display: grid;
+  width: 50%;
+  gap: 24px;
+}
+
+.columnContainer {
+  gap: 26px;
+  display: flex;
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+.productsGrid {
+  flex: 1;
+}
+
+.productCard {
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+
+  &:hover {
+    color: #A8BBA2;
+  }
+}
+
+.productImage {
+  object-fit: contain;
+  width: 350px;
+  height: 390px;
+  background: #ffffff;
+  aspect-ratio: 1 / 1;
+  filter: contrast(0.9);
+}
+
+.productInfo {
+  margin-top: 12px;
+}
+
+.productName {
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 19.844px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 141.102% */
+  text-transform: uppercase;
+}
+
+.productPrice {
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 19.844px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 141.102% */
+}
+
+.showAll {
+  color: #000;
+  font-family: "Graphik Medium", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  //line-height: 38.5px; /* 192.5% */
+  letter-spacing: -0.4px;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+
+  &:hover {
+    color: #A8BBA2;
+  }
+}
