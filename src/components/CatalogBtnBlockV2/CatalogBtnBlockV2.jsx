@@ -1,15 +1,7 @@
 import React, { useMemo } from "react";
-import { Button } from "antd";
 import styles from "./CatalogBtnBlockV2.module.scss";
 
-// Импорты картинок
-import p1 from "../../assets/newFeatures/p1.png";
-import p2 from "../../assets/newFeatures/p2.png";
-import p3 from "../../assets/newFeatures/p3.png";
-import p4 from "../../assets/newFeatures/p4.png";
-import p5 from "../../assets/newFeatures/p5.png";
-
-const images = ['onji', 'onji', 'onji', 'onji', 'onji'];
+const images = ['ONJI', 'ONJI', 'ONJI', 'ONJI', 'ONJI'];
 
 // Функция для перемешивания массива (алгоритм Фишера-Йетса)
 const shuffleArray = (array) => {
@@ -68,6 +60,24 @@ const CatalogBtnBlockV2 = () => {
 
     return (
         <div className={styles.catalogBtnBlockWrapper}>
+            <div className={styles.topText}>
+                <div className={styles.discountBlock}>
+                    <div style={{ textAlign: "center"}}>
+                        ДАРИМ
+                    </div>
+                    <div>
+                        СКИДКУ 7% <br/>
+                        НОВЫМ КЛИЕНТАМ
+
+                    </div>
+                </div>
+                <div className={styles.discountBlock}>
+                    <div className={styles.catalogButton}>
+                        В каталог
+                    </div>
+                </div>
+            </div>
+
             <div className={styles.container}>
                 {/* Линия 2 */}
                 <div className={styles.lineWrapper}>{renderLine(1)}</div>
@@ -79,13 +89,7 @@ const CatalogBtnBlockV2 = () => {
                 <div className={styles.lineWrapper}>{renderLine(3)}</div>
 
                 <div className={styles.centerBlock}>
-                    <div className={styles.textBlock}>
-                        <div className={styles.text}>
-                            ОДЕЖДА<br />И ОБУВЬ ЛЮБИМЫХ БРЕНДОВ<br />В ОДНОМ МАГАЗИНЕ
-                        </div>
-                        <div className={styles.onji}>ONJI</div>
-                        <div className={styles.catalogButton}><span>ПЕРЕЙТИ В КАТАЛОГ</span></div>
-                    </div>
+                    <img src="https://storage.yandexcloud.net/pc-mediafiles/test1/banners/basketMan.webp" alt=""/>
                 </div>
             </div>
         </div>

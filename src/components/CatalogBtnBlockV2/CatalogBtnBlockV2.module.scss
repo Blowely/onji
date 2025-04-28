@@ -3,7 +3,56 @@
   width: 100%;
   overflow: hidden;
   margin-top: 88px;
-  padding-bottom: 100px;
+  padding: 100px 0;
+}
+
+.topText {
+  max-width: 1440px;
+  margin: 0 auto;
+  color: #000;
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 33px; /* 103.125% */
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 208px;
+}
+
+.discountBlock {
+  display: block;
+  flex-direction: column;
+  color: #000;
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 33px; /* 103.125% */
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  margin-left: -7%;
+}
+
+.catalogButton {
+  color: #000;
+  text-align: right;
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 38.5px; /* 192.5% */
+  letter-spacing: -0.4px;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  text-transform: uppercase;
 }
 
 .container {
@@ -12,7 +61,7 @@
   margin-left: -15%;
   //min-height: 100vh;
   background: #fff;
-  overflow: hidden;
+  //overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -73,18 +122,24 @@
 
 .centerBlock {
   position: absolute;
-  width: 590px;
-  padding: 103px 52px 63px 52px;
-  height: 575px;
+
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  border: 1px solid #000;
+  margin: 0 auto;
+  top: -31%;
+  //left: 50%;
+  //transform: translate(-50%, -50%);
+
+  > img {
+    width: 846.541px;
+    height: 1036.872px;
+    transform: rotate(3.159deg);
+    flex-shrink: 0;
+    aspect-ratio: 846.54/1036.87;
+  }
   //z-index: 1;
 }
 
