@@ -58,7 +58,7 @@
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   padding: 0 22.5px;
-  padding-bottom: 100px;
+  padding-bottom: 30px;
 
   img {
     width: 100%;
@@ -68,7 +68,9 @@
   }
 
   &:hover {
-    color: gold;
+    > .brandTitle {
+      color: #A8BBA2;
+    }
   }
 }
 
@@ -82,5 +84,5 @@
   letter-spacing: -0.2px;
   position: absolute;
   margin-left: 40px;
-  margin-top: -25px;
+  margin-top: -24.5px;
 }
