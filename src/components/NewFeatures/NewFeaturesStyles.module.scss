@@ -43,6 +43,15 @@
     background: white;
   }
 
+  &:hover {
+    > div > div {
+      color: #A8BBA2;
+      > div {
+        color: #A8BBA2;
+      }
+    }
+  }
+
   /*> div &.right {
     position: relative;
     display: flex;
