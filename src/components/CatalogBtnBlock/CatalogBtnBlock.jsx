@@ -87,7 +87,7 @@ const CatalogBtnBlock = () => {
                             ОДЕЖДА<br />И ОБУВЬ ЛЮБИМЫХ БРЕНДОВ<br />В ОДНОМ МАГАЗИНЕ
                         </div>
                         <div className={styles.onji}>ONJI</div>
-                        <div className={styles.catalogButton}>ПЕРЕЙТИ В КАТАЛОГ</div>
+                        <div className={styles.catalogButton}><span>ПЕРЕЙТИ В КАТАЛОГ</span></div>
                     </div>
                 </div>
             </div>

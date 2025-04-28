@@ -124,15 +124,17 @@
   font-style: normal;
   font-weight: 400;
   line-height: 33px; /* 165% */
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-skip-ink: auto;
-  text-decoration-thickness: auto;
-  text-underline-offset: auto;
-  text-underline-position: from-font;
   text-transform: uppercase;
   cursor: pointer;
+
   &:hover {
     color: #A8BBA2;
+    > span {
+      border-bottom-color: #A8BBA2;
+    }
+  }
+
+  > span {
+    border-bottom: 1px solid black;
   }
 }
