@@ -1,0 +1,25 @@
+.ant-collapse-content {
+  border-top: 1px solid black!important;
+  //border-top: unset!important;
+}
+
+.ant-collapse {
+  background: white;
+}
+
+.ant-collapse-header {
+  color: #000;
+  font-family: "Graphik Medium", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 140% */
+  text-transform: uppercase;
+  padding: 12px 0px!important;
+}
+
+.ant-collapse-content-box {
+  padding: 12px 0!important;
+  font-size: 16px;
+}
+

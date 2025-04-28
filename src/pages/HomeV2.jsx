@@ -44,6 +44,7 @@ import CatalogBtnBlock from "../components/CatalogBtnBlock/CatalogBtnBlock";
 import ClothBlock from "../components/ClothBlock/ClothBlock";
 import ShoesBlock from "../components/ShoesBlock/ShoesBlock";
 import CatalogBtnBlockV2 from "../components/CatalogBtnBlockV2/CatalogBtnBlockV2";
+import FaqBlock from "../components/FaqBlock/FaqBlock";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -559,6 +560,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         <ShoesBlock />
         <CatalogBtnBlockV2 />
         <ClothBlock />
+        <FaqBlock />
 
         <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
              ref={filtersRef}>
