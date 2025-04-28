@@ -35,10 +35,10 @@ const CatalogBtnBlock = () => {
     // Мемоизируем перемешанные последовательности для каждой линии
     const lines = useMemo(() => {
         return [
-            createInfiniteSequence(images, 11),
-            createInfiniteSequence(images, 11),
-            createInfiniteSequence(images, 11),
-            createInfiniteSequence(images, 11)
+            createInfiniteSequence(images, 12),
+            createInfiniteSequence(images, 12),
+            createInfiniteSequence(images, 12),
+            createInfiniteSequence(images, 12)
         ];
     }, []);
 
