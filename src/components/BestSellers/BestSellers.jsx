@@ -38,7 +38,7 @@ const BestSellers = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <div style={{marginTop: '100px'}}>
             <div className={styles.showAll}>
                 смотреть все
             </div>
