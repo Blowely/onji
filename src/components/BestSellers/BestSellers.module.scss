@@ -63,14 +63,20 @@
 }
 
 .productName {
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 19.844px;
+  font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  line-height: 28px; /* 141.102% */
+  text-transform: uppercase;
 }
 
 .productPrice {
-  margin-top: 4px;
-  font-size: 14px;
-  font-weight: 500;
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 19.844px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 141.102% */
 }
 
 .showAll {

@@ -89,7 +89,7 @@ const BestSellers = () => {
                         onClick={() => navigate(`?spuId=${products[3].spuId}`)}
                     >
                         <img alt={products[3].name} src={products[3].image} className={styles.productImage}
-                             style={{width: '100%', height: 'calc(100% - 55px)'}}/>
+                             style={{width: '100%', height: 'calc(100% - 70px)'}}/>
                         <div className={styles.productInfo}>
                             <div className={styles.productName}>{products[3].name}</div>
                             <div className={styles.productPrice}>{products[3].price}</div>

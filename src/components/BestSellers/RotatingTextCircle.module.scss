@@ -17,9 +17,15 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 20px;
-    font-weight: bold;
     transform-origin: 0 0;
+
+    color: #000;
+    font-family: 'Graphik-Medium', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13px; /* 54.167% */
+    letter-spacing: 3.12px;
 }
 
 .centerDot {
