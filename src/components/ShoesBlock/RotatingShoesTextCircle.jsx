@@ -3,7 +3,7 @@ import styles from './RotatingShoesTextCircle.module.scss';
 
 const RotatingShoesTextCircle = () => {
     const text = 'обувь ';
-    const letters = text.repeat(8).split('');
+    const letters = text.repeat(9).split('');
 
     return (
         <div className={styles.circleContainer}>
