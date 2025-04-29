@@ -1,13 +1,52 @@
 .container {
+  position: relative;
   width: 100%;
   height: 100%;
-  flex-shrink: 0;
+  margin: auto;
   margin-top: 100px;
-  background-size: cover;
-  overflow: hidden;
-  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/banners/banner3.webp") no-repeat center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+}
+
+.image {
+  width: 100%;
+  display: block;
+}
+
+.textOverlay {
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  text-align: right;
+  color: #FFF;
+  font-family: 'Graphik-Medium', sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 33px; /* 91.667% */
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  p {
+    margin: 0 0 1rem 0;
+  }
+
+  .link {
+    color: #FFF;
+    font-family: 'Graphik-Medium', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 38.5px; /* 160.417% */
+    letter-spacing: -0.4px;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+    text-transform: uppercase;
+
+    &:hover {
+      color: #A8BBA2;
+    }
+  }
 }
