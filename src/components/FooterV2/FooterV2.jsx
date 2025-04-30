@@ -16,7 +16,7 @@ const FooterV2 = () => {
                 ONJI
             </Title>
 
-            <Row className={styles.mainRow} gutter={[16, 16]}>
+            <Row className={styles.mainRow}>
                 <Col xs={24} sm={12} md={6}>
                     <div className={styles.section}>
                         <Title level={4} className={styles.sectionTitle}>
@@ -24,13 +24,13 @@ const FooterV2 = () => {
                         </Title>
                         <Text className={styles.supportText}>круглосуточная техподдержка</Text>
 
-                        <Row gutter={8} align="middle" className={styles.contactsRow}>
+                        <Row align="middle" className={styles.contactsRow}>
                             <Col className={styles.contactsRowItem} onClick={onTgClick}>
                                 <WhatsAppOutlined className={styles.icon} />
                                 <Text className={styles.contactText}>WhatsApp</Text>
                             </Col>
                             <Col className={styles.contactsRowItem} onClick={onTgClick}>
-                                <img src={tg} className={styles.icon} style={{marginLeft: '16px'}} alt=""/>
+                                <img src={tg} className={styles.icon} alt=""/>
                                 <Text className={styles.contactText}>Telegram</Text>
                             </Col>
                         </Row>
@@ -67,9 +67,9 @@ const FooterV2 = () => {
 
             <div className={styles.divider} />
 
-            <Row className={styles.bottomSection} justify="center">
-                <Col xs={24} md={8}>
-                    <Row justify="space-around" className={styles.socialIcons}>
+            <Row className={styles.bottomSection} justify="space-between">
+                <Col>
+                    <Row justify="space-between" className={styles.socialIcons}>
                         {/* Добавьте реальные изображения */}
                         <Col><div className={styles.tgIcon} /></Col>
                         <Col><div className={styles.vkIcon} /></Col>
@@ -77,15 +77,15 @@ const FooterV2 = () => {
                     </Row>
                 </Col>
 
-                <Col xs={24} md={8}>
-                    <Row justify="space-around" className={styles.appStores}>
+                <Col>
+                    <Row justify="space-between" className={styles.appStores}>
                         <Col><div className={styles.googlePlay} /></Col>
                         <Col><div className={styles.appStore} /></Col>
                     </Row>
                 </Col>
 
-                <Col xs={24} md={8}>
-                    <Row justify="space-around" className={styles.paymentMethods}>
+                <Col>
+                    <Row justify="space-between" className={styles.paymentMethods}>
                         <Col><div className={styles.mastercard} /></Col>
                         <Col><div className={styles.visa} /></Col>
                         <Col><div className={styles.mir} /></Col>

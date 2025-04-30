@@ -3,25 +3,25 @@
   background: black;
   position: relative;
   width: 100%;
-  padding: 60px 20px;
+  padding: 60px 0;
   color: white;
   min-height: 586px;
 }
 
 .logo {
-  font-family: 'Alice-Regular, Helvetica' !important;
+  color: #fff!important;
+  font-family: Alice, serif;
   font-size: 2.5rem !important;
-  text-align: center !important;
-  margin-bottom: 40px !important;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .mainRow {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto !important;
 }
 
 .section {
-  padding: 0 15px;
 
   &Title {
     margin-bottom: 15px !important;
@@ -55,6 +55,8 @@
 
 .contactsRow {
   margin-top: 15px;
+  display: flex;
+  gap: 25px;
 
   > .contactsRowItem {
     display: flex;
@@ -77,19 +79,20 @@
 
 .divider {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
-  margin: 40px auto;
-  width: 90%;
-  max-width: 1200px;
+  margin: 40px 0;
+  width: 100%;
 }
 
 .bottomSection {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto !important;
-  padding: 0 20px;
 }
 
 // Добавьте реальные размеры и фоновые изображения
 .socialIcons, .appStores, .paymentMethods {
+  display: flex;
+  gap: 25px;
+
   div {
     background-size: contain;
     background-repeat: no-repeat;
@@ -101,13 +104,20 @@
 
 .tgIcon { width: 20px; height: 20px;
   background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/telegram.png")}
-.vkIcon { width: 20px; height: 20px; }
-.ytIcon { width: 20px; height: 20px; }
-.googlePlay { width: 106px; height: 25px; }
-.appStore { width: 91px; height: 25px; }
-.mastercard { width: 43px; height: 30px; opacity: 0.5; }
-.visa { width: 34px; height: 30px; opacity: 0.5; }
-.mir { width: 47px; height: 30px; opacity: 0.5; }
+.vkIcon { width: 20px; height: 20px;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/vk.png")}
+.ytIcon { width: 20px; height: 20px;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/yt.png")}
+.googlePlay { width: 106px; height: 25px;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/google-play.png")}
+.appStore { width: 91px; height: 25px;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/app-store.png")}
+.mastercard { width: 43px; height: 30px; opacity: 0.5;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/master-card.png")}
+.visa { width: 34px; height: 30px; opacity: 0.5;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/visa.png")}
+.mir { width: 47px; height: 30px; opacity: 0.5;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/mir.png")}
 
 @media (max-width: 768px) {
   .logo {
