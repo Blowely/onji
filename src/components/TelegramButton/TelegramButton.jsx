@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import "./TelegramButton.scss";
+import tg from "../../assets/svg/telegram-icon.svg";
 
 const TelegramButton = ({msg = 'Здравствуйте! Хочу задать вопрос по товару: ', text, productUrl, size = 'middle'}) => {
     const handleClick = () => {
@@ -17,7 +18,7 @@ const TelegramButton = ({msg = 'Здравствуйте! Хочу задать 
 
     return (
         <Button className="telegram-button" type="primary" size={size}
-                icon={<img src="/telegram-icon.svg" alt="Telegram" className="telegram-icon" />}
+                icon={<img src={tg} alt="Telegram" className="telegram-icon" />}
                 onClick={handleClick}>
             {text || 'Написать в Telegram'}
         </Button>

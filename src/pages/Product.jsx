@@ -414,7 +414,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
         <div className="info-block">
           <div>
                     <span onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}>
-                        <img src="/telegram-icon.svg" alt="Telegram"/>Мы в телеграм
+                        <img src="/src/assets/svg/telegram-icon.svg" alt="Telegram"/>Мы в телеграм
                     </span>
             <span onClick={() => onInfoBlockItemClick("https://t.me/repoizon_otzovik")}>Отзывы</span>
             <span onClick={() => onInfoBlockItemClick("https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf")}>
@@ -787,7 +787,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                                 <span>
                                   <span className="brand-name">Мы в телеграм
                                   </span>
-                                  <img src="/telegram-icon.svg" alt="Telegram"/>
+                                  <img src="/src/assets/svg/telegram-icon.svg" alt="Telegram"/>
                                 </span>
                                 <span className="items">Новости проекта и модные тренды</span>
                               </div>

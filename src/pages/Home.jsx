@@ -574,7 +574,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           <div className="info-block">
             <div>
                     <span onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}>
-                        <img src="/telegram-icon.svg" alt="Telegram"/>Мы в телеграм
+                        <img src="/src/assets/svg/telegram-icon.svg" alt="Telegram"/>Мы в телеграм
                     </span>
               <span onClick={() => onInfoBlockItemClick("https://t.me/repoizon_otzovik")}>Отзывы</span>
               <span onClick={() => onInfoBlockItemClick("https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf")}>
