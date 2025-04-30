@@ -1,12 +1,12 @@
 import { WhatsAppOutlined } from "@ant-design/icons";
 import { Col, Row, Typography } from "antd";
-import styles from "./Footer.module.scss";
+import styles from "./FooterV2.module.scss";
 import tg from "../../assets/svg/tg-white.svg";
 
 
 const { Text, Title } = Typography;
 
-const Footer = () => {
+const FooterV2 = () => {
     return (
         <div className={styles.container}>
             <Title level={2} className={styles.logo}>
@@ -91,4 +91,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default FooterV2;

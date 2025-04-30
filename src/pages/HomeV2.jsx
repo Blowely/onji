@@ -565,7 +565,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         <ClothBlock />
         <FaqBlock />
         <ReqProducts />
-        <Footer />
+        <FooterV2 />
 
 
       </Layout>
