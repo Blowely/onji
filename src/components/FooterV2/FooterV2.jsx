@@ -2,17 +2,21 @@ import { WhatsAppOutlined } from "@ant-design/icons";
 import { Col, Row, Typography } from "antd";
 import styles from "./FooterV2.module.scss";
 import tg from "../../assets/svg/tg-white.svg";
+import {useNavigate} from "react-router-dom";
 
 
 const { Text, Title } = Typography;
 
 const FooterV2 = () => {
+    const navigate = useNavigate();
 
     const onTgClick = () => window.open('tg://resolve?domain=re_poizon_store')
+    const onVkClick = () => window.open('https://vk.com/repoizonstore')
+    const onYtClick = () => window.open('https://www.youtube.com/@repoizon')
 
     return (
         <div className={styles.container}>
-            <Title level={2} className={styles.logo}>
+            <Title level={2} className={styles.logo} onClick={() => navigate(`/`)}>
                 ONJI
             </Title>
 
@@ -71,9 +75,9 @@ const FooterV2 = () => {
                 <Col>
                     <Row justify="space-between" className={styles.socialIcons}>
                         {/* Добавьте реальные изображения */}
-                        <Col><div className={styles.tgIcon} /></Col>
-                        <Col><div className={styles.vkIcon} /></Col>
-                        <Col><div className={styles.ytIcon} /></Col>
+                        <Col><div className={styles.tgIcon} onClick={onTgClick} /></Col>
+                        <Col><div className={styles.vkIcon} onClick={onVkClick} /></Col>
+                        <Col><div className={styles.ytIcon} onClick={onYtClick} /></Col>
                     </Row>
                 </Col>
 
