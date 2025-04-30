@@ -1,7 +1,7 @@
 import { WhatsAppOutlined } from "@ant-design/icons";
 import { Col, Row, Typography } from "antd";
 import styles from "./Footer.module.scss";
-import tg from "../../assets/svg/telegram-icon.svg";
+import tg from "../../assets/svg/tg-white.svg";
 
 
 const { Text, Title } = Typography;

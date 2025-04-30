@@ -58,7 +58,7 @@
 }
 
 .icon {
-  font-size: 1.2rem !important;
+  height: 48px!important;
   color: white !important;
 }
 
@@ -86,10 +86,13 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    color: white;
+
   }
 }
 
-.tgIcon { width: 20px; height: 20px; }
+.tgIcon { width: 20px; height: 20px;
+  background: url("https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/telegram.png")}
 .vkIcon { width: 20px; height: 20px; }
 .ytIcon { width: 20px; height: 20px; }
 .googlePlay { width: 106px; height: 25px; }
