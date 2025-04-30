@@ -1,0 +1,36 @@
+.carousel {
+  overflow: hidden;
+  width: 100%;
+  background: #f8f8f8;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.scroller {
+  display: flex;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  animation: scroll-left 50s linear infinite;
+  &:hover {
+    //animation-play-state: paused; // Пауза при наведении
+  }
+}
+
+.track img {
+
+  flex-shrink: 0;
+  display: block;
+  margin: 0 20px; // Увеличиваем отступ между логотипами
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); // Двигаем ровно на половину длины контента
+  }
+}

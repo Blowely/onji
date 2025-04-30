@@ -1,4 +1,5 @@
 import styles from './ReqProducts.module.scss';
+import BrandsSmallCarousel from "../BrandsSmallCarousel/BrandsSmallCarousel";
 
 const ReqProducts = () => {
     return <div className={styles.container}>
@@ -11,6 +12,7 @@ const ReqProducts = () => {
             </div></p>
             <a href="#" className={styles.link}>ЗАКАЗАТЬ</a>
         </div>
+        <BrandsSmallCarousel />
     </div>
 }
 
