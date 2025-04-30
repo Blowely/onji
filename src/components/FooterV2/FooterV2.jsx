@@ -7,6 +7,9 @@ import tg from "../../assets/svg/tg-white.svg";
 const { Text, Title } = Typography;
 
 const FooterV2 = () => {
+
+    const onTgClick = () => window.open('tg://resolve?domain=re_poizon_store')
+
     return (
         <div className={styles.container}>
             <Title level={2} className={styles.logo}>
@@ -22,10 +25,14 @@ const FooterV2 = () => {
                         <Text className={styles.supportText}>круглосуточная техподдержка</Text>
 
                         <Row gutter={8} align="middle" className={styles.contactsRow}>
-                            <Col><WhatsAppOutlined className={styles.icon} /></Col>
-                            <Col><Text className={styles.contactText}>WhatsApp</Text></Col>
-                            <Col><img src={tg} className={styles.icon}  alt=""/></Col>
-                            <Col><Text className={styles.contactText}>Telegram</Text></Col>
+                            <Col className={styles.contactsRowItem} onClick={onTgClick}>
+                                <WhatsAppOutlined className={styles.icon} />
+                                <Text className={styles.contactText}>WhatsApp</Text>
+                            </Col>
+                            <Col className={styles.contactsRowItem} onClick={onTgClick}>
+                                <img src={tg} className={styles.icon} style={{marginLeft: '16px'}} alt=""/>
+                                <Text className={styles.contactText}>Telegram</Text>
+                            </Col>
                         </Row>
                     </div>
                 </Col>

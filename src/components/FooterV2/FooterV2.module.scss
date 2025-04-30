@@ -55,10 +55,18 @@
 
 .contactsRow {
   margin-top: 15px;
+
+  > .contactsRowItem {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+  }
 }
 
+
 .icon {
-  height: 48px!important;
+  height: 16px!important;
   color: white !important;
 }
 
