@@ -10,7 +10,7 @@
   max-width: 1440px;
   margin: 0 auto;
   color: #000;
-  font-family: 'Graphik-Medium', sans-serif;
+  font-family: 'Graphik-Medium', system-ui;
   font-size: 32px;
   font-style: normal;
   font-weight: 400;
@@ -27,7 +27,7 @@
   display: block;
   flex-direction: column;
   color: #000;
-  font-family: 'Graphik-Medium', sans-serif;
+  font-family: 'Graphik-Medium', system-ui;
   font-size: 32px;
   font-style: normal;
   font-weight: 400;
@@ -40,7 +40,7 @@
 .catalogButton {
   color: #000;
   text-align: right;
-  font-family: 'Graphik-Medium', sans-serif;
+  font-family: 'Graphik-Medium', system-ui;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -151,7 +151,7 @@
 
   .text {
     color: #000;
-    font-family: 'Graphik-Medium', sans-serif;
+    font-family: 'Graphik-Medium', system-ui;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -174,7 +174,7 @@
   margin-top: 20px;
   padding: 0;
   color: #000;
-  font-family: 'Graphik-Medium', sans-serif;
+  font-family: 'Graphik-Medium', system-ui;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
