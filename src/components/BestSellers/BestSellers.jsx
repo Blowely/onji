@@ -48,9 +48,11 @@ const BestSellers = () => {
 
     return (
         <div style={{marginTop:  isDesktop ? '100px' : 'unset'}}>
-            <div className={styles.showAll}>
-                смотреть все
-            </div>
+            {isDesktop &&
+                <div className={styles.showAll}>
+                    смотреть все
+                </div>
+            }
 
             {!isDesktop &&
                 <div className={styles.container}>
