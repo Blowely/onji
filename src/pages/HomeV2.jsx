@@ -487,7 +487,11 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   }
 
   return (
-      <Layout style={{ backgroundColor: "white", position: "relative" }}>
+      <Layout style={{
+        backgroundColor: "white",
+        position: "relative",
+        paddingBottom: !isDesktopScreen ? "200px" : 'unset'
+      }}>
         {spuId && <div className="productWrapper" id="productWrapper">
           <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
         </div>
@@ -560,9 +564,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {isDesktopScreen && <BrandsV2 />}
         <BestSellers />
         {isDesktopScreen && <CatalogBtnBlock />}
-        <ShoesBlock />
+        {/*<ShoesBlock />*/}
         {isDesktopScreen && <CatalogBtnBlockV2 />}
-        <ClothBlock />
+        {/*<ClothBlock />*/}
         {isDesktopScreen && <FaqBlock />}
         {isDesktopScreen && <ReqProducts />}
         {isDesktopScreen && <FooterV2 />}
