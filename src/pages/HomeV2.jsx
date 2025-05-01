@@ -557,17 +557,19 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         </div>
 
         <NewFeatures />
-        <BrandsV2 />
+        {isDesktopScreen && <BrandsV2 />}
         <BestSellers />
-        <CatalogBtnBlock />
+        {isDesktopScreen && <CatalogBtnBlock />}
         <ShoesBlock />
-        <CatalogBtnBlockV2 />
+        {isDesktopScreen && <CatalogBtnBlockV2 />}
         <ClothBlock />
-        <FaqBlock />
-        <ReqProducts />
-        <FooterV2 />
+        {isDesktopScreen && <FaqBlock />}
+        {isDesktopScreen && <ReqProducts />}
+        {isDesktopScreen && <FooterV2 />}
 
-
+        {!isDesktopScreen &&
+            <PhoneFooter tab="products"/>
+        }
       </Layout>
   );
 }

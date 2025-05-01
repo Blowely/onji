@@ -2,12 +2,15 @@ import { Col, Row } from "antd";
 import React from "react";
 import styles from "./Stories.module.scss";
 
-const Circle = ({ color, text }) => (
+const Circle = ({ color, text }) => {
+    const isDesktopScreen = window?.innerWidth > 768;
+
+    return (
     <div style={{ textAlign: "center" }}>
         <div
             style={{
-                width: 70,
-                height: 70,
+                width: isDesktopScreen ? 70 : 54,
+                height: isDesktopScreen ? 70 : 54,
                 backgroundColor: "black",
                 borderRadius: "50%",
                 position: "relative",
@@ -16,8 +19,8 @@ const Circle = ({ color, text }) => (
         >
             <div
                 style={{
-                    width: 66,
-                    height: 66,
+                    width: isDesktopScreen ? 66 : 51,
+                    height: isDesktopScreen ? 66 : 51,
                     backgroundColor: "white",
                     borderRadius: "50%",
                     position: "absolute",
@@ -28,8 +31,8 @@ const Circle = ({ color, text }) => (
             />
             <div
                 style={{
-                    width: 60,
-                    height: 60,
+                    width: isDesktopScreen ? 60 : 46,
+                    height: isDesktopScreen ? 60 : 46,
                     backgroundColor: color,
                     borderRadius: "50%",
                     position: "absolute",
@@ -41,11 +44,13 @@ const Circle = ({ color, text }) => (
         </div>
         <div style={{ marginTop: 7, fontSize: 12 }}>{text}</div>
     </div>
-);
+)};
 
 const Stories = () => {
+    const isDesktopScreen = window?.innerWidth > 768;
+
     return (
-        <Row justify="space-around" align="middle" style={{ height: 91, gap: 12 }}>
+        <Row justify={isDesktopScreen ? "space-around" : "center"} align="middle" style={{ height: 91, gap: 12 }}>
             <Col className={styles.item}>
                 <Circle color="#a8bba2" text="get the look" />
             </Col>

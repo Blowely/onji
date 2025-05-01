@@ -64,75 +64,84 @@ const HeroSection = () => {
 
     const { background, textColor, borderColor } = getFinalStyles();
 
+    const isDesktopScreen = window?.innerWidth > 768;
+
     return (
         <div className={styles.heroContainer}>
-            <div
-                className={styles.navbar}
-                style={{
-                    background,
-                    color: textColor,
-                    borderBottom: `1px solid ${borderColor}`,
-                    height: isScrolled && '59px'
-                }}
-            >
-                <div className={styles.logo} onClick={() => onNavItemClick(`${gender}-products`)}>ONJI</div>
-                <Menu
-                    mode="horizontal"
-                    className={styles.menu}
+            {isDesktopScreen &&
+                <div
+                    className={styles.navbar}
                     style={{
-                        color: 'inherit',
-                        height: isScrolled && '59px',
-                        transition: 'all 0.3s ease',
+                        background,
+                        color: textColor,
+                        borderBottom: `1px solid ${borderColor}`,
+                        height: isScrolled && '59px'
                     }}
-                    onMouseEnter={() => handleMenuHover(true)}
-                    onMouseLeave={() => handleMenuHover(false)}
                 >
-                    <Menu.Item key="new" style={{ color: 'inherit' }} onClick={() => onNavItemClick(`new-products`)}>новинки</Menu.Item>
-                    <Menu.Item key="men" style={{ color: 'inherit' }} onClick={() => onNavItemClick(`men-products`)}>мужчинам</Menu.Item>
-                    <Menu.Item key="women" style={{ color: 'inherit' }} onClick={() => onNavItemClick(`women-products`)}>женщинам</Menu.Item>
-                    <Menu.Item key="brands" style={{ color: 'inherit' }} onClick={() => onNavItemClick(`brands`)}>бренды</Menu.Item>
-                    <Menu.Item key="beauty" style={{ color: 'inherit' }} onClick={() => onNavItemClick(`beauty`)}>красота</Menu.Item>
-                </Menu>
-                <div className={styles.icons}>
-                    <img
-                        src={searchSvg}
+                    <div className={styles.logo} onClick={() => onNavItemClick(`${gender}-products`)}>ONJI</div>
+                    <Menu
+                        mode="horizontal"
+                        className={styles.menu}
                         style={{
-                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.1s ease'
+                            color: 'inherit',
+                            height: isScrolled && '59px',
+                            transition: 'all 0.3s ease',
                         }}
-                        onClick={() => onNavItemClick('search')}
-                        alt=""
-                    />
-                    <img
-                        src={favSvg}
-                        style={{
-                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.1s ease'
-                        }}
-                        onClick={() => onNavItemClick('favorites')}
-                        alt=""
-                    />
-                    <img
-                        src={profileSvg}
-                        style={{
-                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.1s ease'
-                        }}
-                        onClick={() => onNavItemClick('profile')}
-                        alt=""
-                    />
-                    <img
-                        src={cartSvg}
-                        style={{
-                            filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
-                            transition: 'filter 0.1s ease'
-                        }}
-                        onClick={() => onNavItemClick('cart')}
-                        alt=""
-                    />
+                        onMouseEnter={() => handleMenuHover(true)}
+                        onMouseLeave={() => handleMenuHover(false)}
+                    >
+                        <Menu.Item key="new" style={{color: 'inherit'}}
+                                   onClick={() => onNavItemClick(`new-products`)}>новинки</Menu.Item>
+                        <Menu.Item key="men" style={{color: 'inherit'}}
+                                   onClick={() => onNavItemClick(`men-products`)}>мужчинам</Menu.Item>
+                        <Menu.Item key="women" style={{color: 'inherit'}}
+                                   onClick={() => onNavItemClick(`women-products`)}>женщинам</Menu.Item>
+                        <Menu.Item key="brands" style={{color: 'inherit'}}
+                                   onClick={() => onNavItemClick(`brands`)}>бренды</Menu.Item>
+                        <Menu.Item key="beauty" style={{color: 'inherit'}}
+                                   onClick={() => onNavItemClick(`beauty`)}>красота</Menu.Item>
+                    </Menu>
+                    <div className={styles.icons}>
+                        <img
+                            src={searchSvg}
+                            style={{
+                                filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                                transition: 'filter 0.1s ease'
+                            }}
+                            onClick={() => onNavItemClick('search')}
+                            alt=""
+                        />
+                        <img
+                            src={favSvg}
+                            style={{
+                                filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                                transition: 'filter 0.1s ease'
+                            }}
+                            onClick={() => onNavItemClick('favorites')}
+                            alt=""
+                        />
+                        <img
+                            src={profileSvg}
+                            style={{
+                                filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                                transition: 'filter 0.1s ease'
+                            }}
+                            onClick={() => onNavItemClick('profile')}
+                            alt=""
+                        />
+                        <img
+                            src={cartSvg}
+                            style={{
+                                filter: textColor === '#000000' ? 'invert(0)' : 'invert(1)',
+                                transition: 'filter 0.1s ease'
+                            }}
+                            onClick={() => onNavItemClick('cart')}
+                            alt=""
+                        />
+                    </div>
                 </div>
-            </div>
-            <ImageSlider onSlideChange={handleSlideChange} />
+            }
+            <ImageSlider onSlideChange={handleSlideChange}/>
             {/*<div
                 className={styles.categoryTableWrapper}
                 style={{
