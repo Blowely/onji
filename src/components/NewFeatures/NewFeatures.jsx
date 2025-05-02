@@ -173,150 +173,207 @@ const NewFeatures = () => {
         }
     };
 
+    const isDesktop = window?.innerWidth > 768;
 
     return (
         <div className={styles.sliderWrapper}>
             <Row align="middle" className={styles.featuresBlockTitle}>
-                <Col style={{ width: "100%", position: "absolute" }}>
+                <Col style={{width: "100%", position: "absolute"}}>
                     <div className={styles.titleText}>новинки</div>
                 </Col>
-                <Col style={{ width: "100%" }}>
-                    <Row align="middle" justify="end" style={{ marginRight: "25px" }}>
-                        <Col>
-                            <div
-                                className={itemsIndex === 0 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
-                                onClick={onPrev}
-                            >
-                                <ArrowLeftIcon />
-                            </div>
-                        </Col>
-                        <Col>
-                            <div
-                                className={itemsIndex === remoteItems.length - 1 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
-                                onClick={onNext}
-                            >
-                                <ArrowRightIcon />
-                            </div>
-                        </Col>
-                    </Row>
-                </Col>
+                {isDesktop &&
+                    <Col style={{width: "100%"}}>
+                        <Row align="middle" justify="end" style={{marginRight: "25px"}}>
+                            <Col>
+                                <div
+                                    className={itemsIndex === 0 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
+                                    onClick={onPrev}
+                                >
+                                    <ArrowLeftIcon/>
+                                </div>
+                            </Col>
+                            <Col>
+                                <div
+                                    className={itemsIndex === remoteItems.length - 1 ? styles.arrowInactiveContainer : styles.arrowActiveContainer}
+                                    onClick={onNext}
+                                >
+                                    <ArrowRightIcon/>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Col>
+                }
             </Row>
 
-            <div style={{ marginTop: 34 }}>
-                <Row gutter={[40, 40]} >
-                {/*<Row gutter={[40, 40]} className={styles.customGap}>*/}
-                    {remoteItems[itemsIndex].map((item, index) => (
-                        <Col span={6} key={`current-${item.spuId}`}>
-                            <div style={{position: "relative", height: "500px", overflow: "hidden"}}>
-                                {/* Текущий товар */}
-                                <div
-                                    className={styles.item}
-                                    onClick={() => navigate(`?spuId=${item.spuId}`)}
-                                    style={{
-                                        position: "absolute",
-                                        width: "100%",
-                                        overflow: "hidden",
-                                        transition: "transform 0.45s ease-in-out, clip-path 0.45s ease-in-out",
-                                        transform: transitioning && direction > 0
-                                            ? "translateX(-20%)"
-                                            : transitioning && direction < 0
-                                                ? "translateX(20%)"
-                                                : "translateX(0)",
-                                        /* при направлении >0 — скрываем правую половину */
-                                        clipPath: transitioning && direction > 0
-                                            ? "inset(0 100% 0 0)"   // верх, справа, низ, слева
-                                            : transitioning && direction < 0
-                                                ? "inset(0 0 0 100%)"
-                                                : "inset(0 0 0 0)",
-                                        zIndex: 2,
-                                    }}
-                                >
-                                    <img src={item.img} alt="Image"/>
+            {isDesktop &&
+                <div style={{marginTop: 34}}>
+                    <Row gutter={[40, 40]}>
+                        {/*<Row gutter={[40, 40]} className={styles.customGap}>*/}
+                        {remoteItems[itemsIndex].map((item, index) => (
+                            <Col span={6} key={`current-${item.spuId}`}>
+                                <div style={{position: "relative", height: "500px", overflow: "hidden"}}>
+                                    {/* Текущий товар */}
                                     <div
+                                        className={styles.item}
+                                        onClick={() => navigate(`?spuId=${item.spuId}`)}
                                         style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignItems: "end",
-                                            gap: "5px",
+                                            position: "absolute",
+                                            width: "100%",
+                                            overflow: "hidden",
+                                            transition: "transform 0.45s ease-in-out, clip-path 0.45s ease-in-out",
+                                            transform: transitioning && direction > 0
+                                                ? "translateX(-20%)"
+                                                : transitioning && direction < 0
+                                                    ? "translateX(20%)"
+                                                    : "translateX(0)",
+                                            /* при направлении >0 — скрываем правую половину */
+                                            clipPath: transitioning && direction > 0
+                                                ? "inset(0 100% 0 0)"   // верх, справа, низ, слева
+                                                : transitioning && direction < 0
+                                                    ? "inset(0 0 0 100%)"
+                                                    : "inset(0 0 0 0)",
+                                            zIndex: 2,
                                         }}
                                     >
-                                        <div className={styles.featureTitle}>{item.title}</div>
-                                        <div className={styles.categoryName}>{item.category}</div>
-                                        <div style={{display: "flex", gap: "5px"}}>
-                                            <div className={styles.featurePrice}>от {item.price} ₽</div>
-                                            {item.discountedPrice && (
-                                                <div className={styles.featureDiscount}>
-                                                    {item.discountedPrice} ₽
+                                        <img src={item.img} alt="Image"/>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: "end",
+                                                gap: "5px",
+                                            }}
+                                        >
+                                            <div className={styles.featureTitle}>{item.title}</div>
+                                            <div className={styles.categoryName}>{item.category}</div>
+                                            <div style={{display: "flex", gap: "5px"}}>
+                                                <div className={styles.featurePrice}>от {item.price} ₽</div>
+                                                {item.discountedPrice && (
+                                                    <div className={styles.featureDiscount}>
+                                                        {item.discountedPrice} ₽
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {/* Следующий/предыдущий товар (для анимации) */}
+                                    <div
+                                        className={styles.item}
+                                        style={{
+                                            position: "absolute",
+                                            width: "100%",
+                                            zIndex: 1,
+                                            transition: animating
+                                                ? "transform 0.35s ease-in-out"
+                                                : "none",
+                                            /* если animating=true — межкадровая цель — 0%, иначе рисуем defaultTranslate */
+                                            transform: `translateX(${animating ? "0%" : defaultTranslate})`,
+                                        }}
+                                    >
+                                        <img
+                                            src={direction > 0
+                                                ? remoteItems[itemsIndex + 1]?.[index]?.img
+                                                : remoteItems[itemsIndex - 1]?.[index]?.img}
+                                            alt="Image"
+                                        />
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: "end",
+                                                gap: "5px",
+                                            }}
+                                        >
+                                            <div className={styles.featureTitle}>
+                                                {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.title
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.title}
+                                            </div>
+                                            <div className={styles.categoryName}>
+                                                {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.category
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.category}
+                                            </div>
+                                            <div style={{display: "flex", gap: "5px"}}>
+                                                <div className={styles.featurePrice}>
+                                                    от {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.price
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.price} ₽
                                                 </div>
-                                            )}
+                                                {direction > 0
+                                                    ? remoteItems[itemsIndex + 1]?.[index]?.discountedPrice && (
+                                                    <div className={styles.featureDiscount}>
+                                                        {remoteItems[itemsIndex + 1]?.[index]?.discountedPrice} ₽
+                                                    </div>
+                                                )
+                                                    : remoteItems[itemsIndex - 1]?.[index]?.discountedPrice && (
+                                                    <div className={styles.featureDiscount}>
+                                                        {remoteItems[itemsIndex - 1]?.[index]?.discountedPrice} ₽
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </Col>
+                        ))}
+                    </Row>
+                </div>
+            }
 
-
-                                {/* Следующий/предыдущий товар (для анимации) */}
+            {!isDesktop &&
+                <div className={styles.itemsWrapper}>
+                    {remoteItems[itemsIndex].map((item, index) => (
+                        <div className={styles.itemWrapper} key={index}>
+                            <div
+                                className={styles.item}
+                                onClick={() => navigate(`?spuId=${item.spuId}`)}
+                                style={{
+                                    position: "absolute",
+                                    width: "100%",
+                                    transition: "transform 0.45s ease-in-out, clip-path 0.45s ease-in-out",
+                                    transform: transitioning && direction > 0
+                                        ? "translateX(-20%)"
+                                        : transitioning && direction < 0
+                                            ? "translateX(20%)"
+                                            : "translateX(0)",
+                                    /* при направлении >0 — скрываем правую половину */
+                                    clipPath: transitioning && direction > 0
+                                        ? "inset(0 100% 0 0)"   // верх, справа, низ, слева
+                                        : transitioning && direction < 0
+                                            ? "inset(0 0 0 100%)"
+                                            : "inset(0 0 0 0)",
+                                    zIndex: 2,
+                                }}
+                            >
+                                <img src={item.img} alt="Image"/>
                                 <div
-                                    className={styles.item}
                                     style={{
-                                        position: "absolute",
-                                        width: "100%",
-                                        zIndex: 1,
-                                        transition: animating
-                                            ? "transform 0.35s ease-in-out"
-                                            : "none",
-                                        /* если animating=true — межкадровая цель — 0%, иначе рисуем defaultTranslate */
-                                        transform: `translateX(${animating ? "0%" : defaultTranslate})`,
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "end",
+                                        gap: "5px",
                                     }}
                                 >
-                                    <img
-                                        src={direction > 0
-                                            ? remoteItems[itemsIndex + 1]?.[index]?.img
-                                            : remoteItems[itemsIndex - 1]?.[index]?.img}
-                                        alt="Image"
-                                    />
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignItems: "end",
-                                            gap: "5px",
-                                        }}
-                                    >
-                                        <div className={styles.featureTitle}>
-                                            {direction > 0
-                                                ? remoteItems[itemsIndex + 1]?.[index]?.title
-                                                : remoteItems[itemsIndex - 1]?.[index]?.title}
-                                        </div>
-                                        <div className={styles.categoryName}>
-                                            {direction > 0
-                                                ? remoteItems[itemsIndex + 1]?.[index]?.category
-                                                : remoteItems[itemsIndex - 1]?.[index]?.category}
-                                        </div>
-                                        <div style={{display: "flex", gap: "5px"}}>
-                                            <div className={styles.featurePrice}>
-                                                от {direction > 0
-                                                ? remoteItems[itemsIndex + 1]?.[index]?.price
-                                                : remoteItems[itemsIndex - 1]?.[index]?.price} ₽
+                                    <div className={styles.featureTitle}>{item.title}</div>
+                                    <div className={styles.categoryName}>{item.category}</div>
+                                    <div style={{display: "flex", gap: "5px"}}>
+                                        <div className={styles.featurePrice}>от {item.price} ₽</div>
+                                        {item.discountedPrice && (
+                                            <div className={styles.featureDiscount}>
+                                                {item.discountedPrice} ₽
                                             </div>
-                                            {direction > 0
-                                                ? remoteItems[itemsIndex + 1]?.[index]?.discountedPrice && (
-                                                <div className={styles.featureDiscount}>
-                                                    {remoteItems[itemsIndex + 1]?.[index]?.discountedPrice} ₽
-                                                </div>
-                                            )
-                                                : remoteItems[itemsIndex - 1]?.[index]?.discountedPrice && (
-                                                <div className={styles.featureDiscount}>
-                                                    {remoteItems[itemsIndex - 1]?.[index]?.discountedPrice} ₽
-                                                </div>
-                                            )}
-                                        </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
-                        </Col>
+                        </div>
                     ))}
-                </Row>
-            </div>
+                </div>
+            }
+
         </div>
     );
 };
