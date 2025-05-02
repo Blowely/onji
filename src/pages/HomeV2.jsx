@@ -48,6 +48,7 @@ import FaqBlock from "../components/FaqBlock/FaqBlock";
 import ReqProducts from "../components/ReqProduct/ReqProducts";
 import FooterV2 from "../components/FooterV2/FooterV2";
 import Footer from "../components/FooterV2/FooterV2";
+import MainProduct from "../components/MainProduct/MainProduct";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -565,6 +566,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         <BestSellers />
         {isDesktopScreen && <CatalogBtnBlock />}
         <ShoesBlock />
+        {!isDesktopScreen && <MainProduct />}
         {isDesktopScreen && <CatalogBtnBlockV2 />}
         {/*<ClothBlock />*/}
         {isDesktopScreen && <FaqBlock />}
