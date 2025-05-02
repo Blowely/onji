@@ -7,9 +7,8 @@ import p1 from "../../assets/newFeatures/p1.png";
 import p2 from "../../assets/newFeatures/p2.png";
 import p5 from "../../assets/newFeatures/p5.png";
 import p6 from "../../assets/newFeatures/p6.png";
-import RotatingShoesTextCircle from "./RotatingShoesTextCircle";
 import {useNavigate} from "react-router-dom";
-import RotatingTextCircle from "../BestSellers/RotatingTextCircle";
+import RotatingImageCircle from "../RotatingImageCircle/RotatingImageCircle";
 
 const products = [
     {
@@ -94,7 +93,10 @@ const ShoesBlock = () => {
                                     <div className={styles.productPrice}>{products[0].price}</div>
                                 </div>
                             </div>
-                            <RotatingTextCircle content="обувь" count={[8,9]} left="calc(50% - 13px)"/>
+                            <RotatingImageCircle
+                                src="https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/shoes-category.png"
+                                left="calc(50% - 13px)"
+                            />
                         </div>
                         <div className={styles.columnContainer}>
                             <div
@@ -128,7 +130,9 @@ const ShoesBlock = () => {
                 <div className={styles.container}>
                     <div className={styles.columnsWrapper}>
                         <div className={styles.columnContainer}>
-                            <RotatingShoesTextCircle/>
+                            <RotatingImageCircle
+                                src="https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/shoes-category.png"
+                            />
                             <div
                                 className={styles.productCard}
                                 onClick={() => navigate(`?spuId=${products[3].spuId}`)}

@@ -573,7 +573,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         </div>}
 
         {isDesktopScreen && <CatalogBtnBlockV2 />}
-        {/*<ClothBlock />*/}
+        {isDesktopScreen && <ClothBlock />}
         {isDesktopScreen && <FaqBlock />}
         {isDesktopScreen && <ReqProducts />}
         {isDesktopScreen && <FooterV2 />}

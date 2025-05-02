@@ -5,7 +5,7 @@ import p2 from "../../assets/newFeatures/p2.png";
 import p3 from "../../assets/newFeatures/p3.png";
 import p4 from "../../assets/newFeatures/p4.png";
 import p6 from "../../assets/newFeatures/p6.png";
-import RotatingTextCircle from "./RotatingTextCircle";
+import RotatingImageCircle from "../RotatingImageCircle/RotatingImageCircle";
 import {useNavigate} from "react-router-dom";
 
 const products = [
@@ -63,7 +63,7 @@ const BestSellers = () => {
                 <div className={styles.container}>
                     <div className={styles.columnsWrapper}>
                         <div className={styles.columnContainer}>
-                            <RotatingTextCircle/>
+                            <RotatingImageCircle left='calc(50% + 12px)'/>
                             <div
                                 className={styles.productCard}
                                 onClick={() => navigate(`?spuId=${products[3].spuId}`)}
@@ -108,7 +108,7 @@ const BestSellers = () => {
                 <div className={styles.container}>
                     <div className={styles.columnsWrapper}>
                         <div className={styles.columnContainer}>
-                            <RotatingTextCircle/>
+                            <RotatingImageCircle/>
                             <div
                                 className={styles.productCard}
                                 onClick={() => navigate(`?spuId=${products[3].spuId}`)}

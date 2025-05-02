@@ -4,8 +4,8 @@ import c1 from "../../assets/clothFeatures/c1.png";
 import p2 from "../../assets/newFeatures/p2.png";
 import p3 from "../../assets/newFeatures/p3.png";
 import p4 from "../../assets/newFeatures/p4.png";
-import RotatingClothTextCircle from "./RotatingClothTextCircle";
 import {useNavigate} from "react-router-dom";
+import RotatingImageCircle from "../RotatingImageCircle/RotatingImageCircle";
 
 const products = [
     {
@@ -46,7 +46,7 @@ const ClothBlock = () => {
             <div className={styles.container}>
                 <div className={styles.columnsWrapper}>
                     <div className={styles.columnContainer}>
-                        <RotatingClothTextCircle/>
+                        <RotatingImageCircle/>
                         <div
                             className={styles.productCard}
                             onClick={() => navigate(`?spuId=${products[3].spuId}`)}
