@@ -59,7 +59,9 @@
   cursor: pointer;
 
   &:hover {
-    color: #A8BBA2;
+    @media (min-width: 768px) {
+      color: #A8BBA2;
+    }
   }
 
   @media (max-width: 768px) {
