@@ -1,9 +1,10 @@
 /* RotatingImageCircle.module.scss */
 .wrapper {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    overflow: hidden;
 }
 
 .circle {
