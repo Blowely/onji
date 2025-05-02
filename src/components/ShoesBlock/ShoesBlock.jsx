@@ -13,7 +13,7 @@ import RotatingTextCircle from "../BestSellers/RotatingTextCircle";
 
 const products = [
     {
-        name: 'Nike Dunk Retro',
+        name: 'Nike Dunk',
         price: 'от 8899 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
@@ -88,7 +88,7 @@ const ShoesBlock = () => {
                                 onClick={() => navigate(`?spuId=${products[3].spuId}`)}
                             >
                                 <img alt={products[0].name} src={products[0].image} className={styles.productImage}/>
-                                <div className={styles.productInfo}>
+                                <div className={styles.productInfo} style={{paddingLeft: '20px'}}>
                                     <div className={styles.productName}>{products[0].name}</div>
                                     <div className={styles.categoryName}>{products[0].category}</div>
                                     <div className={styles.productPrice}>{products[0].price}</div>
