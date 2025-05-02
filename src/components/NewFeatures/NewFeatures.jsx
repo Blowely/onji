@@ -324,53 +324,32 @@ const NewFeatures = () => {
             }
 
             {!isDesktop &&
-                <div className={styles.itemsWrapper}>
-                    {remoteItems[itemsIndex].map((item, index) => (
-                        <div className={styles.itemWrapper} key={index}>
+                <div className={styles.mobileSliderContainer}>
+                    <div className={styles.mobileSliderWrapper}>
+                        {remoteItems[itemsIndex].map((item, index) => (
                             <div
-                                className={styles.item}
+                                className={styles.mobileItemWrapper}
+                                key={index}
                                 onClick={() => navigate(`?spuId=${item.spuId}`)}
-                                style={{
-                                    position: "absolute",
-                                    width: "100%",
-                                    transition: "transform 0.45s ease-in-out, clip-path 0.45s ease-in-out",
-                                    transform: transitioning && direction > 0
-                                        ? "translateX(-20%)"
-                                        : transitioning && direction < 0
-                                            ? "translateX(20%)"
-                                            : "translateX(0)",
-                                    /* при направлении >0 — скрываем правую половину */
-                                    clipPath: transitioning && direction > 0
-                                        ? "inset(0 100% 0 0)"   // верх, справа, низ, слева
-                                        : transitioning && direction < 0
-                                            ? "inset(0 0 0 100%)"
-                                            : "inset(0 0 0 0)",
-                                    zIndex: 2,
-                                }}
                             >
-                                <img src={item.img} alt="Image"/>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "end",
-                                        gap: "5px",
-                                    }}
-                                >
-                                    <div className={styles.featureTitle}>{item.title}</div>
-                                    <div className={styles.categoryName}>{item.category}</div>
-                                    <div style={{display: "flex", gap: "5px"}}>
-                                        <div className={styles.featurePrice}>от {item.price} ₽</div>
-                                        {item.discountedPrice && (
-                                            <div className={styles.featureDiscount}>
-                                                {item.discountedPrice} ₽
-                                            </div>
-                                        )}
+                                <div className={styles.mobileItem}>
+                                    <img src={item.img} alt="Image" />
+                                    <div className={styles.mobileItemContent}>
+                                        <div className={styles.featureTitle}>{item.title}</div>
+                                        <div className={styles.categoryName}>{item.category}</div>
+                                        <div className={styles.priceContainer}>
+                                            <div className={styles.featurePrice}>от {item.price} ₽</div>
+                                            {item.discountedPrice && (
+                                                <div className={styles.featureDiscount}>
+                                                    {item.discountedPrice} ₽
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             }
 

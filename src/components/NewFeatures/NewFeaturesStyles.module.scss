@@ -1,3 +1,5 @@
+// NewFeaturesStyles.module.scss
+
 .featuresBlockTitleWrapper {
   height: 35px;
   width: 100%;
@@ -28,7 +30,6 @@
 
 .item {
   position: relative;
-  //height: 100%;
   display: grid;
   gap: 15px;
   cursor: pointer;
@@ -38,7 +39,6 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    padding: 20px;
     filter: contrast(0.9);
     background: white;
   }
@@ -51,13 +51,6 @@
       }
     }
   }
-
-  /*> div &.right {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-  }*/
 }
 
 .featureTitle {
@@ -66,7 +59,7 @@
   font-size: 19.844px;
   font-style: normal;
   font-weight: 600;
-  line-height: 28px; /* 141.102% */
+  line-height: 28px;
   text-transform: uppercase;
 }
 
@@ -76,7 +69,7 @@
   font-size: 10.828px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16.5px; /* 152.381% */
+  line-height: 16.5px;
   letter-spacing: 1.4px;
   text-transform: uppercase;
 }
@@ -87,7 +80,7 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  line-height: 28px; /* 140% */
+  line-height: 28px;
 }
 
 .featureDiscount {
@@ -96,7 +89,7 @@
   font-size: 19.844px;
   font-style: normal;
   font-weight: 600;
-  line-height: 28px; /* 141.102% */
+  line-height: 28px;
   text-decoration: line-through;
 }
 
@@ -122,17 +115,63 @@
   }
 }
 
-.itemsWrapper {
+/* Мобильная версия */
+.mobileSliderContainer {
   width: 100%;
+  overflow-x: auto;
+  padding: 20px 0;
+  margin-top: 34px;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.mobileSliderWrapper {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+
+  .mobileItemWrapper:first-child .mobileItemContent {
+    padding: 15px 20px; // Специальный отступ для первого элемента
+  }
+
+  .mobileItemWrapper:not(:first-child) .mobileItemContent {
+    padding: 15px 0; // Стандартный отступ
+  }
+}
+
+.mobileItemWrapper {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.mobileItem {
+  background: white;
+  border-radius: 8px;
   height: 100%;
   display: flex;
-  flex-wrap: nowrap;
-  gap: 24px;
-  margin-top: 34px;
-  overflow: auto;
+  flex-direction: column;
 
-  > .itemWrapper {
-    width: 75%;
-    aspect-ratio: 1 / 1;
+  img {
+    width: 100%;
+    height: 280px;
+    object-fit: contain;
+    padding: 15px;
+    background: white;
+    filter: contrast(0.9);
   }
+}
+
+.mobileItemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
 }
