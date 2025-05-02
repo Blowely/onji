@@ -564,7 +564,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {isDesktopScreen && <BrandsV2 />}
         <BestSellers />
         {isDesktopScreen && <CatalogBtnBlock />}
-        {/*<ShoesBlock />*/}
+        <ShoesBlock />
         {isDesktopScreen && <CatalogBtnBlockV2 />}
         {/*<ClothBlock />*/}
         {isDesktopScreen && <FaqBlock />}

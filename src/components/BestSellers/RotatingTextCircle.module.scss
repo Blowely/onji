@@ -18,7 +18,7 @@
 .circle {
     position: absolute;
     top: 0;
-    left: calc(50% + 13px);
+    left: 50%;
     transform: translateX(-50%);
     will-change: transform;
     backface-visibility: hidden;
@@ -55,7 +55,7 @@
 .centerDot {
     position: absolute;
     top: 50%;
-    left: calc(50% + 13px);
+    left: 50%;
     background-color: #a5af9b;
     border-radius: 50%;
     transform: translate(-50%, -50%);

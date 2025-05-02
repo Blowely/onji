@@ -2,7 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './RotatingTextCircle.module.scss';
 
-const RotatingTextCircle = () => {
+const RotatingTextCircle = ({
+                                content = 'хиты продаж',
+                                count = [3,4],
+                                left = "calc(50% + 13px)"
+}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
     // Обновляем isMobile при ресайзе
@@ -12,13 +16,13 @@ const RotatingTextCircle = () => {
         return () => window.removeEventListener('resize', onResize);
     }, []);
 
-    const text = 'хиты продаж ';
+    const text = `${content} `;
     const config = {
         baseSize: isMobile ? 200 : 300,
         fontSize: isMobile ? 18 : 20,
         letterSpacing: isMobile ? 1.2 : 2.5,
         dotSize: isMobile ? 8 : 12,
-        textRepeats: isMobile ? 3 : 4
+        textRepeats: isMobile ? count[0] : count[1]
     };
 
     const letters = text.repeat(config.textRepeats).split('');
@@ -31,7 +35,11 @@ const RotatingTextCircle = () => {
             <div className={styles.circleContainer}>
                 <div
                     className={styles.circle}
-                    style={{ width: `${config.baseSize}px`, height: `${config.baseSize}px` }}
+                    style={{
+                        width: `${config.baseSize}px`,
+                        height: `${config.baseSize}px`,
+                        left: isMobile && left,
+                    }}
                 >
                     {letters.map((letter, index) => {
                         const angle = (360 / letters.length) * index;
@@ -54,7 +62,8 @@ const RotatingTextCircle = () => {
                     className={styles.centerDot}
                     style={{
                         width: `${config.dotSize}px`,
-                        height: `${config.dotSize}px`
+                        height: `${config.dotSize}px`,
+                        left: isMobile && left,
                     }}
                 />
             </div>
