@@ -10,6 +10,7 @@ function Card({
   name,
   item,
   key,
+  index,
   onPointerDown= () => {},
   onPointerUp = () => {},
   onTouchStart = () => {},
@@ -87,7 +88,6 @@ function Card({
 
   return (
     <div className={styles.card}
-         style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
          key={key}
     >
       <div
@@ -132,6 +132,7 @@ function Card({
                   ref={imgElement}
                   src={`${image}?x-oss-process=image/format,webp/resize,w_400`}
                   //src={`${image}`}
+                  className={styles.productImage}
                   onLoad={onLoadedIcon}
                   loading="lazy"
               />
@@ -141,18 +142,16 @@ function Card({
 
 
         {!loadingImg && image && (
-            <div>
-              <div className={styles.cardText} style={{}}>
-                {name}
-              </div>
-              <div className={styles.price}>
-                <span>{getPrice()}</span>
-              </div>
-            </div>
-        )}
-      </div>
-      {!loadingImg && (
-          <div className="favoriteIcon" ref={favRef} onClick={onFavoriteIconClick}>
+          <div className={styles.productInfo} style={{paddingLeft: index % 2 !== 0 && '20px'}}>
+            <div className={styles.productName}>{name}</div>
+            <div className={styles.categoryName}>{item?.category?.category3?.split('/')[2] || ''}</div>
+            <div className={styles.productPrice}>{getPrice()}</div>
+          </div>
+      )}
+    </div>
+{
+  !loadingImg && (
+      <div className="favoriteIcon" ref={favRef} onClick={onFavoriteIconClick}>
             <IconHeartSmall/>
           </div>
       )}
