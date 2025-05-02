@@ -95,6 +95,7 @@ function Card({
           onPointerUp={(e) => onPointerUp(item, e)}
           onTouchStart={onPointerDown}
           onTouchEnd={(e) => onPointerUp(item, e)}
+          style={{height:'100%'}}
       >
         {!name && (
             <ContentLoader
@@ -136,18 +137,18 @@ function Card({
                   onLoad={onLoadedIcon}
                   loading="lazy"
               />
+              {!loadingImg && image && (
+                  <div className={styles.productInfo} style={{paddingLeft: index % 2 !== 0 && '20px'}}>
+                    <div className={styles.productName}>{name}</div>
+                    <div className={styles.categoryName}>{item?.category?.category3?.split('/')[2] || ''}</div>
+                    <div className={styles.productPrice}>{getPrice()}</div>
+                  </div>
+              )}
             </>
-
         }
 
 
-        {!loadingImg && image && (
-          <div className={styles.productInfo} style={{paddingLeft: index % 2 !== 0 && '20px'}}>
-            <div className={styles.productName}>{name}</div>
-            <div className={styles.categoryName}>{item?.category?.category3?.split('/')[2] || ''}</div>
-            <div className={styles.productPrice}>{getPrice()}</div>
-          </div>
-      )}
+
     </div>
 {
   !loadingImg && (

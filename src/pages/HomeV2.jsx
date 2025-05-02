@@ -274,7 +274,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             const price = item?.price || '';
 
             return (
-                <div key={`${item?.spuId}-${index}`}>
+                <div key={`${item?.spuId}-${index}`} style={{height:'100%'}}>
                   <Card
                       onFavorite={(obj) => onAddToFavorite(obj)}
                       onPlus={(obj) => onAddToCart(obj)}

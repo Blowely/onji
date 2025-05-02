@@ -104,7 +104,9 @@ header {
 .cards-section-wrapper {
   width: 100%;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: calc(50% - 13px) calc(50% - 13px);
+  column-gap: 26px;
+  row-gap: 90px;
   padding-top: 15px;
   padding-bottom: 40px;
 
@@ -128,7 +130,7 @@ header {
 
 .favoriteIcon {
   position: absolute;
-  padding: 0 10px 10px 10px;
+  padding: 10px;
   right: 0;
   cursor: pointer;
   transition: all 0.2s ease;
