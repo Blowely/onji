@@ -1,10 +1,18 @@
-import React from 'react';
+// RotatingTextCircle.jsx
+import React, { useEffect, useState } from 'react';
 import styles from './RotatingTextCircle.module.scss';
 
 const RotatingTextCircle = () => {
-    const isMobile = window?.innerWidth < 768;
-    const text = 'хиты продаж ';
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
+    // Обновляем isMobile при ресайзе
+    useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    const text = 'хиты продаж ';
     const config = {
         baseSize: isMobile ? 200 : 300,
         fontSize: isMobile ? 18 : 20,
@@ -16,9 +24,15 @@ const RotatingTextCircle = () => {
     const letters = text.repeat(config.textRepeats).split('');
 
     return (
-        <div className={styles.circleWrapper} style={{ height: `${config.baseSize}px` }}>
+        <div
+            className={styles.circleWrapper}
+            style={{ height: `${config.baseSize}px` }}
+        >
             <div className={styles.circleContainer}>
-                <div className={styles.circle}>
+                <div
+                    className={styles.circle}
+                    style={{ width: `${config.baseSize}px`, height: `${config.baseSize}px` }}
+                >
                     {letters.map((letter, index) => {
                         const angle = (360 / letters.length) * index;
                         return (
@@ -26,20 +40,23 @@ const RotatingTextCircle = () => {
                                 key={index}
                                 className={styles.letter}
                                 style={{
-                                    transform: `rotate(${angle}deg) translate(${config.baseSize/2 - 20}px) rotate(90deg)`,
+                                    transform: `rotate(${angle}deg) translate3d(${config.baseSize / 2 - 20}px, 0, 0) rotate(90deg)`,
                                     fontSize: `${config.fontSize}px`,
                                     letterSpacing: `${config.letterSpacing}px`
                                 }}
                             >
-                                {letter}
-                            </span>
+                {letter}
+              </span>
                         );
                     })}
                 </div>
-                <div className={styles.centerDot} style={{
-                    width: `${config.dotSize}px`,
-                    height: `${config.dotSize}px`
-                }}></div>
+                <div
+                    className={styles.centerDot}
+                    style={{
+                        width: `${config.dotSize}px`,
+                        height: `${config.dotSize}px`
+                    }}
+                />
             </div>
         </div>
     );
