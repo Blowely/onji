@@ -1,5 +1,5 @@
 export const ProfileIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg"  width="currentSize" height="currentSize" viewBox="0 0 48 48" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg"  width="currentSize" height="23" viewBox="0 0 48 48" fill="none">
         <path
             d="M23.9999 2.33301C12.0334 2.33301 2.33325 12.0332 2.33325 23.9997C2.33325 35.9662 12.0334 45.6663 23.9999 45.6663C35.9664 45.6663 45.6666 35.9662 45.6666 23.9997C45.6666 12.0332 35.9664 2.33301 23.9999 2.33301Z"
             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
