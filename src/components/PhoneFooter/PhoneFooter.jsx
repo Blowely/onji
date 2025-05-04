@@ -78,8 +78,14 @@ const PhoneFooter = ({tab}) => {
         return iconsData.map(({ id, tab: tabName, onClick, Icon, alt, style }) => {
             const isActive = tab === tabName;
             return (
-                <div className={isActive ? styles.active : styles.nonActive} onClick={onClick} key={id} style={style}>
-                    <Icon />
+
+                <div
+                    className={isActive ? styles.active : styles.nonActive}
+                    onClick={onClick}
+                    key={id}
+                    style={style}
+                >
+                    <Icon/>
                 </div>
             );
         });
