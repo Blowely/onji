@@ -33,7 +33,7 @@ const PhoneFooter = ({tab}) => {
             onClick: () => navigate(`/${gender}-products`),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/home.svg",
             alt: "Главная",
-            style: { height: '28px' }
+            style: { height: '23px' }
         },
         {
             id: 2,
@@ -42,7 +42,7 @@ const PhoneFooter = ({tab}) => {
             onClick: () => navigate(`/${gender}-categories/`),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/categories.svg",
             alt: "Каталог",
-            style: { height: '28px' }
+            style: { height: '23px' }
         },
         {
             id: 3,
@@ -51,7 +51,7 @@ const PhoneFooter = ({tab}) => {
             onClick: () => navigate("/cart"),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/cart.svg",
             alt: "Корзина",
-            style: { height: '28px' }
+            style: { height: '23px' }
         },
         {
             id: 4,
@@ -60,7 +60,7 @@ const PhoneFooter = ({tab}) => {
             onClick: () => navigate("/favorites"),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/fav.svg",
             alt: "Избранное",
-            style: { height: '28px' }
+            style: { height: '23px' }
         },
         {
             id: 5,
@@ -69,7 +69,7 @@ const PhoneFooter = ({tab}) => {
             onClick: onProfileClick,
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/profile.svg",
             alt: "Профиль",
-            style: { height: '28px' }
+            style: { height: '23px' }
         }
     ];
 
