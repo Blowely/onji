@@ -110,6 +110,10 @@
   overflow: hidden;
   width: 100%;
   align-self: start;
+
+  @media (max-width: 768px) {
+    font-size: 16.844px;
+  }
 }
 
 .categoryName {
@@ -129,6 +133,10 @@
   font-style: normal;
   font-weight: 600;
   line-height: 28px; /* 141.102% */
+
+  @media (max-width: 768px) {
+    font-size: 16.844px;
+  }
 }
 
 .productImage {
