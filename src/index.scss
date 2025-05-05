@@ -104,28 +104,24 @@ header {
 .cards-section-wrapper {
   width: 100%;
   display: grid;
-  grid-template-columns: calc(50% - 13px) calc(50% - 13px);
-  column-gap: 26px;
-  row-gap: 90px;
+  gap: 26px;
   padding-top: 15px;
   padding-bottom: 40px;
+  row-gap: 70px;
+
+  /* Мобильная версия */
+  grid-template-columns: repeat(2, calc(50% - 13px));
 
   @media (min-width: 768px) {
-    grid-template-columns: 33% 33% 33%;
-  }
-
-  @media (min-width: 900px) {
-    grid-template-columns: 33% 33% 33%;
+    row-gap: 0;
+    /* 3 колонки: (100% - 2 gaps) / 3 */
+    grid-template-columns: repeat(3, calc(33.33% - 17.33px));
   }
 
   @media (min-width: 1200px) {
-    grid-template-columns: 25% 25% 25% 25%;
+    /* 4 колонки: (100% - 3 gaps) / 4 */
+    grid-template-columns: repeat(4, calc(25% - 19.5px));
   }
-
-  @media (min-width: 1400px) {
-    grid-template-columns: 25% 25% 25% 25%;
-  }
-
 }
 
 .favoriteIcon {

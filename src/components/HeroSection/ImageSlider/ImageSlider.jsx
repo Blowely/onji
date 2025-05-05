@@ -56,7 +56,7 @@ const ImageSlider = ({ onSlideChange, selectedCategory }) => {
                 </Carousel>
                 : <div className="slide slide3">
                     <div className={styles.itemsWrapper}>
-                        <div className={styles.breadcrumbs}>Повседневная одежда</div>
+                        <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>
                         <div className={styles.title}>Повседневная одежда</div>
                     </div>
                 </div>
