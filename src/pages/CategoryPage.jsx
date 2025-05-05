@@ -583,7 +583,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         </div>
 
         {!isDesktopScreen &&
-            <PhoneFooter tab="products"/>
+            <PhoneFooter tab="categories"/>
         }
       </Layout>
   );
