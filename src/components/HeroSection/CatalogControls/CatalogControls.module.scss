@@ -42,3 +42,56 @@
     line-height: 16px;
   }
 }
+
+/* Стилизация основного селекта */
+.selectCustom {
+  &:global(.ant-select) {
+    font-family: 'Graphik-Medium', system-ui;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #000;
+    min-width: 160px;
+
+    // Убираем стандартные границы и фон
+    &:global(.ant-select-selector) {
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+
+    // Стили для отображения выбранного значения
+    &:global(.ant-select-selection-item) {
+      padding-right: 20px !important;
+      display: flex !important;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+      font-weight: 400;
+      min-width: 140px;
+    }
+  }
+}
+
+/* Стилизация выпадающего меню */
+.selectPopup {
+  &:global(.ant-select-dropdown) {
+    border-radius: 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    &:global(.ant-select-item) {
+      font-family: 'Graphik-Medium', system-ui;
+      font-size: 14px;
+      padding: 8px 12px;
+      color: #000;
+
+      &:global(.ant-select-item-option-active),
+      &:global(.ant-select-item-option-selected) {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+}

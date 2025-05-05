@@ -23,7 +23,7 @@
 }
 
 .full-border-radius {
-    border-radius: 20px!important;
+    border-radius: 0!important;
 }
 
 .border-radius {
@@ -81,7 +81,7 @@
     min-height: 70px;
     background-color: white;
     padding: 16px;
-    border-radius: 20px;
+    border-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
     &.redirect {
@@ -113,7 +113,7 @@
     width: 100%;
     min-height: 70px;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
     .ant-card-body {

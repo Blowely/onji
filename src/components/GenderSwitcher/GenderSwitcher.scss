@@ -53,7 +53,7 @@
   display: flex;
   justify-content: center;
   background: #f5f5f5;
-  border-radius: 20px;
+  border-radius: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   .tab {
@@ -62,7 +62,7 @@
     padding: 8px 16px;
     cursor: pointer;
     font-size: 13px;
-    border-radius: 20px;
+    border-radius: 0;
     transition: all 0.3s ease;
 
     &.active {
