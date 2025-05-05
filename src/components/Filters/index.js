@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import "./Filters.scss";
 import {Button, Divider, Input} from "antd";
-import {CloseOutlined, UndoOutlined} from "@ant-design/icons";
+import {UndoOutlined} from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
-import { useGetBrandsQuery } from "../../store/brands.store";
 import ColorSelector from "../ColorSelector/ColorSelector";
 import {APPAREL_SIZES, SIZES} from "../../pages/constants";
-
+import leftArrow from "../../assets/svg/v2/left-arrow.svg";
+import styles from "./Filters.module.scss";
 
 function Filters(props) {
   const {
@@ -141,12 +141,14 @@ function Filters(props) {
   return (
     <div className="filters-component-wrapper">
       {!isDesktopScreen && (
-        <div className="filters-phone-headers">
-          <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры<UndoOutlined /></Button>
-          <CloseOutlined onClick={closeClickHandler}/>
-        </div>
+          <div className="filters-phone-headers">
+            {/*<Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры<UndoOutlined /></Button>*/}
+            <img src={leftArrow} onClick={closeClickHandler} alt='backButton'/>
+            {/*<CloseOutlined onClick={closeClickHandler}/>*/}
+          </div>
       )}
 
+      <div className={styles.filtersTitle}>фильтры</div>
       <div className="params-wrapper">
         <div className="params-item-wrapper">
           <div className="param-title">
