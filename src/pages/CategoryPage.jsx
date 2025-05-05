@@ -24,6 +24,7 @@ import HeroSection from "../components/HeroSection/HeroSection";
 import styles from "./CategoryPage.module.scss";
 import CatalogControls from "../components/HeroSection/CatalogControls/CatalogControls";
 import leftArrow from "../assets/svg/v2/left-arrow.svg";
+import searchSvg from '../assets/svg/v2/search.svg';
 import {LeftOutlined} from "@ant-design/icons";
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
@@ -537,8 +538,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
           <div className={styles.contentBlockHeader}>
             <img src={leftArrow} onClick={onGoBackClick} alt='backButton' />
-              одежда {selectedCategory}
-            <div style={{width: '19px'}}/>
+            <span>одежда {selectedCategory}</span>
+            <img src={searchSvg} style={{height:'22px'}} onClick={onGoBackClick} alt='backButton'/>
           </div>
         }
 
