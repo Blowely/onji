@@ -23,6 +23,8 @@ import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeroSection from "../components/HeroSection/HeroSection";
 import styles from "./CategoryPage.module.scss";
 import CatalogControls from "../components/HeroSection/CatalogControls/CatalogControls";
+import leftArrow from "../assets/svg/v2/left-arrow.svg";
+import {LeftOutlined} from "@ant-design/icons";
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -531,6 +533,15 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             </Modal>
         )}
         <HeroSection/>
+
+        {!isDesktopScreen &&
+          <div className={styles.contentBlockHeader}>
+            <img src={leftArrow} onClick={onGoBackClick} alt='backButton' />
+              одежда {selectedCategory}
+            <div style={{width: '19px'}}/>
+          </div>
+        }
+
         <div className={styles.categoryTableWrapper}>
           <CatalogControls/>
         </div>

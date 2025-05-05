@@ -6,6 +6,8 @@ import catalogSvg from '../../../assets/svg/v2/catalog.svg';
 import styles from './CatalogControls.module.scss';
 
 const CatalogControls = () => {
+    const isDesktop = window?.innerWidth > 768;
+
     return (
         <div className={styles.catalogControlsWrapper}>
             <div className={styles.catalogControlsBlock}>
@@ -30,19 +32,22 @@ const CatalogControls = () => {
                     />
                 </span>
             </div>
-            <div className={styles.catalogControlsBlock}>
-                <span className={styles.catalogControlItem}>
-                    вид каталога
-                    <img
-                        src={catalogGreySvg}
-                        alt=""
-                    />
-                    <img
-                        src={catalogSvg}
-                        alt=""
-                    />
-                </span>
-            </div>
+            {isDesktop &&
+                <div className={styles.catalogControlsBlock}>
+                    <span className={styles.catalogControlItem}>
+                        вид каталога
+                        <img
+                            src={catalogGreySvg}
+                            alt=""
+                        />
+                        <img
+                            src={catalogSvg}
+                            alt=""
+                        />
+                    </span>
+                </div>
+            }
+
         </div>
     );
 };

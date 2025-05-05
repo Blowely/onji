@@ -8,7 +8,6 @@ import cartSvg from '../../assets/svg/v2/cart.svg';
 import {useNavigate, useSearchParams} from "react-router-dom";
 import CategoryTable from "../CategoryTable/CategoryTable";
 import ImageSlider from "./ImageSlider/ImageSlider";
-import CatalogControls from "./CatalogControls/CatalogControls";
 
 const HeroSection = () => {
     const navigate = useNavigate();

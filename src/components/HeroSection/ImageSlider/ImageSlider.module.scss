@@ -32,4 +32,9 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    padding-bottom: 30px;
+  }
 }

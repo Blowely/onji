@@ -33,6 +33,8 @@ const ImageSlider = ({ onSlideChange, selectedCategory }) => {
         return () => clearInterval(interval); // Очистка интервала при размонтировании
     }, []);
 
+    const isDesktop = window?.innerWidth > 768;
+
     return (
         <div className="beeon-slider">
             {!selectedCategory
@@ -56,7 +58,7 @@ const ImageSlider = ({ onSlideChange, selectedCategory }) => {
                 </Carousel>
                 : <div className="slide slide3">
                     <div className={styles.itemsWrapper}>
-                        <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>
+                        {isDesktop && <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
                         <div className={styles.title}>Повседневная одежда</div>
                     </div>
                 </div>
