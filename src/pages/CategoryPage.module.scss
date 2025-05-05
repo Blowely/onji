@@ -71,6 +71,7 @@
   background-color: white;
   z-index: 10;
   overflow: auto;
+  padding: 11px 20px;
 
   > .filtersComponentWrapper {
     padding-bottom: 200px;
@@ -80,7 +81,7 @@
 .filtersPhoneApplyBtn {
   position: fixed;
   width: 100%;
-  padding: 20px;
+  padding: 0 40px 20px 0;
   bottom: 0;
 }
 

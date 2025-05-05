@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-
-import "./Filters.scss";
-import {Button, Divider, Input} from "antd";
-import {UndoOutlined} from "@ant-design/icons";
+import { Collapse, Button, Divider, Input } from "antd";
+import { UndoOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import ColorSelector from "../ColorSelector/ColorSelector";
-import {APPAREL_SIZES, SIZES} from "../../pages/constants";
+import { APPAREL_SIZES, SIZES } from "../../pages/constants";
 import leftArrow from "../../assets/svg/v2/left-arrow.svg";
 import styles from "./Filters.module.scss";
+import { ReactComponent as PlusIcon } from '../../assets/svg/v2/plus-bold.svg';
+
+const { Panel } = Collapse;
 
 function Filters(props) {
   const {
@@ -138,6 +139,84 @@ function Filters(props) {
     return !isSelectedCategory;
   }
 
+  const [activeKeys, setActiveKeys] = useState([]);
+
+  const handlePanelChange = (keys) => {
+    setActiveKeys(keys);
+  };
+
+  const collapseItems = [
+    {
+      key: '1',
+      label: 'Цена, RUB',
+      content: (
+          <div className="inputs-wrapper">
+            <Input size="large" placeholder="3020" prefix="от" suffix="₽"
+                   value={getPrice(minPrice || minPriceParam)} onChange={minPriceHandler}/>
+            <Input size="large" placeholder="520433" prefix="до" suffix="₽"
+                   value={getPrice(maxPrice || maxPriceParam)} onChange={maxPriceHandler}/>
+          </div>
+      )
+    },
+    {
+      key: '2',
+      label: `Размеры${isFootwear() ? ", EU" : (isSelectedCategory ? '' : ', EU')}`,
+      content: (
+          <div className="list">
+            {isFootwear() && SIZES?.map((el, i) => (
+                <div
+                    className={
+                      sizes?.includes(el)
+                          ? "size-wrapper gap-2 selected"
+                          : "size-wrapper gap-2"
+                    }
+                    onClick={() => onChangeChoiceHandler(el)}
+                    key={i}
+                    role="presentation"
+                >
+                  <div
+                      style={{
+                        fontSize: "15px",
+                        fontWeight: "400",
+                        textAlign: "center",
+                      }}
+                  >
+                    {el}
+                  </div>
+                </div>
+            ))}
+            {!isFootwear() && APPAREL_SIZES?.map((el, i) => (
+                <div
+                    className={
+                      sizes?.includes(el)
+                          ? "size-wrapper gap-2 selected"
+                          : "size-wrapper gap-2"
+                    }
+                    onClick={() => onChangeChoiceHandler(el)}
+                    key={i}
+                    role="presentation"
+                >
+                  <div
+                      style={{
+                        fontSize: "15px",
+                        fontWeight: "400",
+                        textAlign: "center",
+                      }}
+                  >
+                    {el}
+                  </div>
+                </div>
+            ))}
+          </div>
+      )
+    },
+    {
+      key: '3',
+      label: 'Цвет',
+      content: <ColorSelector colors={colors} setColors={setColors} />
+    }
+  ];
+
   return (
     <div className="filters-component-wrapper">
       {!isDesktopScreen && (
@@ -149,7 +228,28 @@ function Filters(props) {
       )}
 
       <div className={styles.filtersTitle}>фильтры</div>
-      <div className="params-wrapper">
+
+      <Collapse
+          accordion
+          expandIconPosition="end"
+          className={styles.collapse}
+          activeKey={activeKeys}
+          onChange={handlePanelChange}
+          expandIcon={({isActive}) =>
+              isActive ? <PlusIcon className={styles.closeIcon}/> : <PlusIcon className={styles.icon}/>
+          }
+      >
+        {collapseItems.map(item => (
+            <Panel
+                header={item.label}
+                key={item.key}
+                className={activeKeys.includes(item.key) ? "panel-active" : ""}
+            >
+              {item.content}
+            </Panel>
+        ))}
+      </Collapse>
+      {/*<div className="params-wrapper">
         <div className="params-item-wrapper">
           <div className="param-title">
             Цена, RUB
@@ -223,14 +323,14 @@ function Filters(props) {
             <ColorSelector colors={colors} setColors={setColors} />
           </div>
         </div>
-        {/*<div className="params-item-wrapper">
+        <div className="params-item-wrapper">
           <div className="param-title">
             Бренды
           </div>
 
           <ImgList data={brands?.items} setLoading={setLoading}
                    setOffset={setOffset} setSelectedBrands={setSelectedBrands}/>
-        </div>*/}
+        </div>
         {isDesktopScreen &&
             <>
               <div className="filters-apply-btn">
@@ -271,7 +371,7 @@ function Filters(props) {
             </>
 
         }
-      </div>
+      </div>*/}
     </div>
   );
 }
