@@ -175,7 +175,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     const productIndex = prevFavorites.findIndex((el) => el?.spuId === product?.spuId);
 
     if (productIndex >= 0) {
-      icon.style.fill = '#a2a2a2';
+      icon.style.fill = '#A8BBA2';
     }
 
     if (!prevUpdatedAtRef.current) {
@@ -299,14 +299,14 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
     const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const isFavorite = icon.style.fill === 'rgb(162, 162, 162)';
+    const isFavorite = icon.style.fill === 'rgb(168, 187, 162)';
 
     if (isFavorite) {
       const updatedFavorites = prevFavorites.filter((el) => el?.spuId !== product?.spuId);
       icon.style.fill = "none";
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     } else {
-      icon.style.fill = '#a2a2a2';
+      icon.style.fill = '#A8BBA2';
       localStorage.setItem("favorites", JSON.stringify([...prevFavorites, product]));
     }
   };

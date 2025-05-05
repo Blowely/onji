@@ -57,7 +57,8 @@ function Card({
 
         const productIndex = prevFavorites.findIndex((el) => el?.spuId === item?.spuId);
         if (productIndex >= 0) {
-          icon.style.fill = '#a2a2a2';
+          icon.style.fill = '#A8BBA2';
+          icon.style.stroke = '#A8BBA2';
         }
       }
     }
@@ -72,14 +73,16 @@ function Card({
 
     const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const isFavorite = icon.style.fill === 'rgb(162, 162, 162)';
+    const isFavorite = icon.style.fill === 'rgb(168, 187, 162)';
 
     if (isFavorite) {
       const updatedFavorites = prevFavorites.filter((el) => el?.spuId !== item.spuId);
       icon.style.fill = "none";
+      icon.style.stroke = "#a2a2a2";
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     } else {
-      icon.style.fill = '#a2a2a2';
+      icon.style.fill = '#A8BBA2';
+      icon.style.stroke = '#A8BBA2';
       localStorage.setItem("favorites", JSON.stringify([...prevFavorites, item]));
     }
   };
