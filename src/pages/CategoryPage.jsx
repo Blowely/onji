@@ -27,6 +27,7 @@ import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelec
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeroSection from "../components/HeroSection/HeroSection";
 import styles from "./CategoryPage.module.scss";
+import CatalogControls from "../components/HeroSection/CatalogControls/CatalogControls";
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -534,7 +535,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
               </div>
             </Modal>
         )}
-        <HeroSection />
+        <HeroSection/>
+        <div className={styles.categoryTableWrapper}>
+          <CatalogControls/>
+        </div>
 
         <div className={styles.productsWrapper}>
           <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>

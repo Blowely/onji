@@ -148,18 +148,6 @@ const HeroSection = () => {
                 </div>
             }
             <ImageSlider onSlideChange={handleSlideChange} selectedCategory={selectedCategory}/>
-            {/*<div
-                className={styles.categoryTableWrapper}
-                style={{
-                    opacity: isScrolledToTop ? '1' : '0',
-                    transition: 'all 0.3s ease',
-                    marginTop: isScrolledToTop && '59px',
-                    borderBottom: `1px solid ${borderColor}`,
-                }}
-            >
-                <CatalogControls />
-            </div>*/}
-
             <div
                 className={styles.categoryTableWrapper}
                 style={{

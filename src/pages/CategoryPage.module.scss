@@ -7,3 +7,14 @@
     margin-top: 70px;
   }
 }
+
+.categoryTableWrapper {
+  position: sticky;
+  top: 59px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: white;
+  z-index: 3;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
