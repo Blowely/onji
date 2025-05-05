@@ -5,12 +5,7 @@ import React, {
   useState
 } from "react";
 import Card from "../components/Card";
-import AdidasIcon from "../assets/svg/brands/adidas-icon";
-import NikeIcon from "../assets/svg/brands/nike-icon";
-import JordanIcon from "../assets/svg/brands/jordan-icon";
-import MoreIcon from "../assets/svg/brands/more-icon";
-import {Button, Empty, Layout, Modal, Select} from "antd";
-import Header from "../components/Header/Header";
+import {Button, Empty, Layout, Modal} from "antd";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -20,7 +15,7 @@ import {addProducts} from "../common/productsSlice";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
 import Product from "./Product";
-import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
+import {COLOR_LIST} from "./constants";
 import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelector";
