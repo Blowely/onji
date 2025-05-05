@@ -2,10 +2,14 @@
   position: relative;
   width: 100%;
   flex-shrink: 0;
-  aspect-ratio: 1920/979;
+  aspect-ratio: 1920/579;
   //background: url('../../assets/hero-section.png') no-repeat center center;
   background-size: cover;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 1920/979;
+  }
 }
 
 .navbar {

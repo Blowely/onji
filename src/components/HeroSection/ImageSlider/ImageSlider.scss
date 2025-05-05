@@ -15,7 +15,7 @@
   .slide {
     width: 100%;
     flex-shrink: 0;
-    aspect-ratio: 1920/979;
+    aspect-ratio: 1920/579;
     background-size: cover;
     overflow: hidden;
     background-position: center;
@@ -24,6 +24,9 @@
     justify-content: center;
     text-align: center;
 
+    @media (max-width: 768px) {
+      aspect-ratio: 1920/979;
+    }
 
     &-content {
       padding: 20px;
