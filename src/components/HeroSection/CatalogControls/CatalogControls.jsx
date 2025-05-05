@@ -5,13 +5,13 @@ import catalogGreySvg from '../../../assets/svg/v2/catalog-grey.svg';
 import catalogSvg from '../../../assets/svg/v2/catalog.svg';
 import styles from './CatalogControls.module.scss';
 
-const CatalogControls = () => {
+const CatalogControls = ({setShowFilters}) => {
     const isDesktop = window?.innerWidth > 768;
 
     return (
         <div className={styles.catalogControlsWrapper}>
             <div className={styles.catalogControlsBlock}>
-                <span className={styles.catalogControlItem}>
+                <span className={styles.catalogControlItem} onClick={() => setShowFilters(true)}>
                     <img
                         src={filtersSvg}
                         style={{

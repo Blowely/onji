@@ -25,7 +25,7 @@ import styles from "./CategoryPage.module.scss";
 import CatalogControls from "../components/HeroSection/CatalogControls/CatalogControls";
 import leftArrow from "../assets/svg/v2/left-arrow.svg";
 import searchSvg from '../assets/svg/v2/search.svg';
-import {LeftOutlined} from "@ant-design/icons";
+import Filters from "../components/Filters";
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -55,7 +55,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
-
   const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
@@ -533,18 +532,50 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
               </div>
             </Modal>
         )}
-        <HeroSection/>
-
-        {!isDesktopScreen &&
-          <div className={styles.contentBlockHeader}>
-            <img src={leftArrow} onClick={onGoBackClick} alt='backButton' />
-            <span>одежда {selectedCategory}</span>
-            <img src={searchSvg} style={{height:'22px'}} onClick={onGoBackClick} alt='backButton'/>
+        {showFilters &&
+          <div className={styles.filtersPhoneWrapper} ref={filtersRef}>
+              <Filters
+                  setShowFilters={setShowFilters}
+                  sizes={sizes}
+                  colors={colors}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  selectedBrands={selectedBrands}
+                  setSelectedBrands={setSelectedBrands}
+                  setSizes={setSizes}
+                  setMinPrice={onMinPriceChange}
+                  setMaxPrice={onMaxPriceChange}
+                  setLoading={setLoading}
+                  setOffset={setOffset}
+                  setColors={setColors}
+              />
+              {!isDesktopScreen &&
+                  <div className={styles.filtersPhoneApplyBtn}>
+                    <Button
+                        type="primary"
+                        className={"btn"}
+                        onClick={applyFilters}
+                    >
+                      <span>Применить</span>
+                    </Button>
+                  </div>
+              }
           </div>
         }
 
+
+        <HeroSection/>
+
+        {!isDesktopScreen &&
+            <div className={styles.contentBlockHeader}>
+              <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
+              <span>одежда {selectedCategory}</span>
+              <img src={searchSvg} style={{height: '22px'}} onClick={onGoBackClick} alt='backButton'/>
+            </div>
+        }
+
         <div className={styles.categoryTableWrapper}>
-          <CatalogControls/>
+          <CatalogControls setShowFilters={setShowFilters}/>
         </div>
 
         <div className={styles.productsWrapper}>
