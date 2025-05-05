@@ -12,6 +12,12 @@
     background: url('https://storage.yandexcloud.net/pc-mediafiles/test1/banners/banner2.webp') no-repeat center center;
   }
 
+  .slide3 {
+    background: url('https://storage.yandexcloud.net/pc-mediafiles/test1/banners/category-banner.webp') no-repeat center center;
+    aspect-ratio: 1920/419!important;
+    color: white;
+  }
+
   .slide {
     width: 100%;
     flex-shrink: 0;
@@ -24,8 +30,15 @@
     justify-content: center;
     text-align: center;
 
+    &.slide3 {
+      aspect-ratio: 1920/419 !important;
+    }
+
     @media (max-width: 768px) {
       aspect-ratio: 1920/979;
+      &.slide3 {
+        aspect-ratio: 1920/419 !important;
+      }
     }
 
     &-content {

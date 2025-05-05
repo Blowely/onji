@@ -5,16 +5,22 @@ import searchSvg from '../../assets/svg/v2/search.svg';
 import favSvg from '../../assets/svg/v2/fav.svg';
 import profileSvg from '../../assets/svg/v2/profile.svg';
 import cartSvg from '../../assets/svg/v2/cart.svg';
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import CategoryTable from "../CategoryTable/CategoryTable";
 import ImageSlider from "./ImageSlider/ImageSlider";
 import CatalogControls from "./CatalogControls/CatalogControls";
 
 const HeroSection = () => {
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const category1Id = searchParams.get("category1Id");
+    const category2Id = searchParams.get("category2Id");
+    const category3Id = searchParams.get("category3Id");
+    const selectedCategory = category1Id || category2Id || category3Id;
+
     const gender = localStorage.getItem("gender") || "men";
     const [showCategories, setShowCategories] = useState(false);
-    const [navTextColor, setNavTextColor] = useState('#000000');
+    const [navTextColor, setNavTextColor] = useState(selectedCategory ? '#fff' : '#000000');
     const [isScrolled, setIsScrolled] = useState(false); // Новое состояние для скролла
     const [isScrolledToTop, setIsScrolledToTop] = useState(false); // Новое состояние для скролла
     const scrolledValRef = useRef(null);
@@ -53,7 +59,7 @@ const HeroSection = () => {
 
     // Определяем окончательный цвет текста и фона
     const getFinalStyles = () => {
-        const background = showCategories || isScrolled ? 'white' : 'transparent';
+        const background =  showCategories || isScrolled ? 'white' : 'transparent';
         const textColor = showCategories || isScrolled ? '#000000' : navTextColor;
         const borderColor = showCategories || navTextColor === "#000000" || isScrolled
             ? 'rgba(0, 0, 0, 0.2)'
@@ -141,7 +147,7 @@ const HeroSection = () => {
                     </div>
                 </div>
             }
-            <ImageSlider onSlideChange={handleSlideChange}/>
+            <ImageSlider onSlideChange={handleSlideChange} selectedCategory={selectedCategory}/>
             {/*<div
                 className={styles.categoryTableWrapper}
                 style={{

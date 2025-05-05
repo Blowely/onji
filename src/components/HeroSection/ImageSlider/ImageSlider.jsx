@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Carousel } from 'antd';
+import styles from './ImageSlider.module.scss';
 import './ImageSlider.scss';
 
-const ImageSlider = ({ onSlideChange }) => {
+
+const ImageSlider = ({ onSlideChange, selectedCategory }) => {
     const carouselRef = useRef(null);
     const slides = [
         {
@@ -33,24 +35,33 @@ const ImageSlider = ({ onSlideChange }) => {
 
     return (
         <div className="beeon-slider">
-            <Carousel
-                ref={carouselRef}
-                autoplay={false} // Отключаем встроенный autoplay
-                beforeChange={onSlideChange}
-                adaptiveHeight={true}
-                infinite={true}
-                effect="scrollx"
-                dotPosition="bottom"
-                draggable
-            >
-                {slides.map((slide) => (
-                    <div
-                        key={slide.id}
-                        className={`slide ${slide.slide}`}
-                    >
+            {!selectedCategory
+                ? <Carousel
+                    ref={carouselRef}
+                    autoplay={false} // Отключаем встроенный autoplay
+                    beforeChange={onSlideChange}
+                    adaptiveHeight={true}
+                    infinite={true}
+                    effect="scrollx"
+                    dotPosition="bottom"
+                    draggable
+                >
+                    {slides.map((slide) => (
+                        <div
+                            key={slide.id}
+                            className={`slide ${slide.slide}`}
+                        >
+                        </div>
+                    ))}
+                </Carousel>
+                : <div className="slide slide3">
+                    <div className={styles.itemsWrapper}>
+                        <div className={styles.breadcrumbs}>Повседневная одежда</div>
+                        <div className={styles.title}>Повседневная одежда</div>
                     </div>
-                ))}
-            </Carousel>
+                </div>
+            }
+
         </div>
     );
 };

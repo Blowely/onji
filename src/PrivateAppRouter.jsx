@@ -16,6 +16,7 @@ import Trace from "./pages/Trace";
 import CategoriesTree from "./components/CategoriesTree/CategoriesTree";
 import SBPayment from "./pages/SBPayment/SBPayment";
 import HomeV2 from "./pages/HomeV2";
+import CategoryPage from "./pages/CategoryPage";
 
 export function PrivateAppRouter({
   searchValue,
@@ -34,6 +35,21 @@ export function PrivateAppRouter({
   const gender =  gendersList.includes(genderParam) ? genderParam : localStorage.getItem("gender") || "men";
   localStorage.setItem("gender", gender);
 
+  function MenProductsWrapper(props) {
+    const [searchParams] = useSearchParams();
+    const category1Id = searchParams.get("category1Id");
+    const category2Id = searchParams.get("category2Id");
+    const category3Id = searchParams.get("category3Id");
+
+    const selectedCategory = category1Id || category2Id || category3Id;
+
+    return selectedCategory ? (
+        <CategoryPage categoryId={selectedCategory} />
+    ) : (
+        <HomeV2 {...props} />
+    );
+  }
+
   return (
     <Suspense fallback={<AppLoading />}>
       <Routes>
@@ -42,7 +58,7 @@ export function PrivateAppRouter({
         <Route
           path={`/men-products`}
           element={
-            <HomeV2
+            <MenProductsWrapper
               cartItems={cartItems}
               searchValue={searchValue}
               setSearchValue={setSearchValue}

@@ -1,0 +1,35 @@
+.itemsWrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1440px;
+  align-items: end;
+  height: 100%;
+  position: relative; /* Добавляем для позиционирования */
+}
+
+.breadcrumbs {
+  color: #FFF;
+  font-family: 'Graphik-Medium', system-ui;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  position: absolute;
+  left: 0;
+  bottom: 40px;
+  text-align: left;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.title {
+  color: #FFF;
+  font-family: 'Graphik-Medium', system-ui;
+  font-size: 45px;
+  font-weight: 500;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 40px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
