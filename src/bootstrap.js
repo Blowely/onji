@@ -10,6 +10,7 @@ import moment from "moment";
 import Root from "./Root";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorkerRegistration.ts";
+import "./index.scss"
 
 moment.locale("ru");
 export const ErrorFallback = ({ error, resetErrorBoundary }) => {
@@ -27,20 +28,22 @@ export const API_URL = "https://api.re-poizon.ru/api";
 
 const Index = () => {
   return (
-      <Provider store={store}>
-          <ConfigProvider
-              locale={ru_RU}
-              getPopupContainer={(triggerNode) =>
-                  triggerNode?.parentNode || document.body
-              }
-          >
-              <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
-                  <Router>
-                      <Root />
-                  </Router>
-              </ErrorBoundary>
-          </ConfigProvider>
-      </Provider>
+      <div className="webview-container">
+          <Provider store={store}>
+              <ConfigProvider
+                  locale={ru_RU}
+                  getPopupContainer={(triggerNode) =>
+                      triggerNode?.parentNode || document.body
+                  }
+              >
+                  <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
+                      <Router>
+                          <Root />
+                      </Router>
+                  </ErrorBoundary>
+              </ConfigProvider>
+          </Provider>
+      </div>
   );
 };
 
