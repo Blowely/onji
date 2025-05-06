@@ -568,7 +568,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                         className={"btn"}
                         onClick={applyFilters}
                     >
-                      <span>Применить</span>
+                      <span>применить</span>
                     </Button>
                   </div>
               }
