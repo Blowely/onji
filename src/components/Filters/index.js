@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Collapse, Button, Divider, Input } from "antd";
-import { UndoOutlined } from "@ant-design/icons";
+import { Collapse, Input } from "antd";
 import { useSearchParams } from "react-router-dom";
 import ColorSelector from "../ColorSelector/ColorSelector";
 import { APPAREL_SIZES, SIZES } from "../../pages/constants";
 import leftArrow from "../../assets/svg/v2/left-arrow.svg";
 import styles from "./Filters.module.scss";
-import { ReactComponent as PlusIcon } from '../../assets/svg/v2/plus-bold.svg';
 import { ReactComponent as PlusSmallIcon } from '../../assets/svg/v2/plus-small.svg';
 
 const { Panel } = Collapse;
@@ -24,7 +22,6 @@ function Filters(props) {
     setMinPrice,
     setSizes,
     setColors,
-    applyFilters,
     setOffset,
     setSelectedBrands
   } = props
