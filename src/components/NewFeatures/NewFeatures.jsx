@@ -1,23 +1,11 @@
 import { Col, Row } from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./NewFeaturesStyles.module.scss";
 import { ArrowLeftIcon } from "../../assets/svg/v2/ArrowLeftIcon";
 import { ArrowRightIcon } from "../../assets/svg/v2/ArrowRightIcon";
 
-import p1 from "../../assets/newFeatures/p1.png";
-import p2 from "../../assets/newFeatures/p2.png";
-import p3 from "../../assets/newFeatures/p3.png";
-import p4 from "../../assets/newFeatures/p4.png";
-import p5 from "../../assets/newFeatures/p5.png";
-import p6 from "../../assets/newFeatures/p6.png";
-import p7 from "../../assets/newFeatures/p7.png";
-import p8 from "../../assets/newFeatures/p8.png";
-import p10 from "../../assets/newFeatures/p10.png";
-import p11 from "../../assets/newFeatures/p11.png";
-import p12 from "../../assets/newFeatures/p12.png";
-import p13 from "../../assets/newFeatures/p13.png";
 import {PRODUCTS_IMG} from "../constants";
 
 const remoteItems = [

@@ -1,13 +1,6 @@
 import React, { useMemo } from "react";
-import { Button } from "antd";
 import styles from "./CatalogBtnBlock.module.scss";
 
-// Импорты картинок
-import p1 from "../../assets/newFeatures/p1.png";
-import p2 from "../../assets/newFeatures/p2.png";
-import p3 from "../../assets/newFeatures/p3.png";
-import p4 from "../../assets/newFeatures/p4.png";
-import p5 from "../../assets/newFeatures/p5.png";
 import {PRODUCTS_IMG} from "../constants";
 
 const images = [PRODUCTS_IMG.p1, PRODUCTS_IMG.p2, PRODUCTS_IMG.p3, PRODUCTS_IMG.p4, PRODUCTS_IMG.p5];
