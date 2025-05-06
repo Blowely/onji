@@ -1,6 +1,7 @@
 // ColorSelector.scss
 .product-color-selector {
   width: 100%;
+  padding: 10px 16px;
 
   @media (max-width: 768px) {
     overflow: auto;

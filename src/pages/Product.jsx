@@ -607,7 +607,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                   }
 
                   {!isDesktopScreen &&
-                      <div style={{display: 'grid', gap: '10px'}}>
+                      <div style={{display: 'grid'}}>
                         {productVariations?.length > 1  &&
                           <ProductColorSelectorV2
                             variants={productVariations}
