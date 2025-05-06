@@ -5,17 +5,17 @@
 }
 
 .ant-input-outlined:focus-within {
-  border-color: rgb(1, 194, 195)!important;
+  border-color: black!important;
 }
 .ant-input-outlined:focus {
-  border-color: rgb(1, 194, 195) !important;
+  border-color: black !important;
 }
 .ant-input-outlined:active  {
-  border-color: rgb(1, 194, 195)!important;
+  border-color: black!important;
 }
 
 .ant-input-outlined:hover {
-  border-color: rgb(1, 194, 195)!important;
+  border-color: black!important;
 }
 
 .ant-input {
@@ -24,17 +24,17 @@
 
 
 .ant-input:focus-within {
-  border-color: rgb(1, 194, 195)!important;
+  border-color: black!important;
 }
 .ant-input:focus {
-  border-color: rgb(1, 194, 195) !important;
+  border-color: black !important;
 }
 .ant-input:active  {
-  border-color: rgb(1, 194, 195)!important;
+  border-color: black!important;
 }
 
 .ant-input:hover {
-  border-color: rgb(1, 194, 195)!important;
+  border-color: black!important;
 }
 
 .ant-tag {
@@ -55,27 +55,27 @@
 }
 
 .ant-btn-primary {
-  background-color: rgb(1, 194, 195);
+  background-color: black;
   &:not(:disabled):hover {
-    background-color: rgb(1, 194, 195);
+    background-color: black;
   }
 }
 
 :where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
-  border-color: rgb(1, 194, 195);
+  border-color: black;
 }
 
 :where(.css-dev-only-do-not-override-15rg2km).ant-input:hover {
-  border-color: rgb(1, 194, 195);
+  border-color: black;
 }
 
 :where(.css-dev-only-do-not-override-15rg2km).ant-carousel .slick-dots li.slick-active button {
-  background: #a1dfe1;
+  background: black;
 }
 
 :where(.css-dev-only-do-not-override-15rg2km).ant-btn-default:not(:disabled):hover {
-  color: rgb(1, 194, 195);
-  border-color: rgb(1, 194, 195);
+  color: black;
+  border-color: black;
 }
 
 :where(.css-dev-only-do-not-override-15rg2km) a:hover {
@@ -91,20 +91,20 @@
 .swiper-pagination-bullet-active {
   width: 6px!important;
   height: 6px!important;
-  background: rgb(1, 194, 195) !important;
+  background: black !important;
 }
 
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: rgb(1, 194, 195);
-  text-shadow: 0 0 0.25px rgb(1, 194, 195);
+  color: black;
+  text-shadow: 0 0 0.25px black;
 }
 
 .ant-tabs .ant-tabs-ink-bar {
-  background: rgb(1, 194, 195);
+  background: black;
 }
 
 .ant-tabs .ant-tabs-tab:hover {
-  color: rgb(1, 194, 195);
+  color: black;
 }
 
 .ant-btn.ant-btn-sm {
@@ -128,8 +128,8 @@ footer {
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: rgb(1, 194, 195) !important; /* Новый цвет */
-  border-color: rgb(1, 194, 195) !important; /* Граница */
+  background-color: black !important; /* Новый цвет */
+  border-color: black !important; /* Граница */
 }
 
 .ant-input {
@@ -163,7 +163,7 @@ footer {
 }
 
 .ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-  color: rgb(1, 194, 195);
+  color: black;
 }
 
 .ant-drawer-title {
@@ -171,7 +171,7 @@ footer {
 }
 
 .ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner {
-  border-color: rgb(1, 194, 195) !important;
+  border-color: black !important;
 }
 
 .ant-select-dropdown {
@@ -187,12 +187,12 @@ footer {
 }
 
 .ant-result-info .ant-result-icon > .anticon {
-  color: rgb(1, 194, 195) !important;
+  color: black !important;
 }
 
 .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
-  border-color: rgb(1, 194, 195);
-  background-color: rgb(1, 194, 195);
+  border-color: black;
+  background-color: black;
 }
 
 .ant-menu-title-content:hover {

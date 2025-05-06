@@ -29,7 +29,7 @@
     transition: border 0.3s, box-shadow 0.3s;
 
     @media (max-width: 768px) {
-      border-radius: 10px;
+      border-radius: 0;
       background: white;
       border: 1px solid #f1f1f1;
       height: 60px;
@@ -40,7 +40,7 @@
     }
 
     &--selected {
-      border: 1px solid rgb(1, 194, 195);
+      border: 1px solid black
       //box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
     }
 

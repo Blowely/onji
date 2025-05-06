@@ -7,3 +7,40 @@
   line-height: 65px; /* 101.563% */
   text-transform: lowercase;
 }
+
+.collapse {
+  background: transparent;
+  border: none;
+
+  :global {
+
+    .ant-collapse-header {
+      font-family: 'Graphik-Medium', system-ui;
+      padding: 16px 0 !important;
+      font-size: 19px !important;
+      font-weight: 600 !important;
+      text-transform: lowercase !important;
+    }
+
+    .ant-collapse-content {
+      border-top: none !important;
+      background: transparent !important;
+      font-family: 'Graphik-Medium', system-ui;
+    }
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s;
+
+  path {
+    stroke: #000;
+  }
+}
+
+.closeIcon {
+  @extend .icon;
+  transform: rotate(45deg);
+}
