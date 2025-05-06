@@ -231,7 +231,7 @@ function Filters(props) {
 
       <Collapse
           accordion
-          expandIconPosition="end"
+          expandIconPosition="start"
           className={styles.collapse}
           activeKey={activeKeys}
           onChange={handlePanelChange}

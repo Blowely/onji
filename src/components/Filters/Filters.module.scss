@@ -20,6 +20,7 @@
       font-size: 19px !important;
       font-weight: 600 !important;
       text-transform: lowercase !important;
+      align-items: center!important;
     }
 
     .ant-collapse-content {
@@ -31,8 +32,8 @@
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   transition: transform 0.3s;
 
   path {
