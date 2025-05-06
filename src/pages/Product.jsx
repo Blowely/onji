@@ -25,7 +25,6 @@ import DeliverBlock from "../components/Delivery/DeliveryBlock";
 import InsuranceBlock from "../components/InsuranceBlock/InsuranceBlock";
 import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
-import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import CartButton from "../components/CartButton/CartButton";
 import PoizonVerifiedBlock from "../components/PoizonVerifiedBlock/PoizonVerifiedBlock";
 import ProductColorSelectorV2 from "../components/ProductColorSelectorV2/ProductColorSelectorV2";
