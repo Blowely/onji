@@ -45,3 +45,24 @@
   @extend .icon;
   transform: rotate(45deg);
 }
+
+.inputsWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+
+  > span {
+    border-radius: 0!important;
+  }
+
+  > .ant-select {
+    margin-right: 20px;
+
+    > div {
+      min-width: fit-content;
+      border: none !important;
+      //padding: 0 11px 0 0!important;
+      box-shadow: unset!important;
+    }
+  }
+}

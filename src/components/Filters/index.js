@@ -151,7 +151,7 @@ function Filters(props) {
       key: '1',
       label: 'Цена, RUB',
       content: (
-          <div className="inputs-wrapper">
+          <div className={styles.inputsWrapper}>
             <Input size="large" placeholder="3020" prefix="от" suffix="₽"
                    value={getPrice(minPrice || minPriceParam)} onChange={minPriceHandler}/>
             <Input size="large" placeholder="520433" prefix="до" suffix="₽"
