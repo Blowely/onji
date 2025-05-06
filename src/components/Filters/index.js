@@ -7,6 +7,7 @@ import { APPAREL_SIZES, SIZES } from "../../pages/constants";
 import leftArrow from "../../assets/svg/v2/left-arrow.svg";
 import styles from "./Filters.module.scss";
 import { ReactComponent as PlusIcon } from '../../assets/svg/v2/plus-bold.svg';
+import { ReactComponent as PlusSmallIcon } from '../../assets/svg/v2/plus-small.svg';
 
 const { Panel } = Collapse;
 
@@ -236,7 +237,7 @@ function Filters(props) {
           activeKey={activeKeys}
           onChange={handlePanelChange}
           expandIcon={({isActive}) =>
-              isActive ? <PlusIcon className={styles.closeIcon}/> : <PlusIcon className={styles.icon}/>
+              isActive ? <PlusSmallIcon className={styles.closeIcon}/> : <PlusSmallIcon className={styles.icon}/>
           }
       >
         {collapseItems.map(item => (
