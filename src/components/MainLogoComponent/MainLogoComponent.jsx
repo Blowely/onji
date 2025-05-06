@@ -77,59 +77,6 @@ const MainLogoComponent = ({setOffset, setLoading, style}) => {
                 </div>
             </div>
         </div>}
-            <div className="main-logo-wrapper" style={style}>
-            {isDesktopScreen
-                    ? <div onClick={() => navigate('/products')}
-                           style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
-                        <RePoizonMainBigLogo/></div>
-                    : <div onClick={() => navigate('/products')}
-                       style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
-                    <RePoizonMainMiddleLogo/></div>}
-            {isDesktopScreen ?
-                <div className="actions-btns" style={{width: "80%"}}>
-                    <GenderSwitcher setOffset={setOffset} setLoading={setLoading}/>
-                    <div className="items-wrapper">
-                        <div className="item"
-                             onClick={onProfileClick}
-                             onMouseOver={() => onMouseOver(setProfileIcon, val12)}
-                             onMouseLeave={() => onMouseLeave(setProfileIcon, val11)}
-                        >
-                            <img style={{height: '23px'}}
-                                 src={profileIcon}
-                                 alt=""/>
-                            Профиль
-                        </div>
-                        <div className="item"
-                             onClick={() => navigate("/favorites")}
-                             onMouseOver={() => onMouseOver(setFavIcon, val22)}
-                             onMouseLeave={() => onMouseLeave(setFavIcon, val21)}
-                        >
-                            <img style={{height: '23px'}}
-                                 src={favIcon}
-                                 alt=""/>
-                            Избранное
-                        </div>
-                        <div className="item"
-                             onClick={() => navigate("/cart")}
-                             onMouseOver={() => onMouseOver(setCartIcon, val32)}
-                             onMouseLeave={() => onMouseLeave(setCartIcon, val31)}
-                        >
-                            <img style={{height: '23px'}}
-                                 src={cartIcon}
-                                 alt=""/>
-                            Корзина
-                        </div>
-                    </div>
-
-                </div>
-                : <div className="actions-btns">
-                    {/*<MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/${gender}-categories/`)}/>
-                    <div onClick={() => navigate("/profile")}>
-                      <NonActiveProfileIcon/>
-                    </div>*/}
-                </div>
-            }
-        </div>
     </>
     )
 }
