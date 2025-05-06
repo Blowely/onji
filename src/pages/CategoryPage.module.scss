@@ -16,7 +16,7 @@
   font-size: 17px;
   font-weight: 500;
   line-height: 16px;
-  z-index: 1;
+  z-index: 2;
   opacity: 0; // Начальная прозрачность
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
   transform: translateY(-15px); // Начальное положение
@@ -39,25 +39,34 @@
 
 .categoryTableWrapper {
   position: sticky;
-  top: 59px;
+  top: 55px;              // обратите внимание: совпадает с высотой header
   width: 100%;
   display: flex;
   justify-content: center;
   background: white;
   z-index: 1;
 
+  transform: translateY(-100%);   // по умолчанию прячем вверх
+  transition: transform 0.2s ease;
+
   @media (max-width: 768px) {
-    top: 51px;
+    top: 0px;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: 16px;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: content-box;
   }
+}
 
-  @media (min-width: 768px) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  }
+.controlsVisible {
+  transform: translateY(calc(100% + 2px));
+}
+
+/* Когда скролл вниз или близко к верху — прячем */
+.controlsHidden {
+  transform: translateY(0%);
 }
 
 .filtersPhoneWrapper {

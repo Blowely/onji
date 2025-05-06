@@ -3,25 +3,25 @@
   "short_name": "re:Poizon",
   "icons": [
     {
-      "src": "/onjiFavicon.png",
+      "src": "/onji-favicon.jpeg",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/onjiFavicon.png",
+      "src": "/onji-favicon.jpeg",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/onjiFavicon.png",
+      "src": "/onji-favicon.jpeg",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/onjiFavicon.png",
+      "src": "/onji-favicon.jpeg",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

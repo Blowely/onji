@@ -27,6 +27,7 @@ import leftArrow from "../assets/svg/v2/left-arrow.svg";
 import searchSvg from '../assets/svg/v2/search.svg';
 import Filters from "../components/Filters";
 
+
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -57,6 +58,9 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [showControls, setShowControls] = useState(false);
+  const prevYRef = useRef(0);
+
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
@@ -72,6 +76,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [sort, setSort] = useState(sortBy || 'by-relevance');
 
   const filtersRef = useRef(null);
+  const headerRef = useRef(null);
 
   const gender = localStorage.getItem("gender") || "men";
 
@@ -226,8 +231,18 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     const handleScroll = () => {
+      const y = window.scrollY;
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
       setIsScrolled(show);
+
+      const slider = document.getElementsByClassName('beeon-slider');
+
+      if (y < prevYRef.current && y > slider[0]?.clientHeight) {
+         setShowControls(true);
+       } else {
+         setShowControls(false);
+       }
+          prevYRef.current = y;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -581,6 +596,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
                 style={{ opacity: isScrolled ? 1 : 0 }}
+                ref={headerRef}
             >
               <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
               <span>одежда {selectedCategory}</span>
@@ -588,7 +604,11 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             </div>
         )}
 
-        <div className={styles.categoryTableWrapper}>
+        <div className={`
+         ${styles.categoryTableWrapper}
+         ${showControls ? styles.controlsVisible : styles.controlsHidden}
+        `}
+        >
           <CatalogControls setShowFilters={setShowFilters}/>
         </div>
 
