@@ -222,6 +222,18 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     };
   }, []);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
+      setIsScrolled(show);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const renderItems = () => {
     let productsItems = productsSlice[trimCollectionValue] || []
 
@@ -563,16 +575,18 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
           </div>
         }
 
-
         <HeroSection/>
 
-        {!isDesktopScreen &&
-            <div className={styles.contentBlockHeader}>
+        {!isDesktopScreen && (
+            <div
+                className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
+                style={{ opacity: isScrolled ? 1 : 0 }}
+            >
               <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
               <span>одежда {selectedCategory}</span>
               <img src={searchSvg} style={{height: '22px'}} onClick={onGoBackClick} alt='backButton'/>
             </div>
-        }
+        )}
 
         <div className={styles.categoryTableWrapper}>
           <CatalogControls setShowFilters={setShowFilters}/>
