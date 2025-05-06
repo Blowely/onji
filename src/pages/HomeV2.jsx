@@ -5,12 +5,7 @@ import React, {
   useState
 } from "react";
 import Card from "../components/Card";
-import AdidasIcon from "../assets/svg/brands/adidas-icon";
-import NikeIcon from "../assets/svg/brands/nike-icon";
-import JordanIcon from "../assets/svg/brands/jordan-icon";
-import MoreIcon from "../assets/svg/brands/more-icon";
-import {Button, Empty, Layout, Modal, Select} from "antd";
-import Header from "../components/Header/Header";
+import {Button, Empty, Layout, Modal} from "antd";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -20,24 +15,14 @@ import {addProducts} from "../common/productsSlice";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
 import Product from "./Product";
-import Filters from "../components/Filters";
-import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
-import Categories from "../components/Categories/Categories";
-import FilterTags from "../components/Tag/Tag";
-import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
-import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
-import {LeftOutlined} from "@ant-design/icons";
+import {COLOR_LIST} from "./constants";
 import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
-import ConverseIcon from "../assets/svg/brands/converse-icon";
-import FilaIcon from "../assets/svg/brands/fila-icon";
 import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelector";
-import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeroSection from "../components/HeroSection/HeroSection";
 import Stories from "../components/Stories/Stories";
 import NewFeatures from "../components/NewFeatures/NewFeatures";
-import Brands from "../components/Brands/Brands";
 import BrandsV2 from "../components/BrandsV2/BrandsV2";
 import BestSellers from "../components/BestSellers/BestSellers";
 import CatalogBtnBlock from "../components/CatalogBtnBlock/CatalogBtnBlock";
@@ -47,7 +32,6 @@ import CatalogBtnBlockV2 from "../components/CatalogBtnBlockV2/CatalogBtnBlockV2
 import FaqBlock from "../components/FaqBlock/FaqBlock";
 import ReqProducts from "../components/ReqProduct/ReqProducts";
 import FooterV2 from "../components/FooterV2/FooterV2";
-import Footer from "../components/FooterV2/FooterV2";
 import MainProduct from "../components/MainProduct/MainProduct";
 
 function HomeV2({ onAddToFavorite, onAddToCart }) {
