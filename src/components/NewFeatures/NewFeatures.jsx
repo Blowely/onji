@@ -18,11 +18,12 @@ import p10 from "../../assets/newFeatures/p10.png";
 import p11 from "../../assets/newFeatures/p11.png";
 import p12 from "../../assets/newFeatures/p12.png";
 import p13 from "../../assets/newFeatures/p13.png";
+import {PRODUCTS_IMG} from "../constants";
 
 const remoteItems = [
     [
         {
-            img: p1,
+            img: PRODUCTS_IMG.p1,
             spuId: 5321945,
             title: 'NIKE P-6000',
             category: 'КРОССОВКИ',
@@ -30,7 +31,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p2,
+            img: PRODUCTS_IMG.p2,
             spuId: 4239122,
             title: 'NEW BALANCE 9060',
             category: 'КРОССОВКИ',
@@ -38,7 +39,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p3,
+            img: PRODUCTS_IMG.p3,
             spuId: 15370782,
             title: 'ADIDAS FW24 BASIC DOWN',
             category: 'ЗИМНЯЯ КУРТКА',
@@ -46,7 +47,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p4,
+            img: PRODUCTS_IMG.p4,
             spuId: 1388043,
             title: 'MICHAEL MICHAEL KORS',
             category: 'МУЖСКОЙ РЮКЗАК',
@@ -56,7 +57,7 @@ const remoteItems = [
     ],
     [
         {
-            img: p5,
+            img: PRODUCTS_IMG.p5,
             spuId: 21720097,
             title: 'ADIDAS INTIMIDATION LOW',
             category: 'КРОССОВКИ',
@@ -64,7 +65,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p6,
+            img: PRODUCTS_IMG.p6,
             spuId: 21748134,
             title: 'ASICS GEL-NYC',
             category: 'КРОССОВКИ',
@@ -72,7 +73,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p7,
+            img: PRODUCTS_IMG.p7,
             spuId: 1303659,
             title: 'NIKE AIR FORCE 1 LOW "SASHIKO"',
             category: 'КРОССОВКИ',
@@ -80,7 +81,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p8,
+            img: PRODUCTS_IMG.p8,
             spuId: 14019955,
             title: 'ADISTAR CUSHION Y2K',
             category: 'КРОССОВКИ',
@@ -90,7 +91,7 @@ const remoteItems = [
     ],
     [
         {
-            img: p10,
+            img: PRODUCTS_IMG.p10,
             spuId: 8178446,
             title: 'NIKE V2K RUN',
             category: 'КРОССОВКИ',
@@ -98,7 +99,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p11,
+            img: PRODUCTS_IMG.p11,
             spuId: 19345510,
             title: 'KITH x New Balance 991v2',
             category: 'КРОССОВКИ',
@@ -106,7 +107,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p12,
+            img: PRODUCTS_IMG.p12,
             spuId: 21450330,
             title: 'adidas x BSTN x FC Bayern',
             category: 'СПОРТИВНЫЕ КУРТКИ',
@@ -114,7 +115,7 @@ const remoteItems = [
             discountedPrice: ''
         },
         {
-            img: p13,
+            img: PRODUCTS_IMG.p13,
             spuId: 19133994,
             title: 'Nike Book 1 Air Zoom Spiridon',
             category: 'КРОССОВКИ',

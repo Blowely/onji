@@ -945,3 +945,20 @@ export const FILLED_CATEGORIES = [
         ]
     }
 ];
+
+
+export const PRODUCTS_IMG = {
+    p1: 'https://cdn.poizon.com/pro-img/origin-img/2025012410/78d5f4b7dfb6188a26611d0cf8f34024.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p2: 'https://cdn.poizon.com/pro-img/origin-img/20230419/f3e92afbe6e940f79b1f9a988d48b8c4.jpeg?x-oss-process=image/format,webp/resize,w_400',
+    p3: 'https://cdn.poizon.com/pro-img/origin-img/20240831/c3562eeab9784baab793686fcd133d2a.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p4: 'https://cdn.poizon.com/pro-img/origin-img/20240218/7200fdbb925444cda143a75f74d5514b.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p5: 'https://cdn.poizon.com/pro-img/origin-img/20250403/05159197c55d47fa964fec00c24a8de5.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p6: 'https://cdn.poizon.com/pro-img/origin-img/20250403/aff515981d134c3ea21b6b2c5c32638e.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p7: 'https://cdn.poizon.com/pro-img/origin-img/2025012319/863eed2462f81ee1709db20386ba05cc.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p8: 'https://cdn.poizon.com/pro-img/origin-img/2025012410/7d785e5d2bcc646d8310b838169bbe13.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p9: 'https://cdn.poizon.com/pro-img/origin-img/20240712/7cc0dfc3fd10435c8ec061590d36331d.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p10: 'https://cdn.poizon.com/pro-img/origin-img/20250324/af750000174445808246524936c5a5b1.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p11: 'https://cdn.poizon.com/pro-img/origin-img/20250326/4420afed1e214d0bb8f04deedac5df9c.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p12: 'https://cdn.poizon.com/pro-img/origin-img/2025030115/564d104103f3a5e785c4d07ddbe8a85c.jpg?x-oss-process=image/format,webp/resize,w_400',
+    p13: 'https://cdn.poizon.com/pro-img/origin-img/20230419/f3e92afbe6e940f79b1f9a988d48b8c4.jpeg?x-oss-process=image/format,webp/resize,w_400',
+}

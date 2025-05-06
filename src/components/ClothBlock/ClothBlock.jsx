@@ -6,6 +6,7 @@ import p3 from "../../assets/newFeatures/p3.png";
 import p4 from "../../assets/newFeatures/p4.png";
 import {useNavigate} from "react-router-dom";
 import RotatingImageCircle from "../RotatingImageCircle/RotatingImageCircle";
+import {PRODUCTS_IMG} from "../constants";
 
 const products = [
     {
@@ -24,7 +25,7 @@ const products = [
         name: 'ADIDAS FW24 BASIC DOWN',
         price: 'от 5999 ₽',
         spuId: 4239122,
-        image: p3,
+        image: PRODUCTS_IMG.p3,
     },
     {
         name: 'MICHAEL MICHAEL KORS',

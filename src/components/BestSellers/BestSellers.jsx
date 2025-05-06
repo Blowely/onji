@@ -7,6 +7,7 @@ import p4 from "../../assets/newFeatures/p4.png";
 import p6 from "../../assets/newFeatures/p6.png";
 import RotatingImageCircle from "../RotatingImageCircle/RotatingImageCircle";
 import {useNavigate} from "react-router-dom";
+import {PRODUCTS_IMG} from "../constants";
 
 const products = [
     {
@@ -14,35 +15,35 @@ const products = [
         price: 'от 5999 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
-        image: p1,
+        image: PRODUCTS_IMG.p1,
     },
     {
         name: 'NEW BALANCE 9060',
         price: 'от 5999 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
-        image: p2,
+        image: PRODUCTS_IMG.p2,
     },
     {
         name: 'ADIDAS FW24 BASIC DOWN',
         price: 'от 5999 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
-        image: p3,
+        image: PRODUCTS_IMG.p3,
     },
     {
         name: 'MICHAEL MICHAEL KORS',
         price: 'от 5999 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
-        image: p4,
+        image: PRODUCTS_IMG.p4,
     },
     {
         name: 'ASICS',
         price: 'от 5999 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
-        image: p6,
+        image: PRODUCTS_IMG.p6,
     },
 ];
 

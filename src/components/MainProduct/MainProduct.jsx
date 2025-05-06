@@ -1,7 +1,7 @@
 import styles from "./MainProduct.module.scss";
 import React from "react";
-import p1 from "../../assets/newFeatures/p1.png";
 import {useNavigate} from "react-router-dom";
+import {PRODUCTS_IMG} from "../constants";
 
 const MainProduct = () => {
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const MainProduct = () => {
         price: 'от 5999 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
-        image: p1,
+        image: PRODUCTS_IMG.p1,
     }
     
     return (

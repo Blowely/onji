@@ -9,6 +9,7 @@ import p5 from "../../assets/newFeatures/p5.png";
 import p6 from "../../assets/newFeatures/p6.png";
 import {useNavigate} from "react-router-dom";
 import RotatingImageCircle from "../RotatingImageCircle/RotatingImageCircle";
+import {PRODUCTS_IMG} from "../constants";
 
 const products = [
     {
@@ -37,10 +38,10 @@ const products = [
         price: 'от 5999 ₽',
         category: 'КРОССОВКИ',
         spuId: 4239122,
-        image: p6,
+        image: PRODUCTS_IMG.p6,
     },
     {
-        image: p1,
+        image: PRODUCTS_IMG.p1,
         spuId: 5321945,
         name: 'NIKE P-6000',
         category: 'КРОССОВКИ',
@@ -48,7 +49,7 @@ const products = [
         discountedPrice: ''
     },
     {
-        image: p2,
+        image: PRODUCTS_IMG.p2,
         spuId: 4239122,
         name: 'NEW BALANCE 9060',
         category: 'КРОССОВКИ',
@@ -56,7 +57,7 @@ const products = [
         discountedPrice: ''
     },
     {
-        image: p5,
+        image: PRODUCTS_IMG.p5,
         spuId: 21720097,
         name: 'ADIDAS INTIMIDATION LOW',
         category: 'КРОССОВКИ',

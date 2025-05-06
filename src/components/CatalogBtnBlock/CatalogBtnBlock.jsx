@@ -8,8 +8,9 @@ import p2 from "../../assets/newFeatures/p2.png";
 import p3 from "../../assets/newFeatures/p3.png";
 import p4 from "../../assets/newFeatures/p4.png";
 import p5 from "../../assets/newFeatures/p5.png";
+import {PRODUCTS_IMG} from "../constants";
 
-const images = [p1, p2, p3, p4, p5];
+const images = [PRODUCTS_IMG.p1, PRODUCTS_IMG.p2, PRODUCTS_IMG.p3, PRODUCTS_IMG.p4, PRODUCTS_IMG.p5];
 
 // Функция для перемешивания массива (алгоритм Фишера-Йетса)
 const shuffleArray = (array) => {
