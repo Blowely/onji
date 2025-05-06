@@ -476,7 +476,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       <Layout style={{
         backgroundColor: "white",
         position: "relative",
-        paddingBottom: !isDesktopScreen ? "200px" : 'unset'
+        paddingBottom: !isDesktopScreen ? "200px" : 'unset',
+        paddingTop: 'unset'
       }}>
         {spuId && <div className="productWrapper" id="productWrapper">
           <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
