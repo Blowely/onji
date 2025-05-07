@@ -146,7 +146,7 @@ const HeroSection = () => {
                     </div>
                 </div>
             }
-            {/*<ImageSlider onSlideChange={handleSlideChange} selectedCategory={selectedCategory}/>*/}
+            <ImageSlider onSlideChange={handleSlideChange} selectedCategory={selectedCategory}/>
             {isDesktopScreen &&
                 <div
                     className={styles.categoryTableWrapper}

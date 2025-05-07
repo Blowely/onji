@@ -552,9 +552,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {isDesktopScreen && <CatalogBtnBlock />}
         <ShoesBlock />
         {!isDesktopScreen && <MainProduct />}
-        {!isDesktopScreen && <div style={{marginTop: '150px'}}>
+        {/*{!isDesktopScreen && <div style={{marginTop: '150px'}}>
           <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
-        </div>}
+        </div>}*/}
 
         {isDesktopScreen && <CatalogBtnBlockV2 />}
         {isDesktopScreen && <ClothBlock />}
