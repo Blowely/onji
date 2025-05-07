@@ -237,7 +237,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
       const slider = document.getElementsByClassName('beeon-slider');
 
-      if (y < prevYRef.current && y > slider[0]?.clientHeight) {
+      if (y < prevYRef.current && y > slider[0]?.clientHeight && !isDesktopScreen) {
          setShowControls(true);
        } else {
          setShowControls(false);
