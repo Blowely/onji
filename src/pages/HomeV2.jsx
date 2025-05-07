@@ -34,6 +34,128 @@ import ReqProducts from "../components/ReqProduct/ReqProducts";
 import FooterV2 from "../components/FooterV2/FooterV2";
 import MainProduct from "../components/MainProduct/MainProduct";
 
+// Ваш renderItems остаётся без изменений
+const renderItems = (productsSlice, trimCollectionValue, products, isLoading, loading, onAddToFavorite, onAddToCart, onPointerDown, onPointerUp) => {
+  let productsItems = productsSlice[trimCollectionValue] || [];
+
+  productsItems = [...productsItems, ...[...Array(15)]];
+
+  if (productsSlice[trimCollectionValue]?.length && products?.items?.length < 20 && !isLoading && !loading) {
+    productsItems = productsSlice[trimCollectionValue];
+  }
+
+  if (!productsSlice[trimCollectionValue]?.length && !loading && !isLoading) {
+    return (
+        <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            imageStyle={{ height: 100, paddingTop: '20px', width: '100%' }}
+            description="Ничего не найдено"
+            className="empty"
+        />
+    );
+  }
+
+  return (
+      <div className="cards-section-wrapper">
+        {productsItems
+            .filter((product) => !product?.isDeleted)
+            .map((item, index) => {
+              const image = item?.images[0] || '';
+              const title = item?.name || '';
+              const price = item?.price || '';
+
+              return (
+                  <div key={`${item?.spuId}-${index}`} style={{ height: '100%' }}>
+                    <Card
+                        onFavorite={(obj) => onAddToFavorite(obj)}
+                        onPlus={(obj) => onAddToCart(obj)}
+                        loading={isLoading}
+                        image={image}
+                        price={price}
+                        item={item}
+                        name={title}
+                        index={index + 1}
+                        onPointerDown={onPointerDown}
+                        onPointerUp={onPointerUp}
+                        onTouchStart={onPointerDown}
+                        onTouchEnd={onPointerUp}
+                    />
+                  </div>
+              );
+            })}
+      </div>
+  );
+};
+
+// Новый компонент для ленивой подгрузки
+function LazyProducts({
+                        productsSlice,
+                        trimCollectionValue,
+                        products,
+                        isLoading,
+                        loading,
+                        onAddToFavorite,
+                        onAddToCart,
+                        onPointerDown,
+                        onPointerUp,
+                        isDesktopScreen
+                      }) {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!containerRef.current || isDesktopScreen) return;
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setShouldLoad(true);
+            observer.disconnect();
+          }
+        },
+        {
+          rootMargin: '200px 0px', // загружаем за 200px до появления
+        }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [isDesktopScreen]);
+
+  return (
+      <div ref={containerRef} style={{ marginTop: '150px' }}>
+        {isDesktopScreen ? (
+            renderItems(
+                productsSlice,
+                trimCollectionValue,
+                products,
+                isLoading,
+                loading,
+                onAddToFavorite,
+                onAddToCart,
+                onPointerDown,
+                onPointerUp
+            )
+        ) : shouldLoad ? (
+            <Suspense fallback={<div>Loading...</div>}>
+              {renderItems(
+                  productsSlice,
+                  trimCollectionValue,
+                  products,
+                  isLoading,
+                  loading,
+                  onAddToFavorite,
+                  onAddToCart,
+                  onPointerDown,
+                  onPointerUp
+              )}
+            </Suspense>
+        ) : (
+            // Зарезервированное пространство, чтобы не прыгал лэйаут
+            <div style={{ height: 600 }} />
+        )}
+      </div>
+  );
+}
+
 function HomeV2({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -552,9 +674,22 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {isDesktopScreen && <CatalogBtnBlock />}
         <ShoesBlock />
         {!isDesktopScreen && <MainProduct />}
-        {/*{!isDesktopScreen && <div style={{marginTop: '150px'}}>
-          <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
-        </div>}*/}
+        {!isDesktopScreen && <div style={{marginTop: '150px'}}>
+          {!isDesktopScreen && (
+              <LazyProducts
+                  productsSlice={productsSlice}
+                  trimCollectionValue={trimCollectionValue}
+                  products={products}
+                  isLoading={isLoading}
+                  loading={loading}
+                  onAddToFavorite={onAddToFavorite}
+                  onAddToCart={onAddToCart}
+                  onPointerDown={onPointerDown}
+                  onPointerUp={onPointerUp}
+                  isDesktopScreen={isDesktopScreen}
+              />
+          )}
+        </div>}
 
         {isDesktopScreen && <CatalogBtnBlockV2 />}
         {isDesktopScreen && <ClothBlock />}
