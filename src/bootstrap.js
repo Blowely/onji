@@ -28,22 +28,20 @@ export const API_URL = "https://api.re-poizon.ru/api";
 
 const Index = () => {
   return (
-      <div className="webview-container">
-          <Provider store={store}>
-              <ConfigProvider
-                  locale={ru_RU}
-                  getPopupContainer={(triggerNode) =>
-                      triggerNode?.parentNode || document.body
-                  }
-              >
-                  <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
-                      <Router>
-                          <Root />
-                      </Router>
-                  </ErrorBoundary>
-              </ConfigProvider>
-          </Provider>
-      </div>
+      <Provider store={store}>
+          <ConfigProvider
+              locale={ru_RU}
+              getPopupContainer={(triggerNode) =>
+                  triggerNode?.parentNode || document.body
+              }
+          >
+              <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
+                  <Router>
+                      <Root />
+                  </Router>
+              </ErrorBoundary>
+          </ConfigProvider>
+      </Provider>
   );
 };
 
