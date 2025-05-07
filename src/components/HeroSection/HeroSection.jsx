@@ -146,20 +146,23 @@ const HeroSection = () => {
                     </div>
                 </div>
             }
-            <ImageSlider onSlideChange={handleSlideChange} selectedCategory={selectedCategory}/>
-            <div
-                className={styles.categoryTableWrapper}
-                style={{
-                    opacity: showCategories ? '1' : '0',
-                    pointerEvents: showCategories ? 'auto' : 'none',
-                    transition: 'all 0.3s ease',
-                    marginTop: isScrolled && '59px'
-                }}
-                onMouseEnter={() => showCategories && handleMenuHover(true)}
-                onMouseLeave={() => handleMenuHover(false)}
-            >
-                <CategoryTable/>
-            </div>
+            {/*<ImageSlider onSlideChange={handleSlideChange} selectedCategory={selectedCategory}/>*/}
+            {isDesktopScreen &&
+                <div
+                    className={styles.categoryTableWrapper}
+                    style={{
+                        opacity: showCategories ? '1' : '0',
+                        pointerEvents: showCategories ? 'auto' : 'none',
+                        transition: 'all 0.3s ease',
+                        marginTop: isScrolled && '59px'
+                    }}
+                    onMouseEnter={() => showCategories && handleMenuHover(true)}
+                    onMouseLeave={() => handleMenuHover(false)}
+                >
+                    <CategoryTable/>
+                </div>
+            }
+
         </div>
     );
 };
