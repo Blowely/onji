@@ -674,8 +674,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {isDesktopScreen && <CatalogBtnBlock />}
         <ShoesBlock />
         {!isDesktopScreen && <MainProduct />}
-        {!isDesktopScreen && <div style={{marginTop: '150px'}}>
-          {!isDesktopScreen && (
+        {!isDesktopScreen && (
               <LazyProducts
                   productsSlice={productsSlice}
                   trimCollectionValue={trimCollectionValue}
@@ -688,8 +687,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                   onPointerUp={onPointerUp}
                   isDesktopScreen={isDesktopScreen}
               />
-          )}
-        </div>}
+        )}
 
         {isDesktopScreen && <CatalogBtnBlockV2 />}
         {isDesktopScreen && <ClothBlock />}
