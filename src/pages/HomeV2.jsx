@@ -662,18 +662,18 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
               </div>
             </Modal>
         )}
-        <HeroSection />
+        {/*<HeroSection />*/}
 
         <div className="storiesWrapper">
           <Stories />
         </div>
 
-        <NewFeatures />
+       {/* <NewFeatures />
         {isDesktopScreen && <BrandsV2 />}
         <BestSellers />
         {isDesktopScreen && <CatalogBtnBlock />}
         <ShoesBlock />
-        {!isDesktopScreen && <MainProduct />}
+        {!isDesktopScreen && <MainProduct />}*/}
         {!isDesktopScreen && (
               <LazyProducts
                   productsSlice={productsSlice}
