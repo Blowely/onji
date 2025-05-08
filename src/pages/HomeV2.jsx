@@ -313,19 +313,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
   const onCardClickHandler = (item) => {
-
-    const { name, images, description } = item;
-    const spuId = item?.spuId || '';
-
-    window.webkit?.messageHandlers?.productTapped?.postMessage({
-      id: spuId,
-      title: name,
-      image: images[0],
-      description: description || ''
-    });
-
     setSelectedProduct(item);
-
+    const spuId = item?.spuId || '';
     searchParams.set('spuId', spuId);
     setSearchParams(searchParams);
     localStorage.setItem('product', JSON.stringify(item));
