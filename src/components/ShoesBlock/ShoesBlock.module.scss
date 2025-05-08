@@ -2,6 +2,8 @@
   margin-top: 100px;
   display: grid;
   gap: 38px;
+  width: 100%;
+  max-width: 1440px;
 
   @media (max-width: 768px) {
     margin-top: 200px;
