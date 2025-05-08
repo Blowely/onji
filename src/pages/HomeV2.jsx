@@ -314,10 +314,20 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   const onCardClickHandler = (item) => {
 
-    setSelectedProduct(item);
+    const { name, images, description } = item;
     const spuId = item?.spuId || '';
-    searchParams.set('spuId', spuId);
-    setSearchParams(searchParams);
+
+    window.webkit?.messageHandlers?.productTapped?.postMessage({
+      id: spuId,
+      title: name,
+      image: images[0],
+      description: description || ''
+    });
+
+    setSelectedProduct(item);
+
+    //searchParams.set('spuId', spuId);
+    //setSearchParams(searchParams);
     localStorage.setItem('product', JSON.stringify(item));
   };
 
