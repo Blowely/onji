@@ -326,8 +326,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
     setSelectedProduct(item);
 
-    //searchParams.set('spuId', spuId);
-    //setSearchParams(searchParams);
+    searchParams.set('spuId', spuId);
+    setSearchParams(searchParams);
     localStorage.setItem('product', JSON.stringify(item));
   };
 
