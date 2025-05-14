@@ -178,6 +178,8 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                     </div>}
                     ref={inputRef}
                     allowClear
+                    tabIndex={-1}          // запретить фокус по табу
+                    onMouseDown={e => e.preventDefault()} // запретить фокус по клику
                 />
                 {isDesktopScreen &&
                     <div className="items-wrapper">
