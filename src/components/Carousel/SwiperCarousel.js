@@ -18,12 +18,11 @@ const SwiperCarousel = (props) => {
             pagination={true}
             zoom={true}
             navigation={true}
-            modules={[Pagination, Navigation, FreeMode]}
+            modules={[Pagination, Navigation]}
             style={{ width: '100%' }}
             lazyPreloadPrevNext={lazyPreloadPrevNext}
             loop={loop}
             ref={swiperRef}
-            freeMode={true}
         >
             {images?.map((image, index) => {
                 const compressedImage = `${image}?x-oss-process=image/format,webp/resize,w_400`;
