@@ -43,7 +43,6 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
     const lastScrollY = useRef(0);
 
     const inputRef = useRef(null);
-    const suffixRef = useRef(null);
     const overlayRef = useRef(null);
 
     useEffect(() => {
@@ -203,6 +202,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                 />*/}
                 <FakeSearchInput
                     placeholder="поиск"
+                    onClick={onMouseDown}
                 />
                 {isDesktopScreen &&
                     <div className="items-wrapper">
