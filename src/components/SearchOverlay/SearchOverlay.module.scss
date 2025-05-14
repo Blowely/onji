@@ -5,6 +5,7 @@
   z-index: 2000;
   overflow-y: auto;
   height: 100%;
+  overscroll-behavior: contain;
   overflow-x: hidden;
 
  /* :global(.input-search) {

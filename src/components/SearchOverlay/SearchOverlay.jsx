@@ -16,12 +16,6 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     const inputRef = useRef(null);
 
-    useEffect(() => {
-        inputRef.current?.focus();
-        document.body.style.overflow = visible ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [visible]);
-
     // при вводе в инпут
     const handleChange = async e => {
         const val = e.target.value;
