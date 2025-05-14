@@ -68,16 +68,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 onPressEnter={() => handleSelect(query)}
                 suffix={<img className="search-icon" src={tinySearchSvg} alt="search" />}
                 allowClear
-                onClick={() => {
-                    setOverlayVisible(true)
-                    // 1) шлём сообщение в iOS–WebView
-                    if (window.webkit?.messageHandlers?.openSafari) {
-                        // можно передать туда нужный URL или пустую строку
-                        window.webkit.messageHandlers.openSafari.postMessage(window.location.href);
-                    }
-                    // 2) не даём самому Input фокусироваться и дергать клавиатуру
-                    inputRef.current?.blur();
-                }}
+                onClick={() => setOverlayVisible(true)}
             />
 
             {visible && (
