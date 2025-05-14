@@ -8,29 +8,19 @@ import {historyIcon} from "../constants";
 
 const popularQueries = ['jordan', 'ozweego', 'адидас', 'найк', 'худи', 'force'];
 
-const SearchOverlay = forwardRef(({ visible, onClose, recentSearches, onSearch }, ref) => {
+const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, onSearch })=> {
     const overlayRef = useRef(null);
-    const [localVisible, setLocalVisible] = useState(visible);
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
-    const inputRef = useRef(null);
 
-    useImperativeHandle(ref, () => ({
-        focusInput: () => {
-            setTimeout(() => {
-                inputRef.current?.focus();
-            },0)
-        }
-    }));
+
+    const inputRef = useRef(null);
 
     useEffect(() => {
         inputRef.current?.focus();
-        setLocalVisible(visible);
         document.body.style.overflow = visible ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
     }, [visible]);
-
-    if (!localVisible) return null;
 
     // при вводе в инпут
     const handleChange = async e => {
@@ -60,10 +50,12 @@ const SearchOverlay = forwardRef(({ visible, onClose, recentSearches, onSearch }
     };
 
     return (
-        <div className={styles.overlay} ref={overlayRef}>
-            <div className={styles.header}>
-                <img src={leftArrow} onClick={onClose} alt='backButton'/>
-            </div>
+        <div className={styles.overlay} style={{padding: visible && '16px'}} ref={overlayRef}>
+            {visible &&
+                <div className={styles.header}>
+                    <img src={leftArrow} onClick={onClose} alt='backButton'/>
+                </div>
+            }
 
             <Input
                 type="search"
@@ -76,61 +68,67 @@ const SearchOverlay = forwardRef(({ visible, onClose, recentSearches, onSearch }
                 onPressEnter={() => handleSelect(query)}
                 suffix={<img className="search-icon" src={tinySearchSvg} alt="search" />}
                 allowClear
+                onClick={() => setOverlayVisible(true)}
             />
 
-            {query && suggestions.length > 0 && (
-                <div className={styles.suggestionTags}>
-                    {suggestions.slice(0, 5).map((tag, i) => (
-                        <Tag key={i} className={styles.tag} onClick={() => handleSelect(tag)}>
-                            {tag}
-                        </Tag>
-                    ))}
-                </div>
-            )}
-
-            {query ? (
-                <div className={styles.suggestions}>
-                    {suggestions.length > 0 ? suggestions.map((s, i) => (
-                        <div
-                            key={i}
-                            className={styles.suggestionItem}
-                            onClick={() => handleSelect(s)}
-                        >
-                            <span className={styles.icon}><img className="search-icon" src={tinySearchSvg} alt="search" /></span>
-                            <span>{s}</span>
-                        </div>
-                    )) : (
-                        <div className={styles.noResults}>Нет совпадений</div>
-                    )}
-                </div>
-            ) : (
-                <>
-                    <div className={styles.section}>
-                        <h3 className={styles.sectionTitle}>популярные запросы</h3>
-                        <div className={styles.tags}>
-                            {popularQueries.map(q => (
-                                <Tag key={q} className={styles.tag} onClick={() => handleSelect(q)}>
-                                    {q}
+            {visible && (
+                <div>
+                    {query && suggestions.length > 0 && (
+                        <div className={styles.suggestionTags}>
+                            {suggestions.slice(0, 5).map((tag, i) => (
+                                <Tag key={i} className={styles.tag} onClick={() => handleSelect(tag)}>
+                                    {tag}
                                 </Tag>
                             ))}
                         </div>
-                    </div>
+                    )}
 
-                    <div className={styles.section}>
-                        <h3 className={styles.sectionTitle}>вы искали</h3>
-                        <ul className={styles.recentList}>
-                            {recentSearches.map((item, idx) => (
-                                <li key={idx} className={styles.recentItem} onClick={() => handleSelect(item)}>
-                                    <img src={historyIcon} alt=""/>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </>
+                    {query ? (
+                        <div className={styles.suggestions}>
+                            {suggestions.length > 0 ? suggestions.map((s, i) => (
+                                <div
+                                    key={i}
+                                    className={styles.suggestionItem}
+                                    onClick={() => handleSelect(s)}
+                                >
+                                    <span className={styles.icon}><img className="search-icon" src={tinySearchSvg} alt="search" /></span>
+                                    <span>{s}</span>
+                                </div>
+                            )) : (
+                                <div className={styles.noResults}>Нет совпадений</div>
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            <div className={styles.section}>
+                                <h3 className={styles.sectionTitle}>популярные запросы</h3>
+                                <div className={styles.tags}>
+                                    {popularQueries.map(q => (
+                                        <Tag key={q} className={styles.tag} onClick={() => handleSelect(q)}>
+                                            {q}
+                                        </Tag>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className={styles.section}>
+                                <h3 className={styles.sectionTitle}>вы искали</h3>
+                                <ul className={styles.recentList}>
+                                    {recentSearches.map((item, idx) => (
+                                        <li key={idx} className={styles.recentItem} onClick={() => handleSelect(item)}>
+                                            <img src={historyIcon} alt=""/>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    )}
+                </div>
             )}
+
         </div>
     );
-});
+}
 
 export default SearchOverlay;

@@ -16,15 +16,6 @@ const defaultOptions = [
     { value: 'Бутсы' },
 ];
 
-const FakeSearchInput = ({ placeholder = 'поиск', onClick }) => (
-    <div className={"fakeInput"} onMouseDown={e => e.preventDefault()} onClick={onClick}>
-        <span className={"text"}>{placeholder}</span>
-        <div className={"suffix"}>
-            <img src={tinySearchSvg} alt="search" />
-        </div>
-    </div>
-);
-
 const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoading = () => {}, style}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -37,7 +28,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
     const [searchValue, setSearchValue] = useState('');
     const [options, setOptions] = useState(defaultOptions || []);
     const [isVisible, setIsVisible] = useState(false);
-    const [overlayVisible, setOverlayVisible] = useState(false);
+
     const [recent, setRecent] = useState(['adidas ozweego', 'джорданы', 'худи', 'рубашка']);
 
     const lastScrollY = useRef(0);
@@ -150,22 +141,13 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
     const onInfoBlockItemClick = (link) => {
         window.open(link);
     }
-
-    const onMouseDown = (e) => {
-        e.preventDefault(); // предотвращает фокус на этом инпуте
-        setOverlayVisible(true);
-        setTimeout(() => {
-            console.log('overlayRef=',overlayRef)
-            overlayRef.current?.focusInput();
-        }, 0);
-    }
-
+    const [overlayVisible, setOverlayVisible] = useState(false);
     return (
         <header
             className={`header-wrapper ${isVisible ? 'visible' : 'hidden'} d-flex flex-column justify-between align-center pl-20 pt-20 pr-20`}
             style={{...style, height: overlayVisible && '100%'}}
         >
-            <div className="header-input-wrapper" onClick={onMouseDown}>
+            <div className="header-input-wrapper">
                 {isDesktopScreen &&
                     <div onClick={() => navigate(`/${gender}-products`)}
                          style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
@@ -200,10 +182,14 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                         e.preventDefault();
                     }}
                 />*/}
-                <FakeSearchInput
-                    placeholder="поиск"
-                    onClick={onMouseDown}
-                />
+                {!isDesktopScreen &&
+                    <SearchOverlay
+                        visible={overlayVisible}
+                        onClose={() => setOverlayVisible(false)}
+                        setOverlayVisible={setOverlayVisible}
+                        recentSearches={recent}
+                    />
+                }
                 {isDesktopScreen &&
                     <div className="items-wrapper">
                         <div className="item"
@@ -239,12 +225,6 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                     </div>
                 }
             </div>
-            {!isDesktopScreen && <SearchOverlay
-                visible={overlayVisible}
-                onClose={() => setOverlayVisible(false)}
-                recentSearches={recent}
-                ref={overlayRef}
-            />}
         </header>
     );
 }
