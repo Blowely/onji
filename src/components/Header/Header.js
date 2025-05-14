@@ -8,6 +8,7 @@ import RePoizonMainBigLogo from "../../assets/svg/re-poizon-main-middle-big-logo
 import {useAppDispatch} from "../../store";
 import {showSidebar} from "../../common/productsSlice";
 import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
+import SearchOverlay from "../SearchOverlay/SearchOverlay";
 
 const defaultOptions = [
     { value: 'Куртка' },
@@ -27,6 +28,9 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
     const [searchValue, setSearchValue] = useState('');
     const [options, setOptions] = useState(defaultOptions || []);
     const [isVisible, setIsVisible] = useState(false);
+    const [overlayVisible, setOverlayVisible] = useState(false);
+    const [recent, setRecent] = useState(['adidas ozweego', 'джорданы', 'худи', 'рубашка']);
+
     const lastScrollY = useRef(0);
 
     const inputRef = useRef(null);
@@ -99,17 +103,6 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
         //navigate(`/${gender}-categories/`)
     }
 
-    const val1 = "https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20(%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0)(cropped).png"
-    const val2 = "https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20(%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0)%20(blue).png"
-    const [icon, setIcon] = useState(val1)
-
-    const onMouseOver = () => {
-        setIcon(val2);
-    }
-
-    const onMouseLeave = () => {
-        setIcon(val1);
-    }
 
     const onSelectHandler = (value) => {
         inputRef?.current?.blur()
@@ -152,7 +145,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
     return (
         <header
             className={`header-wrapper ${isVisible ? 'visible' : 'hidden'} d-flex flex-column justify-between align-center pl-20 pt-20 pr-20`}
-            style={style}
+            style={{...style, height: overlayVisible && '100%'}}
         >
             <div className="header-input-wrapper">
                 {isDesktopScreen &&
@@ -163,33 +156,30 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                 }
                 {isDesktopScreen &&
                     <Button id="desktop-category-btn" onClick={onCategoriesClick}><MenuOutlined/> Каталог</Button>}
-                <AutoComplete
+                {/*<AutoComplete
                     style={{width: '100%', height: 'auto'}}
                     options={options}
                     value={search}
-                    /*filterOption={(inputValue, option) => {
-                        return option?.value?.toUpperCase()?.indexOf(inputValue?.toUpperCase()) !== -1
-                    }}*/
                     optionRender={(option) => {
-                        return <div key={option.key}><img style={{height: '11px'}} src={icon} alt={icon}/>{option.value}
+                        return <div key={option.key}><img style={{height: '11px'}} src={tinySearchSvg} alt={'+'}/>{option.value}
                         </div>
                     }}
                     onChange={onChange}
                     onPressEnter={onSearch}
                     onSelect={onSelectHandler}
-                >
-                    <Input
-                        type="search"
-                        className="input-search"
-                        size="large"
-                        placeholder="поиск"
-                        suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-                            <img className="search-icon" src={tinySearchSvg} alt="search"/>
-                        </div>}
-                        ref={inputRef}
-                        allowClear
-                    />
-                </AutoComplete>
+                />*/}
+                <Input
+                    type="search"
+                    className="input-search"
+                    size="large"
+                    placeholder="поиск"
+                    onClick={() => setOverlayVisible(true)}
+                    suffix={<div>
+                        <img className="search-icon" src={tinySearchSvg} alt="search"/>
+                    </div>}
+                    ref={inputRef}
+                    allowClear
+                />
                 {isDesktopScreen &&
                     <div className="items-wrapper">
                         <div className="item"
@@ -225,6 +215,11 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                     </div>
                 }
             </div>
+            {!isDesktopScreen && <SearchOverlay
+                visible={overlayVisible}
+                onClose={() => setOverlayVisible(false)}
+                recentSearches={recent}
+            />}
         </header>
     );
 }
