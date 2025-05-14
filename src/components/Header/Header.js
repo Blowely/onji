@@ -1,5 +1,5 @@
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {AutoComplete, Button, Input} from "antd";
+import {Button, Input} from "antd";
 import React, {useEffect, useRef, useState} from "react";
 import './header.styles.scss';
 import {MenuOutlined} from "@ant-design/icons";
@@ -15,6 +15,15 @@ const defaultOptions = [
     { value: 'Джинсы' },
     { value: 'Бутсы' },
 ];
+
+const FakeSearchInput = ({ placeholder = 'поиск', onClick }) => (
+    <div className={"fakeInput"} onMouseDown={e => e.preventDefault()} onClick={onClick}>
+        <span className={"text"}>{placeholder}</span>
+        <div className={"suffix"}>
+            <img src={tinySearchSvg} alt="search" />
+        </div>
+    </div>
+);
 
 const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoading = () => {}, style}) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -178,7 +187,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                     onPressEnter={onSearch}
                     onSelect={onSelectHandler}
                 />*/}
-                <Input
+                {/*<Input
                     type="search"
                     className="input-search"
                     size="large"
@@ -191,6 +200,9 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                     onMouseDown={(e) => {
                         e.preventDefault();
                     }}
+                />*/}
+                <FakeSearchInput
+                    placeholder="поиск"
                 />
                 {isDesktopScreen &&
                     <div className="items-wrapper">

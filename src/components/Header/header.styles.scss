@@ -410,3 +410,39 @@
     transform: translateY(0);
   }
 }
+
+/* FakeSearchInput.module.scss */
+.fakeInput {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 15px;
+  border-bottom: 1px solid #ededed;
+  cursor: text;              /* как у инпута */
+  user-select: none;         /* чтобы текст нельзя было выделить */
+  background: transparent;
+
+  @media (max-width: 768px) {
+    height: 50px !important;
+  }
+
+  .text {
+    color: #CCC;
+    font-family: 'Graphik-Medium', system-ui;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .suffix {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 18px;
+      pointer-events: none;
+    }
+  }
+}
