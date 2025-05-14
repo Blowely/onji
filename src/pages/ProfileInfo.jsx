@@ -1,17 +1,14 @@
 import React, {useEffect} from "react";
-import {Layout} from "antd";
+import {Button, Input, Layout} from "antd";
 import {useNavigate} from "react-router-dom";
 import "./profile.scss";
-import {LeftOutlined, RightOutlined} from "@ant-design/icons";
+import {LeftOutlined, LogoutOutlined} from "@ant-design/icons";
 import {useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
-import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
-import leftArrow from "../assets/svg/v2/left-arrow.svg";
 
 const ProfileInfo = () => {
-  const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
   const gender = localStorage.getItem("gender") || "men";
@@ -30,74 +27,53 @@ const ProfileInfo = () => {
     window.history.go(-1);
   }
 
+  const onLogoutClick = () => {
+    window.history.go(-1);
+  }
+
+  const onDeleteClick = () => {
+    window.history.go(-1);
+  }
+
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
       <Layout>
-        {isDesktopScreen &&
-            <HeaderInfoWrapper />
-        }
-        <div className="content-block-wrapper">
-          <div className="content-block content-block-profile" style={{padding: isDesktopScreen && '30px 0px 0px 0px'}}>
-            {isDesktopScreen && (
-                <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>Профиль</div>
-            )}
-
-            <div className="cart-item cart-item-transparent padding-bottom">
-              <div className="transparent">
-                <ActiveProfileLargeIcon/>
-                +{accountData?.account?.phone} <img className="arrow" src={leftArrow} alt=""/>
-              </div>
-              {/*<LogoutOutlined style={{fontSize: '25px'}} onClick={() => {
-                alert('в разработке')
-              }}/>*/}
+        {isDesktopScreen
+            ? <HeaderInfoWrapper/>
+            : <div className="content-block-header border-radius">
+              <LeftOutlined onClick={onGoBackClick}/>
+              Аккаунт
+              <div style={{width: '19px'}}/>
             </div>
-            {/*<div className="balance-wrapper">
-          <div style={{fontSize: '27px', fontWeight: '600', display: "flex", gap: '10px', alignItems: 'center'}}>
-            <span>
-              <span style={{fontSize: '23px'}}>₽</span>{accountData?.account?.balance  || '12355'}
-            </span>
-            <Button type="link" size="small" className="fillUpBtn" icon={<ReloadOutlined />} onClick={refreshBalance}>Обновить</Button>
-          </div>
-          <div>
-            <Button type="primary" size="small" className="fillUpBtn" onClick={onAddMoney}>Пополнить</Button>
-          </div>
-        </div>*/}
-
-            <div className="profile-items-wrapper">
-              <div>
-                <div className="cart-item redirect borderless" onClick={() => navigate('/orders')}>
-                  Мои заказы <RightOutlined/>
-                </div>
-                {/*<div className="cart-item redirect borderless" onClick={() => navigate('/visited')}>
-                Просмотренные товары <RightOutlined />
-                </div>*/}
-                <div className="cart-item redirect borderless" onClick={() => navigate('/favorites')}>
-                  Избранное <RightOutlined/>
-                </div>
+        }
+        <div className="content-block-wrapper" style={{height: !isDesktopScreen && '100vh'}}>
+          <div className="content-block content-block-profile"
+               style={{
+                 display: 'flex',
+                 height: '100%',
+                 flexDirection: 'column',
+                 alignItems: 'space-between',
+               }}>
+            <div className="content-wrapper" style={{marginTop: '70px'}}>
+              <div className="address-item">
+                <div className="field-name">Номер телефона</div>
+                <Input
+                    value={`+${accountData?.account?.phone}`}
+                    disabled
+                />
               </div>
-              <div>
-                <div className="cart-item redirect borderless" onClick={() => navigate('/info')}>
-                  Информация <RightOutlined/>
-                </div>
-              </div>
-              <div className="link">
-                <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf">
-                  Условия оферты
-                </a>
-                <div style={{marginTop: '15px'}}>
-                  <a href="https://storage.yandexcloud.net/pc-mediafiles/important/privacy-policy-re-poizon.ru.pdf"
-                     target="_blank">
-                    Политика конфиденциальности
-                  </a>
-                </div>
-                <div style={{marginTop: '15px'}}>
-                  <a href="https://storage.yandexcloud.net/pc-mediafiles/important/process-personal-data-agreement-re-poizon.ru.pdf"
-                     target="_blank">
-                    Согласие на обработку персональных данных
-                  </a>
-                </div>
-              </div>
+            </div>
+            <div style={{fontSize: '17px', margin: '0 auto', display: 'flex', gap: '8px'}}>
+              <LogoutOutlined style={{fontSize: '22px', margin: '0 auto'}} onClick={onLogoutClick}/>
+              Выйти
+            </div>
+            <div
+                style={{fontSize: '17px', margin: '0 auto', marginTop:'30px', color: 'gray'}}
+                onClick={onDeleteClick}
+            >
+              Удалить профиль
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
 import leftArrow from "../assets/svg/v2/left-arrow.svg";
 
-const ProfileInfo = () => {
+const Profile = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
@@ -30,6 +30,10 @@ const ProfileInfo = () => {
     window.history.go(-1);
   }
 
+  const onProfileClick = () => {
+    navigate('/profile-info')
+  }
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
@@ -44,7 +48,7 @@ const ProfileInfo = () => {
             )}
 
             <div className="cart-item cart-item-transparent padding-bottom">
-              <div className="transparent">
+              <div className="transparent" onClick={onProfileClick}>
                 <ActiveProfileLargeIcon/>
                 +{accountData?.account?.phone} <img className="arrow" src={leftArrow} alt=""/>
               </div>
@@ -108,4 +112,4 @@ const ProfileInfo = () => {
       </Layout>
   );
 }
-export default ProfileInfo;
+export default Profile;
