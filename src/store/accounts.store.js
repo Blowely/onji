@@ -10,7 +10,7 @@ export const accountsApi = createApi({
   endpoints: (builder) => ({
     getCode: builder.query({
       query: ({ phone, userAgent }) =>
-        `/sms?phone=7${phone}&userAgent=${userAgent}`,
+          `/sms?phone=7${phone}&userAgent=${userAgent}`,
       invalidatesTags: (result, error, arg) => [{ type: "Account", id: arg }],
     }),
     addCode: builder.mutation({
@@ -45,6 +45,12 @@ export const accountsApi = createApi({
         body: JSON.stringify({ addressId }),
       }),
     }),
+    deleteAccount: builder.mutation({
+      query: (token) => ({
+        url: `/account?token=${token}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -55,4 +61,5 @@ export const {
   useAddAddressMutation,
   useUpdateActiveAddressMutation,
   useDeleteAddressMutation,
+  useDeleteAccountMutation,
 } = accountsApi;

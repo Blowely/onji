@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./profile.scss";
 import { LeftOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useAppSelector } from "../store";
-import { useGetAccountQuery } from "../store/accounts.store";
+import {useDeleteAccountMutation, useGetAccountQuery} from "../store/accounts.store";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
 
@@ -20,6 +20,19 @@ const ProfileInfo = () => {
     skip: cartItems.length && addresses.length,
   });
 
+  const [deleteAccountMutation, { isLoading: isDeleting }] = useDeleteAccountMutation();
+
+  const deleteAccount = async () => {
+    try {
+      await deleteAccountMutation(token).unwrap();
+      localStorage.removeItem("token");
+      message.success("Аккаунт удалён");
+      navigate("/");
+    } catch (error) {
+      message.error(error?.data?.message || "Ошибка при удалении аккаунта");
+    }
+  };
+
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
@@ -28,25 +41,6 @@ const ProfileInfo = () => {
     localStorage.removeItem("token");
     message.success("Вы вышли из аккаунта");
     navigate("/");
-  };
-
-  const deleteAccount = async () => {
-    try {
-      const response = await fetch(`/api/account?token=${token}`, {
-        method: "DELETE",
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.removeItem("token");
-        message.success("Аккаунт удалён");
-        navigate("/");
-      } else {
-        message.error(data.message || "Ошибка при удалении аккаунта");
-      }
-    } catch (error) {
-      message.error("Ошибка при подключении к серверу");
-    }
   };
 
   const onLogoutClick = () => {
@@ -61,11 +55,11 @@ const ProfileInfo = () => {
 
   const onDeleteClick = () => {
     Modal.confirm({
-      title: "Удалить профиль?",
-      content: "Это действие невозможно отменить. Вы уверены?",
+      title: "Удалить аккаунт?",
+      content: "Вы уверены, что хотите удалить профиль? Это действие необратимо.",
       okText: "Удалить",
-      okButtonProps: { danger: true },
       cancelText: "Отмена",
+      okType: "danger",
       onOk: deleteAccount,
     });
   };
@@ -105,8 +99,12 @@ const ProfileInfo = () => {
               Выйти
             </div>
             <div
-                style={{ fontSize: "17px", margin: "0 auto", color: "gray", cursor: "pointer",padding: "10px 20px" }}
                 onClick={onDeleteClick}
+                style={{ marginTop: "30px", fontSize: "17px",
+                  color: "gray",
+                  margin: "0 auto",
+                  padding: "10px 20px"
+            }}
             >
               Удалить профиль
             </div>
