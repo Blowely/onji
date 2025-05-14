@@ -17,6 +17,7 @@ import CategoriesTree from "./components/CategoriesTree/CategoriesTree";
 import SBPayment from "./pages/SBPayment/SBPayment";
 import HomeV2 from "./pages/HomeV2";
 import CategoryPage from "./pages/CategoryPage";
+import ProfileInfo from "./pages/Profile";
 
 export function PrivateAppRouter({
   searchValue,
