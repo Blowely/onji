@@ -26,6 +26,9 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
 
     const [searchValue, setSearchValue] = useState('');
     const [options, setOptions] = useState(defaultOptions || []);
+    const [isVisible, setIsVisible] = useState(false);
+    const lastScrollY = useRef(0);
+
     const inputRef = useRef(null);
     const suffixRef = useRef(null);
 
@@ -35,6 +38,29 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
         }
         setSearchValue(search?.replace('+',' '));
     },[search])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const isMobile = window.innerWidth <= 768;
+
+            if (!isMobile) {
+                setIsVisible(true); // всегда показываем на десктопе
+                return;
+            }
+
+            if (currentScrollY === 0) {
+                setIsVisible(false); // в самом верху — скрыт
+            } else {
+                setIsVisible(true); // скролл вверх — показать
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const onChange = async (value) => {
         if (search && !value) {
@@ -125,13 +151,13 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
 
     return (
         <header
-          className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
-          style={style}
+            className={`header-wrapper ${isVisible ? 'visible' : 'hidden'} d-flex flex-column justify-between align-center pl-20 pt-20 pr-20`}
+            style={style}
         >
             <div className="header-input-wrapper">
                 {isDesktopScreen &&
                     <div onClick={() => navigate(`/${gender}-products`)}
-                           style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
+                         style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
                         <RePoizonMainBigLogo/>
                     </div>
                 }
@@ -158,8 +184,8 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                         size="large"
                         placeholder="поиск"
                         suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-                        <img className="search-icon" src={tinySearchSvg} alt="search"/>
-                            </div>}
+                            <img className="search-icon" src={tinySearchSvg} alt="search"/>
+                        </div>}
                         ref={inputRef}
                         allowClear
                     />
