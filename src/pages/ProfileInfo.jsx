@@ -73,7 +73,7 @@ const ProfileInfo = () => {
                 style={{fontSize: '17px', margin: '0 auto', marginTop:'30px', color: 'gray'}}
                 onClick={onDeleteClick}
             >
-              Удалить профиль
+              Удалить аккаунт
             </div>
           </div>
         </div>
