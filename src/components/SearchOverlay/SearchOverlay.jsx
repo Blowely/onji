@@ -24,6 +24,7 @@ const SearchOverlay = forwardRef(({ visible, onClose, recentSearches, onSearch }
     }));
 
     useEffect(() => {
+        inputRef.current?.focus();
         setLocalVisible(visible);
         document.body.style.overflow = visible ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
