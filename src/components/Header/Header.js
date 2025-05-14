@@ -147,7 +147,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
             className={`header-wrapper ${isVisible ? 'visible' : 'hidden'} d-flex flex-column justify-between align-center pl-20 pt-20 pr-20`}
             style={{...style, height: overlayVisible && '100%'}}
         >
-            <div className="header-input-wrapper">
+            <div className="header-input-wrapper" onClick={() => setOverlayVisible(true)}>
                 {isDesktopScreen &&
                     <div onClick={() => navigate(`/${gender}-products`)}
                          style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
@@ -173,7 +173,6 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                     className="input-search"
                     size="large"
                     placeholder="поиск"
-                    onClick={() => setOverlayVisible(true)}
                     suffix={<div>
                         <img className="search-icon" src={tinySearchSvg} alt="search"/>
                     </div>}
