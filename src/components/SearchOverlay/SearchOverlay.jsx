@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
 import { Input, Tag } from 'antd';
 import styles from './SearchOverlay.module.scss';
 import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
@@ -34,7 +34,7 @@ const SearchOverlay = ({ visible, onClose, recentSearches, onSearch }) => {
 
         try {
             const res = await axios.get(`https://api.re-poizon.ru/api/synonyms?search=${encodeURIComponent(val)}`);
-            setSuggestions(res.data.suggested.map((el, i) => el.value));
+            setSuggestions(res.data.suggested.slice(0, 11).map((el) => el.value));
         } catch (err) {
             console.error(err);
             setSuggestions([]);
