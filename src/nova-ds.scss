@@ -239,3 +239,16 @@ footer {
   border-color: white!important;
   border: 1px solid white!important;
 }
+
+.ant-modal-confirm-body-wrapper {
+  padding: 20px;
+
+  > .ant-modal-confirm-btns > {
+    display: flex;
+    align-items: center;
+    .ant-btn-primary{
+      height: 32px!important;
+      font-size: 14px!important;
+    }
+  }
+}
