@@ -6,16 +6,29 @@
 
 .ant-input-outlined:focus-within {
   border-color: black!important;
+  @media (max-width: 768px) {
+    border-color: transparent!important;
+  }
 }
 .ant-input-outlined:focus {
   border-color: black !important;
+  @media (max-width: 768px) {
+    border-color: transparent!important;
+  }
 }
 .ant-input-outlined:active  {
   border-color: black!important;
+  @media (max-width: 768px) {
+    border-color: transparent!important;
+  }
 }
 
 .ant-input-outlined:hover {
   border-color: black!important;
+
+  @media (max-width: 768px) {
+    border-color: transparent!important;
+  }
 }
 
 .ant-input {
@@ -176,6 +189,10 @@ footer {
 
 .ant-select-dropdown {
   border-radius: 0px!important;
+
+  @media (max-width: 768px) {
+    inset: 50px auto auto 0px!important;
+  }
 }
 
 .ant-select-item {
@@ -252,3 +269,4 @@ footer {
     }
   }
 }
+

@@ -7,7 +7,7 @@ import axios from "axios";
 import RePoizonMainBigLogo from "../../assets/svg/re-poizon-main-middle-big-logo";
 import {useAppDispatch} from "../../store";
 import {showSidebar} from "../../common/productsSlice";
-import RePoizonMainMiddleLogo from "../../assets/svg/re-poizon-main-middle-logo";
+import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
 
 const defaultOptions = [
     { value: 'Куртка' },
@@ -64,17 +64,6 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
         searchParams.set('search', typeof value  === "string" ? value : searchValue);
         setSearchParams(searchParams);
         setOffset(1);
-    }
-
-    const buildRequest = () => {
-        const obj = {
-            limit: 20,
-        }
-        return obj;
-    }
-
-    const filtersBtnHandler = () => {
-        setShowFilters(true);
     }
 
     const isDesktopScreen = window?.innerWidth > 768;
@@ -167,10 +156,10 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                         type="search"
                         className="input-search"
                         size="large"
-                        placeholder="Название, бренд, категория..."
-                        prefix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-                            <img className="search-icon" src={icon} alt="search"/>
-                        </div>}
+                        placeholder="поиск"
+                        suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+                        <img className="search-icon" src={tinySearchSvg} alt="search"/>
+                            </div>}
                         ref={inputRef}
                         allowClear
                     />
@@ -208,15 +197,6 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                             Корзина
                         </div>
                     </div>
-                }
-
-                {!isDesktopScreen &&
-                    <Button onClick={filtersBtnHandler}
-                            style={{borderRadius: '20px', display: 'flex', alignItems: 'center', border: "unset"}}>
-                        <img style={{height: '15px', marginRight: "unset"}}
-                             src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%A4%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D1%8B(cropped).png"
-                             alt=""/>
-                    </Button>
                 }
             </div>
         </header>

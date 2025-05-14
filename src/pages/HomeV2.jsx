@@ -33,6 +33,7 @@ import FaqBlock from "../components/FaqBlock/FaqBlock";
 import ReqProducts from "../components/ReqProduct/ReqProducts";
 import FooterV2 from "../components/FooterV2/FooterV2";
 import MainProduct from "../components/MainProduct/MainProduct";
+import Header from "../components/Header/Header";
 
 // Ваш renderItems остаётся без изменений
 const renderItems = (productsSlice, trimCollectionValue, products, isLoading, loading, onAddToFavorite, onAddToCart, onPointerDown, onPointerUp) => {
@@ -661,6 +662,17 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
               </div>
             </Modal>
         )}
+
+        {!isDesktopScreen && (
+            <Header search={search}
+                    showFilters={showFilters}
+                    setOffset={() => {}}
+                    setLoading={() => {}}
+                    setShowFilters={() => {}}
+                    isEnabledFilters={() => {}}
+            />
+        )}
+        
         <HeroSection />
 
         <div className="storiesWrapper">
