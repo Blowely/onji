@@ -962,3 +962,5 @@ export const PRODUCTS_IMG = {
     p12: 'https://cdn.poizon.com/pro-img/origin-img/2025030115/564d104103f3a5e785c4d07ddbe8a85c.jpg?x-oss-process=image/format,webp/resize,w_400',
     p13: 'https://cdn.poizon.com/pro-img/origin-img/20230419/f3e92afbe6e940f79b1f9a988d48b8c4.jpeg?x-oss-process=image/format,webp/resize,w_400',
 }
+
+export const historyIcon = "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20fill%3D%22%23A9A8B0%22%20d%3D%22M2%200a.667.667%200%200%200-.667.667V4.6c0%20.405.329.733.734.733H6A.667.667%200%201%200%206%204H3.528a6%206%200%201%201-1.029%206.4.667.667%200%201%200-1.222.534A7.335%207.335%200%200%200%2015.333%208%207.333%207.333%200%200%200%202.667%202.967v-2.3A.667.667%200%200%200%202%200Z%22%2F%3E%3Cpath%20fill%3D%22%23A9A8B0%22%20d%3D%22M9.84%205.914a.667.667%200%200%200-1.238-.495L7.437%208.333H5.555a.667.667%200%201%200%200%201.334h1.882c.545%200%201.035-.332%201.238-.838L9.84%205.914Z%22%2F%3E%3C%2Fsvg%3E"
