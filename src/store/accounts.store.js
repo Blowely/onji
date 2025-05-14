@@ -47,8 +47,8 @@ export const accountsApi = createApi({
     }),
     deleteAccount: builder.mutation({
       query: (token) => ({
-        url: `/accounts?token=${token}`,
-        method: "DELETE",
+        url: `/deleteAccount?token=${token}`,
+        method: "POST",
       }),
     }),
   }),
