@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Navigation, Pagination } from 'swiper/modules';
+import {FreeMode, Navigation, Pagination} from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Zoom from "react-medium-image-zoom";
 import styles from "./index.module.scss";
@@ -18,11 +18,12 @@ const SwiperCarousel = (props) => {
             pagination={true}
             zoom={true}
             navigation={true}
-            modules={[Pagination, Navigation]}
+            modules={[Pagination, Navigation, FreeMode]}
             style={{ width: '100%' }}
             lazyPreloadPrevNext={lazyPreloadPrevNext}
             loop={loop}
             ref={swiperRef}
+            freeMode={true}
         >
             {images?.map((image, index) => {
                 const compressedImage = `${image}?x-oss-process=image/format,webp/resize,w_400`;
@@ -34,7 +35,7 @@ const SwiperCarousel = (props) => {
                             position: 'relative',
                             width: '100%',
                             paddingTop: '75%', // Соотношение сторон (можно изменить по необходимости)
-                            overflow: 'hidden'
+                            overflow: 'hidden',
                         }}>
                             {index === 0 && (
                                 <img
