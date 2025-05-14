@@ -30,6 +30,7 @@
   align-items: center;
   padding: 8px 0;
   cursor: pointer;
+  font-size: 16px;
 
   .icon {
     margin-right: 8px;
@@ -81,5 +82,18 @@
         height: 16px;
       }
     }
+  }
+}
+
+.suggestionTags {
+  margin: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  > span {
+    padding: 10px;
+    background: #f5f5f5;
+    font-size: 16px;
   }
 }

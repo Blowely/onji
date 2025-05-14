@@ -1,3 +1,7 @@
+.ant-layout {
+  font-family: 'Graphik-Medium', system-ui;
+}
+
 .ant-input-affix-wrapper {
   border-radius: 0!important;
   background-color: white;
@@ -51,7 +55,6 @@
 }
 
 .ant-tag {
-  border-radius: 0;
   padding: 4px 8px;
   margin: 3px 8px 3px 0;
   font-weight: 300;
@@ -60,6 +63,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  border: none;
+  border-radius: 19.563px;
+  background: #D9D9D9;
+  font-weight: 500;
 }
 
 .ant-btn{

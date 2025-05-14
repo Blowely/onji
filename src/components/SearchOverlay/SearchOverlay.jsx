@@ -67,6 +67,16 @@ const SearchOverlay = ({ visible, onClose, recentSearches, onSearch }) => {
                 allowClear
             />
 
+            {query && suggestions.length > 0 && (
+                <div className={styles.suggestionTags}>
+                    {suggestions.slice(0, 5).map((tag, i) => (
+                        <Tag key={i} className={styles.tag} onClick={() => handleSelect(tag)}>
+                            {tag}
+                        </Tag>
+                    ))}
+                </div>
+            )}
+
             {query ? (
                 <div className={styles.suggestions}>
                     {suggestions.length > 0 ? suggestions.map((s, i) => (
