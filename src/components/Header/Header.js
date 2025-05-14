@@ -35,6 +35,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
 
     const inputRef = useRef(null);
     const suffixRef = useRef(null);
+    const overlayRef = useRef(null);
 
     useEffect(() => {
         if (!search) {
@@ -142,12 +143,21 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
         window.open(link);
     }
 
+    const onMouseDown = (e) => {
+        e.preventDefault(); // предотвращает фокус на этом инпуте
+        setOverlayVisible(true);
+        setTimeout(() => {
+            console.log('overlayRef=',overlayRef)
+            overlayRef.current?.focusInput();
+        }, 0);
+    }
+
     return (
         <header
             className={`header-wrapper ${isVisible ? 'visible' : 'hidden'} d-flex flex-column justify-between align-center pl-20 pt-20 pr-20`}
             style={{...style, height: overlayVisible && '100%'}}
         >
-            <div className="header-input-wrapper" onClick={() => setOverlayVisible(true)}>
+            <div className="header-input-wrapper" onClick={onMouseDown}>
                 {isDesktopScreen &&
                     <div onClick={() => navigate(`/${gender}-products`)}
                          style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
@@ -178,8 +188,9 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                     </div>}
                     ref={inputRef}
                     allowClear
-                    tabIndex={-1}          // запретить фокус по табу
-                    onMouseDown={e => e.preventDefault()} // запретить фокус по клику
+                    onMouseDown={(e) => {
+                        e.preventDefault();
+                    }}
                 />
                 {isDesktopScreen &&
                     <div className="items-wrapper">
@@ -220,6 +231,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
                 visible={overlayVisible}
                 onClose={() => setOverlayVisible(false)}
                 recentSearches={recent}
+                ref={overlayRef}
             />}
         </header>
     );

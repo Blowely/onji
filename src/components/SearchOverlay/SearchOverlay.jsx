@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
+import React, {useState, useEffect, useRef, useImperativeHandle, forwardRef} from 'react';
 import { Input, Tag } from 'antd';
 import styles from './SearchOverlay.module.scss';
 import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
@@ -8,11 +8,20 @@ import {historyIcon} from "../constants";
 
 const popularQueries = ['jordan', 'ozweego', 'адидас', 'найк', 'худи', 'force'];
 
-const SearchOverlay = ({ visible, onClose, recentSearches, onSearch }) => {
+const SearchOverlay = forwardRef(({ visible, onClose, recentSearches, onSearch }, ref) => {
     const overlayRef = useRef(null);
     const [localVisible, setLocalVisible] = useState(visible);
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const inputRef = useRef(null);
+
+    useImperativeHandle(ref, () => ({
+        focusInput: () => {
+            setTimeout(() => {
+                inputRef.current?.focus();
+            },0)
+        }
+    }));
 
     useEffect(() => {
         setLocalVisible(visible);
@@ -59,6 +68,7 @@ const SearchOverlay = ({ visible, onClose, recentSearches, onSearch }) => {
                 type="search"
                 className="input-search"
                 size="large"
+                ref={inputRef}
                 placeholder="поиск"
                 value={query}
                 onChange={handleChange}
@@ -120,6 +130,6 @@ const SearchOverlay = ({ visible, onClose, recentSearches, onSearch }) => {
             )}
         </div>
     );
-};
+});
 
 export default SearchOverlay;
