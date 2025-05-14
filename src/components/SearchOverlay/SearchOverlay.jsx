@@ -49,6 +49,11 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         setSuggestions([]);
     };
 
+    const inputStyles = visible && {
+        margin: "0 -16px",
+        width: "calc(100% + 32px)"
+    }
+
     return (
         <div className={styles.overlay} style={{padding: visible && '16px'}} ref={overlayRef}>
             {visible &&
@@ -60,6 +65,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             <Input
                 type="search"
                 className="input-search"
+                style={inputStyles}
                 size="large"
                 ref={inputRef}
                 placeholder="поиск"
