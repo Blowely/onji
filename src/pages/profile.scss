@@ -32,3 +32,10 @@
   padding: 16px;
   font-size: 15px;
 }
+
+.arrow {
+  transform: rotate(180deg);
+  filter: contrast(0.0);
+  height: 20px;
+  display: flex;
+}

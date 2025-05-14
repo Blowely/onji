@@ -88,6 +88,7 @@ export function PrivateAppRouter({
         <Route path="/cart/*" element={<Cart />} />
         <Route path="/address" element={<Address />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile-info" element={<ProfileInfo />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/order" element={<Order />} />
         <Route path="/payment" element={<Payment />} />
