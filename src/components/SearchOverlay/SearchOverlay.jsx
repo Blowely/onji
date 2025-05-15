@@ -57,23 +57,6 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         // BEFORE overlay opens:
         prevScrollY.current = window.scrollY;
 
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${prevScrollY.current}px`;
-        document.body.style.left = '0';
-        document.body.style.right = '0';
-        document.body.style.overflow = 'hidden';
-        document.body.style.width = '100%';
-
-// AFTER overlay closes:
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.overflow = '';
-        document.body.style.width = '';
-
-        window.scrollTo(0, prevScrollY.current);
-
         //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
         //inputRef.current.focus();
@@ -104,6 +87,33 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     }, []); // пустой массив — навсегда, сразу на монтирование
 
     useEffect(() => {
+        const body = document.body;
+        const html = document.documentElement;
+
+        if (visible) {
+            const scrollY = window.scrollY;
+            scrollYRef.current = scrollY;
+
+            // фиксируем body
+            body.style.position = 'fixed';
+            body.style.top = `-${scrollY}px`;
+            body.style.left = '0';
+            body.style.right = '0';
+            body.style.overflow = 'hidden';
+            body.style.width = '100%';
+        } else {
+            // восстанавливаем скролл
+            body.style.position = '';
+            body.style.top = '';
+            body.style.left = '';
+            body.style.right = '';
+            body.style.overflow = '';
+            body.style.width = '';
+
+            // вернуть скролл на место
+            window.scrollTo(0, scrollYRef.current || 0);
+        }
+
         if (visible) {
             requestAnimationFrame(() => {
                 setTimeout(() => {
