@@ -8,6 +8,13 @@
   overscroll-behavior: contain;
   overflow-x: hidden;
 
+  &.no-scroll {
+    overflow: hidden;
+  }
+  &.scrollable {
+    overflow-y: auto;
+  }
+
  /* :global(.input-search) {
     margin: 0 -16px !important;
     width: calc(100% + 32px) !important;

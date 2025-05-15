@@ -72,8 +72,16 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         inputRef.current.focus();
     }
 
+    useEffect(() => {
+        if (!visible) return;
+        const el = overlayRef.current;
+        const handler = e => e.preventDefault();
+        el.addEventListener('touchmove', handler, { passive: false });
+        return () => el.removeEventListener('touchmove', handler);
+    }, [visible]);
+
     return (
-        <div className={styles.overlay} style={{padding: visible && '16px'}} ref={overlayRef}>
+        <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}} ref={overlayRef}>
             {visible &&
                 <div className={styles.header}>
                     <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
