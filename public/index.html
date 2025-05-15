@@ -94,6 +94,15 @@
         e.preventDefault();
       });
     }
+
+    window.__onNativeSearch = function(value) {
+      const input = document.querySelector('input.input-search');
+      if (input) {
+        input.value = value;
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      }
+    };
   </script>
 </body>
 
