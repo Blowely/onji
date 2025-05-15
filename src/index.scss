@@ -7,21 +7,17 @@
 }
 
 * {
-  overscroll-behavior: contain;
 }
 
 html {
   background-color: white;
-  overscroll-behavior: contain;
 }
 
 #root {
   width: 100%;
   height: 100vh;
-  overscroll-behavior: contain;
 }
 body {
-  overscroll-behavior: contain;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   background: white; // или любой твой фон
   min-height: 100vh;
