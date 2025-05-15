@@ -50,11 +50,10 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     const handleFocus = () => {
         setOverlayVisible(true)
-        const prevY = window.scrollY;
+        window.scrollTo(0, 0);
+        //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
         inputRef.current.focus();
-        // возвращаем скролл
-        requestAnimationFrame(() => window.scrollTo(0, prevY));
     }
 
     return (
