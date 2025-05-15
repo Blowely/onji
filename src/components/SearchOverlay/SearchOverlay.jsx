@@ -157,7 +157,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                                     className={styles.suggestionItem}
                                     onClick={() => handleSelect(s)}
                                 >
-                                    <span className={styles.icon}><img className="search-icon" src={tinySearchSvg} alt="search" /></span>
+                                    {/*<span className={styles.icon}><img className="search-icon" src={tinySearchSvg} alt="search" /></span>*/}
                                     <span>{s}</span>
                                 </div>
                             )) : (
