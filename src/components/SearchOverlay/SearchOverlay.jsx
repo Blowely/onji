@@ -17,6 +17,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     const inputRef = useRef(null);
     const scrollYRef = useRef(0);
+    const prevScrollY = useRef(0);
 
     // при вводе в инпут
     const handleChange = async e => {
@@ -53,16 +54,36 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     const handleFocus = (e) => {
         setOverlayVisible(true)
 
+        // BEFORE overlay opens:
+        prevScrollY.current = window.scrollY;
+
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${prevScrollY.current}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.overflow = 'hidden';
+        document.body.style.width = '100%';
+
+// AFTER overlay closes:
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        document.body.style.width = '';
+
+        window.scrollTo(0, prevScrollY.current);
+
         //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
-        inputRef.current.focus();
+        //inputRef.current.focus();
     }
 
     useEffect(() => {
         const doc = document.documentElement;
         const body = document.body;
 
-        // 1) запомним, где мы были
+/*        // 1) запомним, где мы были
         scrollYRef.current = window.scrollY;
         // 2) зафиксируем документ
         doc.style.position = 'fixed';
@@ -73,7 +94,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         body.style.position = 'fixed';
         body.style.top = `-${scrollYRef.current}px`;
         body.style.left = '0';
-        body.style.right = '0';
+        body.style.right = '0';*/
 
         const el = overlayRef.current;
         if (!el) return;
@@ -81,6 +102,16 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         el.addEventListener('touchmove', handler, { passive: false });
         return () => el.removeEventListener('touchmove', handler);
     }, []); // пустой массив — навсегда, сразу на монтирование
+
+    useEffect(() => {
+        if (visible) {
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    inputRef.current?.focus();
+                }, 50); // иногда даже 0 или 10мс достаточно
+            });
+        }
+    }, [visible]);
 
     return (
         <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}} ref={overlayRef}>
