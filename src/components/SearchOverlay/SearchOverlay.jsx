@@ -59,11 +59,11 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     return (
         <div className={styles.overlay} style={{padding: visible && '16px'}} ref={overlayRef}>
-            {visible &&
+            {/*{visible &&
                 <div className={styles.header}>
                     <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
                 </div>
-            }
+            }*/}
 
             <Input
                 onClick={handleFocus}
