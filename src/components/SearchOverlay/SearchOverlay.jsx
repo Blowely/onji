@@ -48,6 +48,15 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         width: "calc(100% + 32px)"
     }
 
+    const handleFocus = () => {
+        setOverlayVisible(true)
+        const prevY = window.scrollY;
+        // фокус + открытие клавиатуры
+        inputRef.current.focus();
+        // возвращаем скролл
+        requestAnimationFrame(() => window.scrollTo(0, prevY));
+    }
+
     return (
         <div className={styles.overlay} style={{padding: visible && '16px'}} ref={overlayRef}>
             {visible &&
@@ -57,6 +66,8 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             }
 
             <Input
+                onClick={handleFocus}
+                onFocus={handleFocus}
                 type="search"
                 className="input-search"
                 style={inputStyles}
@@ -68,7 +79,6 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 onPressEnter={() => handleSelect(query)}
                 suffix={<img className="search-icon" src={tinySearchSvg} alt="search" />}
                 allowClear
-                onClick={() => setOverlayVisible(true)}
             />
 
             {visible && (
