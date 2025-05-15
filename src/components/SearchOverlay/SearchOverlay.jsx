@@ -51,7 +51,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     const handleFocus = () => {
         setOverlayVisible(true)
-        useLockBodyScroll(true);
+        document.body.style.overflow = 'hidden';
         //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
         inputRef.current.focus();
