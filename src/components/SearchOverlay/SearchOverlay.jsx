@@ -5,6 +5,7 @@ import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
 import axios from 'axios';
 import leftArrow from "../../assets/svg/v2/left-arrow.svg";
 import {historyIcon} from "../constants";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const popularQueries = ['jordan', 'ozweego', 'адидас', 'найк', 'худи', 'force'];
 
@@ -50,7 +51,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     const handleFocus = () => {
         setOverlayVisible(true)
-        window.scrollTo(0, 0);
+        useLockBodyScroll(true);
         //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
         inputRef.current.focus();
