@@ -27,7 +27,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
 
     const [searchValue, setSearchValue] = useState('');
     const [options, setOptions] = useState(defaultOptions || []);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
 
     const [recent, setRecent] = useState(['adidas ozweego', 'джорданы', 'худи', 'рубашка']);
 
@@ -43,7 +43,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
         setSearchValue(search?.replace('+',' '));
     },[search])
 
-    useEffect(() => {
+    /*useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             const isMobile = window.innerWidth <= 768;
@@ -64,7 +64,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, []);*/
 
     const onChange = async (value) => {
         if (search && !value) {
