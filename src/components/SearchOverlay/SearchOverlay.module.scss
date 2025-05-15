@@ -19,7 +19,11 @@
   align-items: center;
   margin-bottom: 16px;
 
-  .backIcon { font-size: 24px; cursor: pointer; }
+  .backIcon {
+    cursor: pointer;
+    padding: 10px;
+    margin-left: -10px;
+  }
   .title { margin-left: 12px; font-size: 18px; font-weight: bold; }
 }
 
