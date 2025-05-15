@@ -87,7 +87,6 @@
 
     font-size: 25px !important;
 
-
     input.ant-input {
       &::placeholder {
         color: #CCC !important;
@@ -407,7 +406,7 @@
   }
 
   &.visible {
-    transform: translateY(50%);
+    transform: translateY(0);
   }
 }
 

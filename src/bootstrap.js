@@ -27,18 +27,6 @@ export const ErrorFallback = ({ error, resetErrorBoundary }) => {
 export const API_URL = "https://api.re-poizon.ru/api";
 
 const Index = () => {
-
-    useEffect(() => {
-        window.__onNativeSearch = function(value) {
-            const input = document.querySelector('input.input-search');
-            if (input) {
-                input.value = value;
-                input.dispatchEvent(new Event('input'));
-                input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-            }
-        };
-    }, []);
-
   return (
       <Provider store={store}>
           <ConfigProvider
