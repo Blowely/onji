@@ -3,17 +3,10 @@
   inset: 0;
   background: #fff;
   z-index: 2000;
-  overflow-y: auto;
   height: 100%;
-  overscroll-behavior: contain;
-  overflow-x: hidden;
+  overflow: hidden !important;
 
-  &.no-scroll {
-    overflow: hidden;
-  }
-  &.scrollable {
-    overflow-y: auto;
-  }
+  overscroll-behavior: none;
 
  /* :global(.input-search) {
     margin: 0 -16px !important;

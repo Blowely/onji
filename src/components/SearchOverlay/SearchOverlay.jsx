@@ -73,12 +73,12 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     }
 
     useEffect(() => {
-        if (!visible) return;
         const el = overlayRef.current;
-        const handler = e => e.preventDefault();
+        if (!el) return;
+        const handler = (e) => e.preventDefault();
         el.addEventListener('touchmove', handler, { passive: false });
         return () => el.removeEventListener('touchmove', handler);
-    }, [visible]);
+    }, []); // пустой массив — навсегда, сразу на монтирование
 
     return (
         <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}} ref={overlayRef}>
