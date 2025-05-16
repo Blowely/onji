@@ -58,40 +58,6 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         prevScrollY.current = window.scrollY;
     }
 
-    useEffect(() => {
-        const doc = document.documentElement;
-        const body = document.body;
-
-/*        // 1) запомним, где мы были
-        scrollYRef.current = window.scrollY;
-        // 2) зафиксируем документ
-        doc.style.position = 'fixed';
-        doc.style.top = `-${scrollYRef.current}px`;
-        doc.style.left = '0';
-        doc.style.right = '0';
-        // (по желанию) body тоже
-        body.style.position = 'fixed';
-        body.style.top = `-${scrollYRef.current}px`;
-        body.style.left = '0';
-        body.style.right = '0';*/
-
-        const el = overlayRef.current;
-        if (!el) return;
-        const handler = (e) => e.preventDefault();
-        el.addEventListener('touchmove', handler, { passive: false });
-        return () => el.removeEventListener('touchmove', handler);
-    }, []); // пустой массив — навсегда, сразу на монтирование
-
-    useEffect(() => {
-        if (visible) {
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    inputRef.current?.focus();
-                }, 50); // иногда даже 0 или 10мс достаточно
-            });
-        }
-    }, [visible]);
-
     return (
         <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}} ref={overlayRef}>
             {visible &&
