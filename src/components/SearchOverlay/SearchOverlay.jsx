@@ -52,6 +52,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     }
 
     const handleFocus = (e) => {
+        e.preventDefault();
         setOverlayVisible(true)
 
         // BEFORE overlay opens:
@@ -60,7 +61,10 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
         //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
-        //inputRef.current.focus();
+
+        setTimeout(() => {
+            inputRef.current.focus();
+        }, 2000)
     }
 
     useEffect(() => {
