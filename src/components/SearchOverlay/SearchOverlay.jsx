@@ -13,6 +13,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     const overlayRef = useRef(null);
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [readOnly, setReadOnly] = useState(true);
 
 
     const inputRef = useRef(null);
@@ -62,8 +63,10 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
 
+
         setTimeout(() => {
             inputRef.current.focus();
+            setReadOnly(false);
         }, 2000)
     }
 
@@ -110,7 +113,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             }
 
             <Input
-                readOnly                                // 1) не даём вводить напрямую
+                readOnly={readOnly}                                // 1) не даём вводить напрямую
                 onMouseDown={(e) => e.preventDefault()} // 2) отменяем нативный фокус
                 onClick={handleFocus}                   // 3) ставим свой обработчик
                 type="search"
