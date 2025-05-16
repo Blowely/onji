@@ -51,83 +51,66 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         width: "calc(100% + 32px)"
     }
 
-    const handleFocus = (e) => {
-        setOverlayVisible(true)
+    const SCROLL_THRESHOLD = 150;
 
-        // BEFORE overlay opens:
-        prevScrollY.current = window.scrollY;
+    const handleFocus = () => {
+        const currentY = window.scrollY;
 
-        //const prevY = window.scrollY;
-        // фокус + открытие клавиатуры
-        //inputRef.current.focus();
-    }
+        if (currentY >= SCROLL_THRESHOLD) {
+            // 1) запомнить
+            prevScrollY.current = currentY;
 
-    useEffect(() => {
-        const doc = document.documentElement;
-        const body = document.body;
+            // 2) зафиксировать body наверху
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${currentY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.overflow = 'hidden';
+            document.body.style.width = '100%';
 
-/*        // 1) запомним, где мы были
-        scrollYRef.current = window.scrollY;
-        // 2) зафиксируем документ
-        doc.style.position = 'fixed';
-        doc.style.top = `-${scrollYRef.current}px`;
-        doc.style.left = '0';
-        doc.style.right = '0';
-        // (по желанию) body тоже
-        body.style.position = 'fixed';
-        body.style.top = `-${scrollYRef.current}px`;
-        body.style.left = '0';
-        body.style.right = '0';*/
+            // 3) проскроллить наверх
+            window.scrollTo(0, 0);
 
-        const el = overlayRef.current;
-        if (!el) return;
-        const handler = (e) => e.preventDefault();
-        el.addEventListener('touchmove', handler, { passive: false });
-        return () => el.removeEventListener('touchmove', handler);
-    }, []); // пустой массив — навсегда, сразу на монтирование
+            // 4) открыть overlay
+            setOverlayVisible(true);
 
-    useEffect(() => {
-        const body = document.body;
-        const html = document.documentElement;
-
-        if (visible) {
-            const scrollY = window.scrollY;
-            scrollYRef.current = scrollY;
-
-            // фиксируем body
-            body.style.position = 'fixed';
-            body.style.top = `-${scrollY}px`;
-            body.style.left = '0';
-            body.style.right = '0';
-            body.style.overflow = 'hidden';
-            body.style.width = '100%';
-        } else {
-            // восстанавливаем скролл
-            body.style.position = '';
-            body.style.top = '';
-            body.style.left = '';
-            body.style.right = '';
-            body.style.overflow = '';
-            body.style.width = '';
-
-            // вернуть скролл на место
-            window.scrollTo(0, scrollYRef.current || 0);
-        }
-
-        if (visible) {
+            // 5) отложенно поставить фокус
             requestAnimationFrame(() => {
-                setTimeout(() => {
-                    inputRef.current?.focus();
-                }, 50); // иногда даже 0 или 10мс достаточно
+                setTimeout(() => inputRef.current?.focus(), 50);
+            });
+        } else {
+            // Простое поведение для маленького скролла
+            setOverlayVisible(true);
+            requestAnimationFrame(() => {
+                setTimeout(() => inputRef.current?.focus(), 50);
             });
         }
-    }, [visible]);
+    };
+
+    const handleClose = () => {
+        setOverlayVisible(false);
+
+        // если мы фиксировали body — снимем фиксацию и вернёмся
+        if (prevScrollY.current >= SCROLL_THRESHOLD) {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.overflow = '';
+            document.body.style.width = '';
+
+            setTimeout(() => {
+                window.scrollTo(0, prevScrollY.current);
+                prevScrollY.current = 0;
+            }, 300); // подогнать под длительность анимации скрытия overlay
+        }
+    };
 
     return (
         <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}} ref={overlayRef}>
             {visible &&
                 <div className={styles.header}>
-                    <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
+                    <img src={leftArrow} onClick={handleClose} alt='backButton' className={styles.backIcon}/>
                 </div>
             }
 
