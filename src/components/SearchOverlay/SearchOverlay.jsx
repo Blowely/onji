@@ -55,6 +55,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     const handleFocus = (e) => {
         e.preventDefault();
         setOverlayVisible(true);
+        setReadOnly(false);
         prevScrollY.current = window.scrollY;
     }
 
@@ -67,7 +68,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             }
 
             <Input
-                readOnly={!visible}                          // 1) не даём вводить напрямую
+                readOnly={readOnly}                          // 1) не даём вводить напрямую
                 onMouseDown={(e) => e.preventDefault()} // 2) отменяем нативный фокус
                 onClick={handleFocus}                   // 3) ставим свой обработчик
                 type="search"
