@@ -34,7 +34,6 @@ import ReqProducts from "../components/ReqProduct/ReqProducts";
 import FooterV2 from "../components/FooterV2/FooterV2";
 import MainProduct from "../components/MainProduct/MainProduct";
 import Header from "../components/Header/Header";
-import {Overlay} from "antd/es/popover/PurePanel";
 
 // Ваш renderItems остаётся без изменений
 const renderItems = (productsSlice, trimCollectionValue, products, isLoading, loading, onAddToFavorite, onAddToCart, onPointerDown, onPointerUp) => {
@@ -677,20 +676,19 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             />
         )}
 
-        {!overlayVisible && <>
-          <HeroSection />
+        <HeroSection />
 
-          <div className="storiesWrapper">
-            <Stories />
-          </div>
+        <div className="storiesWrapper">
+          <Stories />
+        </div>
 
-          <NewFeatures />
-          {isDesktopScreen && <BrandsV2 />}
-          <BestSellers />
-          {isDesktopScreen && <CatalogBtnBlock />}
-          <ShoesBlock />
-          {!isDesktopScreen && <MainProduct />}
-          {!isDesktopScreen && (
+        <NewFeatures />
+        {isDesktopScreen && <BrandsV2 />}
+        <BestSellers />
+        {isDesktopScreen && <CatalogBtnBlock />}
+        <ShoesBlock />
+        {!isDesktopScreen && <MainProduct />}
+        {!isDesktopScreen && (
               <LazyProducts
                   productsSlice={productsSlice}
                   trimCollectionValue={trimCollectionValue}
@@ -703,19 +701,17 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                   onPointerUp={onPointerUp}
                   isDesktopScreen={isDesktopScreen}
               />
-          )}
+        )}
 
-          {isDesktopScreen && <CatalogBtnBlockV2 />}
-          {isDesktopScreen && <ClothBlock />}
-          {isDesktopScreen && <FaqBlock />}
-          {isDesktopScreen && <ReqProducts />}
-          {isDesktopScreen && <FooterV2 />}
+        {isDesktopScreen && <CatalogBtnBlockV2 />}
+        {isDesktopScreen && <ClothBlock />}
+        {isDesktopScreen && <FaqBlock />}
+        {isDesktopScreen && <ReqProducts />}
+        {isDesktopScreen && <FooterV2 />}
 
-          {!isDesktopScreen &&
-              <PhoneFooter tab="products"/>
-          }
-        </>}
-
+        {!isDesktopScreen &&
+            <PhoneFooter tab="products"/>
+        }
       </Layout>
   );
 }
