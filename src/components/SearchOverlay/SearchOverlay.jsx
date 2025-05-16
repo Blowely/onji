@@ -18,6 +18,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     const inputRef = useRef(null);
     const scrollYRef = useRef(0);
     const prevScrollY = useRef(0);
+    const editableRef = useRef(null);
 
     // при вводе в инпут
     const handleChange = async e => {
@@ -39,82 +40,77 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     };
 
     // выполнить поиск и закрыть оверлей
-    const handleSelect = val => {
-        onSearch(val);
-        onClose();
-        setQuery('');
-        setSuggestions([]);
-    };
-
     const inputStyles = visible && {
         margin: "0 -16px",
         width: "calc(100% + 32px)"
     }
 
-    const SCROLL_THRESHOLD = 150;
+    useEffect(() => {
+        if (visible) {
+            // slight delay, чтобы див точно в DOM
+            setTimeout(() => {
+                editableRef.current?.focus();
+                // переместить курсор в конец
+                document.execCommand('selectAll', false, null);
+                document.getSelection()?.collapseToEnd();
+            }, 50);
+        }
+    }, [visible]);
 
-    const handleFocus = () => {
-        const currentY = window.scrollY;
+    const handleInput = e => {
+        const text = e.currentTarget.textContent || '';
+        setQuery(text);
+        // …тут же запрашиваем подсказки, как в handleChange…
+    };
 
-        if (currentY >= SCROLL_THRESHOLD) {
-            // 1) запомнить
-            prevScrollY.current = currentY;
-
-            // 2) зафиксировать body наверху
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${currentY}px`;
-            document.body.style.left = '0';
-            document.body.style.right = '0';
-            document.body.style.overflow = 'hidden';
-            document.body.style.width = '100%';
-
-            // 3) проскроллить наверх
-            window.scrollTo(0, 0);
-
-            // 4) открыть overlay
-            setOverlayVisible(true);
-
-            // 5) отложенно поставить фокус
-            requestAnimationFrame(() => {
-                setTimeout(() => inputRef.current?.focus(), 50);
-            });
-        } else {
-            // Простое поведение для маленького скролла
-            setOverlayVisible(true);
-            requestAnimationFrame(() => {
-                setTimeout(() => inputRef.current?.focus(), 50);
-            });
+    const handleKeyDown = e => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const val = query.trim();
+            if (val) {
+                onSearch(val);
+                onClose();
+                setQuery('');
+                editableRef.current.textContent = '';
+            }
         }
     };
 
-    const handleClose = () => {
-        setOverlayVisible(false);
+    const handleSelect = val => {
+        onSearch(val);
+        onClose();
+        setQuery('');
+        editableRef.current.textContent = '';
+    };
 
-        // если мы фиксировали body — снимем фиксацию и вернёмся
-        if (prevScrollY.current >= SCROLL_THRESHOLD) {
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.left = '';
-            document.body.style.right = '';
-            document.body.style.overflow = '';
-            document.body.style.width = '';
-
-            setTimeout(() => {
-                window.scrollTo(0, prevScrollY.current);
-                prevScrollY.current = 0;
-            }, 300); // подогнать под длительность анимации скрытия overlay
-        }
+    const handleFocus = () => {
+        setOverlayVisible(true);
+        prevScrollY.current = window.scrollY;
     };
 
     return (
-        <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}} ref={overlayRef}>
+        <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}}
+             ref={overlayRef}>
             {visible &&
                 <div className={styles.header}>
-                    <img src={leftArrow} onClick={handleClose} alt='backButton' className={styles.backIcon}/>
+                    <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
                 </div>
             }
 
-            <Input
+            <div
+                ref={editableRef}
+                className={styles.editableInput}
+                contentEditable={visible}
+                suppressContentEditableWarning={true}
+                onInput={handleInput}
+                onKeyDown={handleKeyDown}
+                data-placeholder="поиск"
+                onClick={handleFocus}
+                onFocus={handleFocus}
+            >
+            </div>
+
+            {/*<Input
                 onClick={handleFocus}
                 onFocus={handleFocus}
                 type="search"
@@ -128,7 +124,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 onPressEnter={() => handleSelect(query)}
                 suffix={<img className="search-icon" src={tinySearchSvg} alt="search" />}
                 allowClear
-            />
+            />*/}
 
             {visible && (
                 <div>
