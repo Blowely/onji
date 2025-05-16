@@ -110,8 +110,9 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             }
 
             <Input
-                onClick={handleFocus}
-                onFocus={handleFocus}
+                readOnly                                // 1) не даём вводить напрямую
+                onMouseDown={(e) => e.preventDefault()} // 2) отменяем нативный фокус
+                onClick={handleFocus}                   // 3) ставим свой обработчик
                 type="search"
                 className="input-search"
                 style={inputStyles}
