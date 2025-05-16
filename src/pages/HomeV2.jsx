@@ -34,6 +34,7 @@ import ReqProducts from "../components/ReqProduct/ReqProducts";
 import FooterV2 from "../components/FooterV2/FooterV2";
 import MainProduct from "../components/MainProduct/MainProduct";
 import Header from "../components/Header/Header";
+import {Overlay} from "antd/es/popover/PurePanel";
 
 // Ваш renderItems остаётся без изменений
 const renderItems = (productsSlice, trimCollectionValue, products, isLoading, loading, onAddToFavorite, onAddToCart, onPointerDown, onPointerUp) => {
@@ -185,6 +186,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
+  const [overlayVisible, setOverlayVisible] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -670,22 +672,25 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                     setLoading={() => {}}
                     setShowFilters={() => {}}
                     isEnabledFilters={() => {}}
+                    overlayVisible={overlayVisible}
+                    setOverlayVisible={setOverlayVisible}
             />
         )}
-        
-        <HeroSection />
 
-        <div className="storiesWrapper">
-          <Stories />
-        </div>
+        {!overlayVisible && <>
+          <HeroSection />
 
-        <NewFeatures />
-        {isDesktopScreen && <BrandsV2 />}
-        <BestSellers />
-        {isDesktopScreen && <CatalogBtnBlock />}
-        <ShoesBlock />
-        {!isDesktopScreen && <MainProduct />}
-        {!isDesktopScreen && (
+          <div className="storiesWrapper">
+            <Stories />
+          </div>
+
+          <NewFeatures />
+          {isDesktopScreen && <BrandsV2 />}
+          <BestSellers />
+          {isDesktopScreen && <CatalogBtnBlock />}
+          <ShoesBlock />
+          {!isDesktopScreen && <MainProduct />}
+          {!isDesktopScreen && (
               <LazyProducts
                   productsSlice={productsSlice}
                   trimCollectionValue={trimCollectionValue}
@@ -698,17 +703,19 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                   onPointerUp={onPointerUp}
                   isDesktopScreen={isDesktopScreen}
               />
-        )}
+          )}
 
-        {isDesktopScreen && <CatalogBtnBlockV2 />}
-        {isDesktopScreen && <ClothBlock />}
-        {isDesktopScreen && <FaqBlock />}
-        {isDesktopScreen && <ReqProducts />}
-        {isDesktopScreen && <FooterV2 />}
+          {isDesktopScreen && <CatalogBtnBlockV2 />}
+          {isDesktopScreen && <ClothBlock />}
+          {isDesktopScreen && <FaqBlock />}
+          {isDesktopScreen && <ReqProducts />}
+          {isDesktopScreen && <FooterV2 />}
 
-        {!isDesktopScreen &&
-            <PhoneFooter tab="products"/>
-        }
+          {!isDesktopScreen &&
+              <PhoneFooter tab="products"/>
+          }
+        </>}
+
       </Layout>
   );
 }

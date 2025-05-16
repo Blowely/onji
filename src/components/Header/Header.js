@@ -16,7 +16,17 @@ const defaultOptions = [
     { value: 'Бутсы' },
 ];
 
-const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoading = () => {}, style}) => {
+const Header = (props) => {
+    const {
+        search,
+        setShowFilters = () => {},
+        setOffset = () => {},
+        setLoading = () => {},
+        style,
+        overlayVisible,
+        setOverlayVisible,
+    } = props;
+
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -141,7 +151,7 @@ const Header = ({search, setShowFilters = () => {}, setOffset = () => {}, setLoa
     const onInfoBlockItemClick = (link) => {
         window.open(link);
     }
-    const [overlayVisible, setOverlayVisible] = useState(false);
+
     return (
         <header
             className={`header-wrapper ${isVisible ? 'visible' : 'hidden'} d-flex flex-column justify-between align-center pl-20 pt-20 pr-20`}
