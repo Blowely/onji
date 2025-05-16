@@ -62,11 +62,10 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
         //const prevY = window.scrollY;
         // фокус + открытие клавиатуры
-
-
+        setReadOnly(false);
         setTimeout(() => {
             inputRef.current.focus();
-            setReadOnly(false);
+
         }, 2000)
     }
 
