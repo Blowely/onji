@@ -54,19 +54,8 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     const handleFocus = (e) => {
         e.preventDefault();
-        setOverlayVisible(true)
-
-        // BEFORE overlay opens:
+        setOverlayVisible(true);
         prevScrollY.current = window.scrollY;
-
-
-        //const prevY = window.scrollY;
-        // фокус + открытие клавиатуры
-        setReadOnly(false);
-        setTimeout(() => {
-            inputRef.current.focus();
-
-        }, 2000)
     }
 
     useEffect(() => {
@@ -112,7 +101,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             }
 
             <Input
-                readOnly={readOnly}                                // 1) не даём вводить напрямую
+                readOnly={!visible}                          // 1) не даём вводить напрямую
                 onMouseDown={(e) => e.preventDefault()} // 2) отменяем нативный фокус
                 onClick={handleFocus}                   // 3) ставим свой обработчик
                 type="search"
