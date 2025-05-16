@@ -14,31 +14,6 @@
   }*/
 }
 
-
-.editableInput {
-  position: relative;
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 25px;
-  font-family: 'Graphik-Medium', system-ui;
-  line-height: 1.2;
-  border-bottom: 1px solid #ededed;
-  min-height: 50px;
-  outline: none;
-  cursor: text;
-  user-select: text;
-
-  &[data-placeholder]:empty:before {
-    content: attr(data-placeholder);
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #CCC;
-    pointer-events: none;
-  }
-}
-
 .header {
   display: flex;
   align-items: center;
