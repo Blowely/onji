@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useImperativeHandle, forwardRef} from 'react';
+import React, {useState, useRef} from 'react';
 import { Input, Tag } from 'antd';
 import styles from './SearchOverlay.module.scss';
 import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
@@ -6,7 +6,6 @@ import axios from 'axios';
 import leftArrow from "../../assets/svg/v2/left-arrow.svg";
 import {historyIcon} from "../constants";
 import { flushSync } from 'react-dom';
-import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const popularQueries = ['jordan', 'ozweego', 'адидас', 'найк', 'худи', 'force'];
 
@@ -14,11 +13,8 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     const overlayRef = useRef(null);
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
-    const [readOnly, setReadOnly] = useState(true);
-
 
     const inputRef = useRef(null);
-    const scrollYRef = useRef(0);
     const prevScrollY = useRef(0);
 
     // при вводе в инпут
@@ -77,6 +73,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 onMouseDown={e => e.preventDefault()}
                 onClick={handleFocus}
                 type="search"
+                style={inputStyles}
                 size="large"
                 ref={inputRef}
                 placeholder="поиск"
