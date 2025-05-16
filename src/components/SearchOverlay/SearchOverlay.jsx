@@ -5,6 +5,7 @@ import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
 import axios from 'axios';
 import leftArrow from "../../assets/svg/v2/left-arrow.svg";
 import {historyIcon} from "../constants";
+import { flushSync } from 'react-dom';
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const popularQueries = ['jordan', 'ozweego', 'адидас', 'найк', 'худи', 'force'];
@@ -53,10 +54,14 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     }
 
     const handleFocus = (e) => {
-        e.preventDefault();
-        setOverlayVisible(true);
-        setReadOnly(false);
+        e.preventDefault();                // отменяем нативный фокус
         prevScrollY.current = window.scrollY;
+        // 1) синхронно показываем overlay
+        flushSync(() => {
+            setOverlayVisible(true);
+        });
+        // 2) сразу же фокусируем инпут — в рамках того же события tap
+        inputRef.current?.focus({ preventScroll: true });
     }
 
     return (
@@ -68,12 +73,10 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             }
 
             <Input
-                readOnly={readOnly}                          // 1) не даём вводить напрямую
-                onMouseDown={(e) => e.preventDefault()} // 2) отменяем нативный фокус
-                onClick={handleFocus}                   // 3) ставим свой обработчик
+                readOnly={!visible}
+                onMouseDown={e => e.preventDefault()}
+                onClick={handleFocus}
                 type="search"
-                className="input-search"
-                style={inputStyles}
                 size="large"
                 ref={inputRef}
                 placeholder="поиск"
