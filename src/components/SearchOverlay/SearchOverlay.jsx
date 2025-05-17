@@ -44,11 +44,6 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         setSuggestions([]);
     };
 
-    const inputStyles = visible && {
-        margin: "0 -16px",
-        width: "calc(100% + 32px)"
-    }
-
     const handleFocus = (e) => {
         e.preventDefault();                // отменяем нативный фокус
         prevScrollY.current = window.scrollY;
@@ -61,7 +56,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     }
 
     return (
-        <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} style={{padding: visible && '16px'}} ref={overlayRef}>
+        <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} ref={overlayRef}>
             {visible &&
                 <div className={styles.header}>
                     <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
@@ -74,7 +69,6 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 onClick={handleFocus}
                 type="search"
                 rootClassName="input-search"
-                style={inputStyles}
                 size="large"
                 ref={inputRef}
                 placeholder="поиск"
@@ -86,7 +80,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             />
 
             {visible && (
-                <div>
+                <div className={styles.suggestionsWrapper}>
                     {query && suggestions.length > 0 && (
                         <div className={styles.suggestionTags}>
                             {suggestions.slice(0, 5).map((tag, i) => (
