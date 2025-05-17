@@ -73,6 +73,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 onMouseDown={e => e.preventDefault()}
                 onClick={handleFocus}
                 type="search"
+                rootClassName="input-search"
                 style={inputStyles}
                 size="large"
                 ref={inputRef}
