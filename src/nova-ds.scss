@@ -16,6 +16,8 @@
 }
 .ant-input-outlined:focus {
   border-color: black !important;
+  border-style: unset!important;
+
   @media (max-width: 768px) {
     border-color: transparent!important;
   }
