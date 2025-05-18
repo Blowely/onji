@@ -19,6 +19,9 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     useEffect(() => {
         document.body.style.overflow = visible && 'hidden';
+        return () => {
+            document.body.style.overflow = '';
+        };
     },[visible])
 
     // при вводе в инпут
