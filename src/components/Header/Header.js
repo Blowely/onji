@@ -198,6 +198,7 @@ const Header = (props) => {
                         onClose={() => setOverlayVisible(false)}
                         setOverlayVisible={setOverlayVisible}
                         recentSearches={recent}
+                        onSelect={onSelectHandler}
                     />
                 }
                 {isDesktopScreen &&

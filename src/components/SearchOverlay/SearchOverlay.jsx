@@ -9,7 +9,7 @@ import { flushSync } from 'react-dom';
 
 const popularQueries = ['jordan', 'ozweego', 'адидас', 'найк', 'худи', 'force'];
 
-const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, onSearch })=> {
+const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, onSelect })=> {
     const overlayRef = useRef(null);
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -38,10 +38,12 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     // выполнить поиск и закрыть оверлей
     const handleSelect = val => {
-        onSearch(val);
+        //onSearch(val);
         onClose();
         setQuery('');
         setSuggestions([]);
+        console.log('val',val)
+        onSelect(val);
     };
 
     const handleFocus = (e) => {
@@ -71,6 +73,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 rootClassName="input-search"
                 size="large"
                 ref={inputRef}
+                style={{ height: visible && '100vh' }}
                 placeholder="поиск"
                 value={query}
                 onChange={handleChange}
