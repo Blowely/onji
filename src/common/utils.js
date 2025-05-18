@@ -305,3 +305,7 @@ export const getSkuImages = (skus, skuId) => {
   if (foundSkuIndex === -1) return [];
   return skus[foundSkuIndex].images;
 }
+
+export const goBack = () => {
+  window.history.go(-1);
+}

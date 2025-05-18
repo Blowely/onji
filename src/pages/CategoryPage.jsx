@@ -56,7 +56,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [showControls, setShowControls] = useState(false);
   const prevYRef = useRef(0);
@@ -599,7 +599,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                 ref={headerRef}
             >
               <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
-              <span>одежда {selectedCategory}</span>
+              <span>{search || getCategoryTitle()}</span>
               <img src={searchSvg} style={{height: '22px'}} onClick={onGoBackClick} alt='backButton'/>
             </div>
         )}

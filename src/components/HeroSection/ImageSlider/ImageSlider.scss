@@ -16,6 +16,12 @@
     background: url('https://storage.yandexcloud.net/pc-mediafiles/test1/banners/category-banner.webp') no-repeat center center;
     aspect-ratio: 1920/419!important;
     color: white;
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      aspect-ratio: 1920 / 979;
+    }
   }
 
   .slide {
@@ -30,6 +36,11 @@
     justify-content: center;
     text-align: center;
 
+    @media (max-width: 768px) {
+      align-items: start;
+      padding: 11px 20px;
+    }
+
     &.slide3 {
       aspect-ratio: 1920/419 !important;
     }
@@ -37,7 +48,7 @@
     @media (max-width: 768px) {
       aspect-ratio: 1920/979;
       &.slide3 {
-        aspect-ratio: 1920/419 !important;
+        aspect-ratio: 1920/979 !important;
       }
     }
 

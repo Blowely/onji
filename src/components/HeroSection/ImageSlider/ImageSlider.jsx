@@ -2,9 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { Carousel } from 'antd';
 import styles from './ImageSlider.module.scss';
 import './ImageSlider.scss';
+import {CATEGORIES} from "../../constants";
+import leftArrow from "../../../assets/svg/v2/left-arrow.svg";
+import {goBack} from "../../../common/utils";
 
 
-const ImageSlider = ({ onSlideChange, search, selectedCategory }) => {
+const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) => {
     const carouselRef = useRef(null);
     const slides = [
         {
@@ -33,6 +36,18 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory }) => {
         return () => clearInterval(interval); // Очистка интервала при размонтировании
     }, []);
 
+    const getCategoryTitle = () => {
+        if (!selectedCategory) {
+            return '';
+        }
+
+        const index = CATEGORIES.findIndex((el) => el.id === Number(selectedCategory));
+
+        return <span style={{cursor: "pointer"}}>{CATEGORIES[index]?.name
+            || categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
+            || ''}</span> ;
+    }
+
     const isDesktop = window?.innerWidth > 768;
 
     return (
@@ -57,9 +72,15 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory }) => {
                     ))}
                 </Carousel>
                 : <div className="slide slide3">
+                    {!isDesktop && (
+                        <div className={styles.header}>
+                            <img src={leftArrow} onClick={goBack} alt='backButton' className={styles.backIcon}/>
+                        </div>
+                    )}
                     <div className={styles.itemsWrapper}>
+
                         {isDesktop && <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
-                        <div className={styles.title}>Повседневная одежда</div>
+                        <div className={styles.title}>{search || getCategoryTitle()}</div>
                     </div>
                 </div>
             }

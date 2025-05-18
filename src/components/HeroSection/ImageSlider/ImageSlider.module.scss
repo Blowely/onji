@@ -25,7 +25,7 @@
   color: #FFF;
   font-family: 'Graphik-Medium', system-ui;
   font-size: 45px;
-  font-weight: 500;
+  font-weight: 600;
   width: 100%;
   text-align: center;
   padding-bottom: 40px;
@@ -34,7 +34,15 @@
   z-index: 1;
 
   @media (max-width: 768px) {
-    font-size: 20px;
-    padding-bottom: 30px;
+    font-size: 35px;
+    width: unset;
+    padding-bottom: 10px;
+    margin: unset;
+    text-align: unset;
+    font-style: normal;
   }
+}
+
+.backIcon {
+  color: #fff;
 }
