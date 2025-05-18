@@ -17,6 +17,17 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     const inputRef = useRef(null);
     const prevScrollY = useRef(0);
 
+    const handleHideOverlay = () => {
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        document.body.style.width = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
     useEffect(() => {
         if (visible) {
             const scrollY = window.scrollY;
@@ -27,14 +38,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             document.body.style.overflow = 'hidden';
             document.body.style.width = '100%';
         } else {
-            const scrollY = document.body.style.top;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.left = '';
-            document.body.style.right = '';
-            document.body.style.overflow = '';
-            document.body.style.width = '';
-            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            handleHideOverlay();
         }
     }, [visible]);
 
@@ -61,6 +65,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     const handleSelect = val => {
         //onSearch(val);
         onClose();
+        handleHideOverlay();
         setQuery('');
         setSuggestions([]);
         console.log('val',val)

@@ -41,10 +41,11 @@ export function PrivateAppRouter({
     const category1Id = searchParams.get("category1Id");
     const category2Id = searchParams.get("category2Id");
     const category3Id = searchParams.get("category3Id");
+    const search = searchParams.get("search");
 
     const selectedCategory = category1Id || category2Id || category3Id;
 
-    return selectedCategory ? (
+    return selectedCategory || search ? (
         <CategoryPage categoryId={selectedCategory} />
     ) : (
         <HomeV2 {...props} />

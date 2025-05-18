@@ -15,6 +15,7 @@ const HeroSection = () => {
     const category1Id = searchParams.get("category1Id");
     const category2Id = searchParams.get("category2Id");
     const category3Id = searchParams.get("category3Id");
+    const search = searchParams.get("search");
     const selectedCategory = category1Id || category2Id || category3Id;
 
     const gender = localStorage.getItem("gender") || "men";
@@ -146,7 +147,7 @@ const HeroSection = () => {
                     </div>
                 </div>
             }
-            <ImageSlider onSlideChange={handleSlideChange} selectedCategory={selectedCategory}/>
+            <ImageSlider onSlideChange={handleSlideChange} search={search} selectedCategory={selectedCategory}/>
             {isDesktopScreen &&
                 <div
                     className={styles.categoryTableWrapper}

@@ -4,7 +4,7 @@ import styles from './ImageSlider.module.scss';
 import './ImageSlider.scss';
 
 
-const ImageSlider = ({ onSlideChange, selectedCategory }) => {
+const ImageSlider = ({ onSlideChange, search, selectedCategory }) => {
     const carouselRef = useRef(null);
     const slides = [
         {
@@ -37,7 +37,7 @@ const ImageSlider = ({ onSlideChange, selectedCategory }) => {
 
     return (
         <div className="beeon-slider">
-            {!selectedCategory
+            {(!selectedCategory && !search)
                 ? <Carousel
                     ref={carouselRef}
                     autoplay={false} // Отключаем встроенный autoplay
