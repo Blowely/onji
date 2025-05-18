@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { Input, Tag } from 'antd';
 import styles from './SearchOverlay.module.scss';
 import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
@@ -16,6 +16,10 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     const inputRef = useRef(null);
     const prevScrollY = useRef(0);
+
+    useEffect(() => {
+        document.body.style.overflow = visible && 'hidden';
+    },[visible])
 
     // при вводе в инпут
     const handleChange = async e => {
