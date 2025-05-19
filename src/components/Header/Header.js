@@ -1,13 +1,9 @@
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {Button, Input} from "antd";
 import React, {useEffect, useRef, useState} from "react";
 import './header.styles.scss';
-import {MenuOutlined} from "@ant-design/icons";
 import axios from "axios";
-import RePoizonMainBigLogo from "../../assets/svg/re-poizon-main-middle-big-logo";
 import {useAppDispatch} from "../../store";
 import {showSidebar} from "../../common/productsSlice";
-import tinySearchSvg from '../../assets/svg/v2/tiny-search.svg';
 import SearchOverlay from "../SearchOverlay/SearchOverlay";
 
 const defaultOptions = [
