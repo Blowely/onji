@@ -3,7 +3,7 @@ import { Carousel } from 'antd';
 import styles from './ImageSlider.module.scss';
 import './ImageSlider.scss';
 import {CATEGORIES} from "../../constants";
-import leftArrow from "../../../assets/svg/v2/left-arrow.svg";
+import { ReactComponent as LeftArrow } from "../../../assets/svg/v2/left-arrow.svg";
 import {goBack} from "../../../common/utils";
 
 
@@ -74,7 +74,7 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
                 : <div className="slide slide3">
                     {!isDesktop && (
                         <div className={styles.header}>
-                            <img src={leftArrow} onClick={goBack} alt='backButton' className={styles.backIcon}/>
+                            <LeftArrow onClick={goBack} alt='backButton' className={styles.backIcon}/>
                         </div>
                     )}
                     <div className={styles.itemsWrapper}>
