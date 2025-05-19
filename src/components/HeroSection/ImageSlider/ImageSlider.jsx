@@ -73,9 +73,10 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
                 </Carousel>
                 : <div className="slide slide3">
                     {!isDesktop && (
-                        <div className={styles.header}>
+                        <div className={styles.backIconWrapper}>
                             <LeftArrow onClick={goBack} alt='backButton' className={styles.backIcon}/>
                         </div>
+
                     )}
                     <div className={styles.itemsWrapper}>
 
