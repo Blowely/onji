@@ -158,14 +158,6 @@ const Header = (props) => {
             style={{...style, height: overlayVisible && '100%'}}
         >
             <div className="header-input-wrapper">
-                {isDesktopScreen &&
-                    <div onClick={() => navigate(`/${gender}-products`)}
-                         style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
-                        <RePoizonMainBigLogo/>
-                    </div>
-                }
-                {isDesktopScreen &&
-                    <Button id="desktop-category-btn" onClick={onCategoriesClick}><MenuOutlined/> Каталог</Button>}
                 {/*<AutoComplete
                     style={{width: '100%', height: 'auto'}}
                     options={options}

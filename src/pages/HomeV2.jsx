@@ -664,7 +664,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             </Modal>
         )}
 
-        {!isDesktopScreen && (
+        {!isDesktopScreen && !spuId && (
             <Header search={search}
                     showFilters={showFilters}
                     setOffset={() => {}}
