@@ -83,7 +83,7 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
 
                             {isDesktop &&
                                 <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
-                            <div className={styles.title}>{search || getCategoryTitle()}</div>
+                            <div className={styles.title}>{getCategoryTitle()}</div>
                         </div>
                     </div>
                 ) : <div className="slide">
@@ -96,7 +96,7 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
                     <div className={styles.itemsWrapper}>
 
                         {isDesktop && <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
-                        <div className={styles.title} style={{color:'black'}}>{search || getCategoryTitle()}</div>
+                        <div className={styles.title} style={{color:'black'}}>{search}</div>
                     </div>
                 </div>
             }

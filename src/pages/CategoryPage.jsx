@@ -608,9 +608,17 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                 ref={headerRef}
             >
               {search && (
-                  <span style={{display: "flex", width:'100%', gap: "10px", alignItems: "center"}}>
-                    <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
-                    <span>{search}</span>
+                  <span style={{display: "flex", gap: "10px", alignItems: "center", flex: 1, minWidth: 0}}>
+                    <img src={leftArrow} onClick={onGoBackClick} alt="backButton" style={{flexShrink: 0}}/>
+                    <span style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      flex: 1,
+                      minWidth: 0,
+                    }}>
+                      {search}
+                    </span>
                   </span>
               )}
 
