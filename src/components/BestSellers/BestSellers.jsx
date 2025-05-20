@@ -44,6 +44,7 @@ const products = [
 
 const BestSellers = () => {
     const navigate = useNavigate();
+    const gender = localStorage.getItem('gender');
 
     const isDesktop = window?.innerWidth > 768;
 
@@ -59,7 +60,9 @@ const BestSellers = () => {
                 <div className={styles.container}>
                     <div className={styles.columnsWrapper}>
                         <div className={styles.columnContainer}>
-                            <RotatingImageCircle left='calc(50% + 12px)'/>
+                            <div onClick={() => navigate(`/${gender}-products?category2Id=35`)}>
+                                <RotatingImageCircle left='calc(50% + 12px)' />
+                            </div>
                             <div
                                 className={styles.productCard}
                                 onClick={() => navigate(`?spuId=${products[3].spuId}`)}

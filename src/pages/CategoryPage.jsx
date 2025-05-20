@@ -230,6 +230,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY;
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
@@ -596,7 +600,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen && (
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
-                style={{ opacity: isScrolled ? 1 : 0 }}
+                style={{
+                         opacity: isScrolled ? 1 : 0,
+                         touchAction: !isScrolled && 'none',
+                      }}
                 ref={headerRef}
             >
               <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
