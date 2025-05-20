@@ -601,13 +601,22 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
                 style={{
-                         opacity: isScrolled ? 1 : 0,
-                         touchAction: !isScrolled && 'none',
-                      }}
+                  opacity: isScrolled ? 1 : 0,
+                  touchAction: !isScrolled && 'none',
+                  display: search ? 'flex' : 'grid',
+                }}
                 ref={headerRef}
             >
-              <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
-              <span>{search || getCategoryTitle()}</span>
+              {search && (
+                  <span style={{display: "flex", width:'100%', gap: "10px", alignItems: "center"}}>
+                    <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>
+                    <span>{search}</span>
+                  </span>
+              )}
+
+              {selectedCategory && <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>}
+              {selectedCategory && <span style={{display: selectedCategory ? 'block' : 'none'}}>{getCategoryTitle()}</span>}
+
               <img src={searchSvg} style={{height: '22px'}} onClick={onGoBackClick} alt='backButton'/>
             </div>
         )}
