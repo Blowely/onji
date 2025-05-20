@@ -91,13 +91,11 @@ const ShoesBlock = () => {
                                     <div className={styles.productPrice}>{products[0].price}</div>
                                 </div>
                             </div>
-                            <div onClick={() => navigate(`/${gender}-products?category1Id=29&minPrice=1`)}>
-                                <RotatingImageCircle
-                                    src="https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/shoes-category.png"
-                                    left="calc(50% - 13px)"
-                                />
-                            </div>
-
+                            <RotatingImageCircle
+                                src="https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/shoes-category.png"
+                                left="calc(50% - 13px)"
+                                onClick={() => navigate(`/${gender}-products?category1Id=29&minPrice=1`)}
+                            />
                         </div>
                         <div className={styles.columnContainer}>
                             <div

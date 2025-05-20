@@ -5,7 +5,8 @@ import styles from './RotatingImageCircle.module.scss';
 const RotatingImageCircle = ({
                                  src = 'https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/bests-category.png',
                                  left = '50%',
-                                 duration = 20 // длительность одного полного оборота в секундах
+                                 duration = 20, // длительность одного полного оборота в секундах
+                                 onClick = () => {}
                              }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -22,6 +23,7 @@ const RotatingImageCircle = ({
         <div
             className={styles.wrapper}
             style={{ width: size, height: size }}
+            onClick={onClick}
         >
             <div
                 className={styles.circle}

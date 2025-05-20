@@ -60,9 +60,10 @@ const BestSellers = () => {
                 <div className={styles.container}>
                     <div className={styles.columnsWrapper}>
                         <div className={styles.columnContainer}>
-                            <div onClick={() => navigate(`/${gender}-products?category2Id=35`)}>
-                                <RotatingImageCircle left='calc(50% + 12px)' />
-                            </div>
+                            <RotatingImageCircle
+                                left='calc(50% + 12px)'
+                                onClick={() => navigate(`/${gender}-products?category2Id=35`)}
+                            />
                             <div
                                 className={styles.productCard}
                                 onClick={() => navigate(`?spuId=${products[3].spuId}`)}
