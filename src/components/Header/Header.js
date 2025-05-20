@@ -97,8 +97,7 @@ const Header = (props) => {
         }
 
         window.scrollTo({top: 0})
-        searchParams.set('search', typeof value  === "string" ? value : searchValue);
-        setSearchParams(searchParams);
+        setSearchParams(new URLSearchParams({ search: typeof value === "string" ? value : searchValue }));
         setOffset(1);
     }
 

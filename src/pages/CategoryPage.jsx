@@ -505,8 +505,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     }
 
     window.scrollTo({top: 0})
-    searchParams.set('search', typeof value  === "string" ? value : '');
-    setSearchParams(searchParams);
+    setSearchParams(new URLSearchParams({ search: typeof value === "string" ? value : '' }));
     setOffset(1);
   }
 
@@ -664,6 +663,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
          ${styles.categoryTableWrapper}
          ${showControls ? styles.controlsVisible : styles.controlsHidden}
         `}
+         style={{borderTop: !search && !isDesktopScreen ? "border-top: 1px solid rgba(0, 0, 0, 0.2)" : "none"}}
         >
           <CatalogControls setShowFilters={setShowFilters}/>
         </div>
