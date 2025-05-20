@@ -122,7 +122,7 @@ function LazyProducts({
   }, [isDesktopScreen]);
 
   return (
-      <div ref={containerRef} style={{ marginTop: '150px' }}>
+      <div ref={containerRef} style={{ marginTop: '100px' }}>
         {isDesktopScreen ? (
             renderItems(
                 productsSlice,
