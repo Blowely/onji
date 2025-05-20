@@ -233,7 +233,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     const handleScroll = () => {
       const y = window.scrollY;
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
-      setIsScrolled(show);
+
+      if (!spuId) setIsScrolled(show);
 
       const slider = document.getElementsByClassName('beeon-slider');
 
@@ -247,7 +248,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [spuId]);
 
   const renderItems = () => {
     let productsItems = productsSlice[trimCollectionValue] || []
