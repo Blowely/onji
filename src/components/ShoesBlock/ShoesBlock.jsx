@@ -64,6 +64,7 @@ const products = [
 
 const ShoesBlock = () => {
     const navigate = useNavigate();
+    const gender = localStorage.getItem('gender');
 
     const isDesktop = window?.innerWidth > 768;
 
@@ -90,10 +91,13 @@ const ShoesBlock = () => {
                                     <div className={styles.productPrice}>{products[0].price}</div>
                                 </div>
                             </div>
-                            <RotatingImageCircle
-                                src="https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/shoes-category.png"
-                                left="calc(50% - 13px)"
-                            />
+                            <div onClick={() => navigate(`/${gender}-products?category1Id=29&minPrice=1`)}>
+                                <RotatingImageCircle
+                                    src="https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/shoes-category.png"
+                                    left="calc(50% - 13px)"
+                                />
+                            </div>
+
                         </div>
                         <div className={styles.columnContainer}>
                             <div
