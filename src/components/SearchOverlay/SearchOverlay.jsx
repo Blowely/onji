@@ -104,7 +104,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 value={query}
                 onChange={handleChange}
                 onPressEnter={() => handleSelect(query)}
-                suffix={<img className="search-icon" src={tinySearchSvg} alt="search" />}
+                suffix={<img onClick={handleFocus} className="search-icon" src={tinySearchSvg} alt="search" />}
                 allowClear
             />
 
