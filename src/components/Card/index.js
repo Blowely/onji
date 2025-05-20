@@ -152,12 +152,8 @@ function Card({
               )}
             </>
         }
-
-
-
     </div>
-{
-  !loadingImg && (
+    {!loadingImg && (
       <div className="favoriteIcon" ref={favRef} onClick={onFavoriteIconClick}>
             <IconHeartSmall/>
           </div>

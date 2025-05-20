@@ -26,6 +26,7 @@ import CatalogControls from "../components/HeroSection/CatalogControls/CatalogCo
 import leftArrow from "../assets/svg/v2/left-arrow.svg";
 import searchSvg from '../assets/svg/v2/search.svg';
 import Filters from "../components/Filters";
+import SearchOverlay from "../components/SearchOverlay/SearchOverlay";
 
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
@@ -74,6 +75,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const selectedCategory = category1Id || category2Id || category3Id;
 
   const [sort, setSort] = useState(sortBy || 'by-relevance');
+  const [overlayVisible, setOverlayVisible] = useState(false);
+  const [recent, setRecent] = useState(['adidas ozweego', 'джорданы', 'худи', 'рубашка']);
 
   const filtersRef = useRef(null);
   const headerRef = useRef(null);
@@ -496,6 +499,25 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     window.open(link);
   }
 
+  const onSearch = (value) => {
+    if (!value) {
+      return;
+    }
+
+    window.scrollTo({top: 0})
+    searchParams.set('search', typeof value  === "string" ? value : '');
+    setSearchParams(searchParams);
+    setOffset(1);
+  }
+
+  const onSelectHandler = (value) => {
+    onSearch(value);
+  }
+
+  const onSearchClick = () => {
+    setOverlayVisible(true);
+  }
+
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -594,6 +616,15 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
               }
           </div>
         }
+        {!isDesktopScreen && overlayVisible &&
+            <SearchOverlay
+                visible={overlayVisible}
+                onClose={() => setOverlayVisible(false)}
+                setOverlayVisible={setOverlayVisible}
+                recentSearches={recent}
+                onSelect={onSelectHandler}
+            />
+        }
 
         <HeroSection/>
 
@@ -625,7 +656,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
               {selectedCategory && <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>}
               {selectedCategory && <span style={{display: selectedCategory ? 'block' : 'none'}}>{getCategoryTitle()}</span>}
 
-              <img src={searchSvg} style={{height: '22px'}} onClick={onGoBackClick} alt='backButton'/>
+              <img src={searchSvg} style={{height: '22px'}} onClick={onSearchClick} alt='backButton'/>
             </div>
         )}
 
