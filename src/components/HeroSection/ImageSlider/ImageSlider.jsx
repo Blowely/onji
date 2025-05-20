@@ -71,17 +71,32 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
                         </div>
                     ))}
                 </Carousel>
-                : <div className="slide slide3">
+                : selectedCategory ? (
+                    <div className="slide slide3">
+                        {!isDesktop && (
+                            <div className={styles.backIconWrapper}>
+                                <LeftArrow onClick={goBack} alt='backButton' className={styles.backIcon}/>
+                            </div>
+
+                        )}
+                        <div className={styles.itemsWrapper}>
+
+                            {isDesktop &&
+                                <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
+                            <div className={styles.title}>{search || getCategoryTitle()}</div>
+                        </div>
+                    </div>
+                ) : <div className="slide">
                     {!isDesktop && (
                         <div className={styles.backIconWrapper}>
-                            <LeftArrow onClick={goBack} alt='backButton' className={styles.backIcon}/>
+                            <LeftArrow style={{color: 'black'}} onClick={goBack} alt='backButton' className={styles.backIcon}/>
                         </div>
 
                     )}
                     <div className={styles.itemsWrapper}>
 
                         {isDesktop && <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
-                        <div className={styles.title}>{search || getCategoryTitle()}</div>
+                        <div className={styles.title} style={{color:'black'}}>{search || getCategoryTitle()}</div>
                     </div>
                 </div>
             }
