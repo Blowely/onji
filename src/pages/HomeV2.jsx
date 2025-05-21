@@ -699,7 +699,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             />
         )}*/}
 
-        {/*{!isDesktopScreen && !spuId &&
+        {!isDesktopScreen && !spuId &&
             <div className={`overlayWrapper ${showHeader || overlayVisible ? 'visible' : 'hidden' } ${overlayVisible && 'overlayVisible'}`}>
               <SearchOverlay
                   visible={overlayVisible}
@@ -709,7 +709,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                   onSelect={onSearch}
               />
             </div>
-        }*/}
+        }
 
         <HeroSection/>
 
