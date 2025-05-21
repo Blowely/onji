@@ -5,6 +5,10 @@
   //background: url('../../assets/hero-section.png') no-repeat center center;
   background-size: cover;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    margin-top: -100px;
+  }
 }
 
 .navbar {

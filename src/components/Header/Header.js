@@ -179,15 +179,7 @@ const Header = (props) => {
                         e.preventDefault();
                     }}
                 />*/}
-                {!isDesktopScreen &&
-                    <SearchOverlay
-                        visible={overlayVisible}
-                        onClose={() => setOverlayVisible(false)}
-                        setOverlayVisible={setOverlayVisible}
-                        recentSearches={recent}
-                        onSelect={onSelectHandler}
-                    />
-                }
+
                 {isDesktopScreen &&
                     <div className="items-wrapper">
                         <div className="item"

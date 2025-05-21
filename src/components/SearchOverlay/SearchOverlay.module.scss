@@ -1,9 +1,9 @@
 .overlay {
-  position: fixed;
+  //position: fixed;
   inset: 0;
   background: #fff;
   z-index: 2000;
-  height: 100%;
+  height: fit-content;
   overflow-y: auto;
 
   overscroll-behavior: none;
@@ -12,6 +12,10 @@
     margin: 0 -16px !important;
     width: calc(100% + 32px) !important;
   }*/
+
+  &.visible {
+    height: 100% !important;
+  }
 }
 
 .header {

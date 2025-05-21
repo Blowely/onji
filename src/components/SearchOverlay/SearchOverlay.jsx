@@ -54,7 +54,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
         try {
             const res = await axios.get(`https://api.re-poizon.ru/api/synonyms?search=${encodeURIComponent(val)}`);
-            setSuggestions(res.data.suggested.slice(0, 11).map((el) => el.value));
+            setSuggestions(res.data.suggested.slice(0, 10).map((el) => el.value));
         } catch (err) {
             console.error(err);
             setSuggestions([]);
@@ -83,8 +83,10 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
         inputRef.current?.focus({ preventScroll: true });
     }
 
+    const isDesktopScreen = window?.innerWidth > 768;
+
     return (
-        <div className={`${styles.overlay} ${visible ? styles['no-scroll'] : ''}`} ref={overlayRef}>
+        <div className={`${styles.overlay} ${visible && styles.visible}`} ref={overlayRef}>
             {visible &&
                 <div className={styles.header}>
                     <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
@@ -99,7 +101,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 rootClassName="input-search"
                 size="large"
                 ref={inputRef}
-                style={{ height: visible && '100vh' }}
+                style={{ height: visible && '100vh', borderBottom: visible && !isDesktopScreen ? '1px solid #ededed' : 'none' }}
                 placeholder="поиск"
                 value={query}
                 onChange={handleChange}

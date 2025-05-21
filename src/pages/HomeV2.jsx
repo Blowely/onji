@@ -11,7 +11,7 @@ import "../index.scss";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
-import {addProducts} from "../common/productsSlice";
+import {addProducts, showSidebar} from "../common/productsSlice";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
 import Product from "./Product";
@@ -34,6 +34,7 @@ import ReqProducts from "../components/ReqProduct/ReqProducts";
 import FooterV2 from "../components/FooterV2/FooterV2";
 import MainProduct from "../components/MainProduct/MainProduct";
 import Header from "../components/Header/Header";
+import SearchOverlay from "../components/SearchOverlay/SearchOverlay";
 
 // Ваш renderItems остаётся без изменений
 const renderItems = (productsSlice, trimCollectionValue, products, isLoading, loading, onAddToFavorite, onAddToCart, onPointerDown, onPointerUp) => {
@@ -186,6 +187,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [recent, setRecent] = useState(['adidas ozweego', 'джорданы', 'худи', 'рубашка']);
 
   const [loading, setLoading] = useState(false);
 
@@ -595,6 +597,27 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     window.open(link);
   }
 
+  const onSearch = (value) => {
+    if (!value) {
+      return;
+    }
+
+    window.scrollTo({top: 0})
+    setSearchParams(new URLSearchParams({ search: typeof value === "string" ? value : '' }));
+    setOffset(1);
+  }
+
+  const [showHeader, setShowHeader] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowHeader(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+  }, []);
+
+
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -664,7 +687,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             </Modal>
         )}
 
-        {!isDesktopScreen && !spuId && (
+        {/*{!isDesktopScreen && !spuId && (
             <Header search={search}
                     showFilters={showFilters}
                     setOffset={() => {}}
@@ -674,9 +697,21 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                     overlayVisible={overlayVisible}
                     setOverlayVisible={setOverlayVisible}
             />
-        )}
+        )}*/}
 
-        <HeroSection />
+        {!isDesktopScreen && !spuId &&
+            <div className={`overlayWrapper ${showHeader || overlayVisible ? 'visible' : 'hidden' } ${overlayVisible && 'overlayVisible'}`}>
+              <SearchOverlay
+                  visible={overlayVisible}
+                  onClose={() => setOverlayVisible(false)}
+                  setOverlayVisible={setOverlayVisible}
+                  recentSearches={recent}
+                  onSelect={onSearch}
+              />
+            </div>
+        }
+
+        <HeroSection/>
 
         <div className="storiesWrapper">
           <Stories />
