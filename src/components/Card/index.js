@@ -130,7 +130,6 @@ function Card({
                       viewBox="0 0 402 361"
                       preserveAspectRatio="none"
                   >
-                    {/* теперь rect задаём в нужных координатах */}
                     <rect x="0" y="0" rx="10" ry="10" width="402" height="361" />
                   </ContentLoader>
               }
@@ -139,6 +138,7 @@ function Card({
                   ref={imgElement}
                   src={`${image}?x-oss-process=image/format,webp/resize,w_400`}
                   //src={`${image}`}
+                  style={{opacity: loadingImg ? 0 : 1}}
                   className={styles.productImage}
                   onLoad={onLoadedIcon}
                   loading="lazy"

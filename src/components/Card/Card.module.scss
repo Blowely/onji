@@ -57,7 +57,7 @@
 
   .contentImgLoader {
     width: 100% !important;    // растягиваем по ширине card
-    height: calc(150%) !important;   // позволяeм высоте подстраиваться
+    height: calc(120%) !important;   // позволяeм высоте подстраиваться
     aspect-ratio: 402 / 361;   // и получаем нужный height
     position: absolute;        // по необходимости
 
