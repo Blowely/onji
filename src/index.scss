@@ -534,13 +534,17 @@ footer {
   z-index: 1000;
   height: fit-content;
 
+  > div {
+
+  }
+
   &.overlayVisible {
     height: 100%;
   }
 
   &.visible {
     border-bottom: 1px solid #ededed;
-    transform: translateY(0);
+    transform: translateY(30%);
   }
 
   &.hidden {
