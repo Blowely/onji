@@ -6,8 +6,9 @@
 
 .content-block-header {
   position: fixed!important;
-  height: 55px;
   width: 100%;
+  height: auto;
+  margin-top: -60px;
   padding: 75px 15px 15px 15px;
   background-color: white;
   border-bottom: 1px solid #f5f5f5!important;
