@@ -8,7 +8,7 @@ import Card from "../components/Card";
 import {Button, Empty, Layout, Modal} from "antd";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {useNavigate, useNavigationType, useSearchParams} from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
 import {addProducts, showSidebar} from "../common/productsSlice";
@@ -609,6 +609,21 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const navigationType = useNavigationType();
+  const overlayRef = useRef(null);
+  const firstAfterPop = useRef(false);
+  const prevNavRef = useRef(navigationType);
+  // флаг «подавить анимацию при следующей установке позиции»
+  const suppressAnimRef = useRef(false);
+
+  // Отслеживаем реальное изменение navigationType на 'POP'
+  useEffect(() => {
+    if (navigationType === 'POP' && prevNavRef.current !== 'POP') {
+      suppressAnimRef.current = true;
+    }
+    prevNavRef.current = navigationType;
+  }, [navigationType]);
+
   useEffect(() => {
     const handleScroll = () => {
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
@@ -623,6 +638,35 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [spuId, overlayVisible]);
+
+  useEffect(() => {
+    if (!overlayVisible && window.scrollY <= 10 && !spuId) {
+      setIsScrolled(false);
+    }
+  }, [overlayVisible, spuId]);
+
+  // Управляем позицией + transition
+  useEffect(() => {
+    const el = overlayRef.current;
+    if (!el) return;
+    const shouldShow = isScrolled || overlayVisible;
+
+    if (suppressAnimRef.current) {
+      // 1) Мгновенно выставляем позицию без transition
+      el.style.transition = 'none';
+      el.style.transform  = shouldShow ? 'translateY(0)' : 'translateY(-100%)';
+      el.style.opacity    = shouldShow ? '1' : '0';
+      void el.offsetHeight;              // форсим reflow
+      // 2) Включаем transition и сбрасываем флаг
+      el.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+      suppressAnimRef.current = false;
+    } else {
+      // «Обычный» случай — анимируем
+      el.style.transform  = shouldShow ? 'translateY(0)' : 'translateY(-100%)';
+      el.style.opacity    = shouldShow ? '1' : '0';
+    }
+  }, [isScrolled, overlayVisible]);
+
 
   useEffect(() => {
     if (!overlayVisible && window.scrollY <= 10 && !spuId) {
@@ -712,10 +756,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         )}*/}
 
         {!isDesktopScreen &&
-            <div className={`overlayWrapper ${isScrolled || overlayVisible ? 'scrolledHeader' : '' } ${overlayVisible && 'overlayVisible'}`}
-                 style={{
-                   touchAction: !isScrolled && 'none',
-                 }}
+            <div
+                ref={overlayRef}
+                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''} ${isScrolled ?'scrolledHeader':''}`}
             >
               <SearchOverlay
                   visible={overlayVisible}
@@ -730,10 +773,10 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         <HeroSection/>
 
         <div className="storiesWrapper">
-          <Stories />
+          <Stories/>
         </div>
 
-        <NewFeatures />
+        <NewFeatures/>
         {isDesktopScreen && <BrandsV2 />}
         <BestSellers />
         {isDesktopScreen && <CatalogBtnBlock />}
