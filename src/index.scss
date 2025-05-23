@@ -531,6 +531,7 @@ footer {
   width: 100%;
   z-index: 1;
   height: fit-content;
+  opacity: 0;
   transform: translateY(-100%);
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
 
@@ -540,11 +541,13 @@ footer {
 
   &.overlayVisible {
     height: 100%;
-    border-bottom: none;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   &.scrolledHeader {
     border-bottom: 1px solid #ededed;
+    opacity: 1;
     transform: translateY(0);
   }
 }
