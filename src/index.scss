@@ -531,7 +531,6 @@ footer {
   width: 100%;
   z-index: 1;
   height: fit-content;
-  opacity: 0;
   transform: translateY(-100%);
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
 
@@ -544,8 +543,7 @@ footer {
   }
 
   &.scrolledHeader {
-    border-bottom: 1px solid #b30000;
-    opacity: 1;
+    border-bottom: 1px solid #002ab3;
     transform: translateY(0);
   }
 }
