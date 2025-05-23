@@ -525,14 +525,15 @@ footer {
 }
 
 .overlayWrapper {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  //transform: translateY(-100%);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1;
   height: fit-content;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
 
   > div {
       padding-top: 60px;
@@ -542,12 +543,9 @@ footer {
     height: 100%;
   }
 
-  &.visible {
+  &.scrolledHeader {
     border-bottom: 1px solid #ededed;
-    transform: translateY(0%);
-  }
-
-  &.hidden {
-    transform: translateY(-100%);
+    opacity: 1;
+    transform: translateY(0);
   }
 }

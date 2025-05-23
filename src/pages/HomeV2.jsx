@@ -607,17 +607,20 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     setOffset(1);
   }
 
-  const [showHeader, setShowHeader] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowHeader(window.scrollY > 10);
+      const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
+
+      if (!spuId) setIsScrolled(show);
     };
 
-    window.addEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [spuId]);
 
-
+  console.log('isScrolled =',isScrolled)
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -699,8 +702,13 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             />
         )}*/}
 
-        {!isDesktopScreen && !spuId &&
-            <div className={`overlayWrapper ${showHeader || overlayVisible ? 'visible' : 'hidden' } ${overlayVisible && 'overlayVisible'}`}>
+        {!isDesktopScreen &&
+            <div className={`overlayWrapper ${isScrolled || overlayVisible ? 'scrolledHeader' : '' } ${overlayVisible && 'overlayVisible'}`}
+                 style={{
+                   opacity: isScrolled || overlayVisible ? 1 : 0,
+                   touchAction: !isScrolled && 'none',
+                 }}
+            >
               <SearchOverlay
                   visible={overlayVisible}
                   onClose={() => setOverlayVisible(false)}
