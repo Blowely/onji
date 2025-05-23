@@ -624,6 +624,12 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [spuId, overlayVisible]);
 
+  useEffect(() => {
+    if (!overlayVisible && window.scrollY <= 10 && !spuId) {
+      setIsScrolled(false);
+    }
+  }, [overlayVisible, spuId]);
+
   return (
       <Layout style={{
         backgroundColor: "white",
