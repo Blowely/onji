@@ -655,7 +655,6 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       // 1) Мгновенно выставляем позицию без transition
       el.style.transition = 'none';
       el.style.transform  = shouldShow ? 'translateY(0)' : 'translateY(-100%)';
-      el.style.opacity    = shouldShow ? '1' : '0';
       void el.offsetHeight;              // форсим reflow
       // 2) Включаем transition и сбрасываем флаг
       el.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
@@ -663,7 +662,6 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     } else {
       // «Обычный» случай — анимируем
       el.style.transform  = shouldShow ? 'translateY(0)' : 'translateY(-100%)';
-      el.style.opacity    = shouldShow ? '1' : '0';
     }
   }, [isScrolled, overlayVisible]);
 
