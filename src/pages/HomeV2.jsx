@@ -714,7 +714,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
             <div className={`overlayWrapper ${isScrolled || overlayVisible ? 'scrolledHeader' : '' } ${overlayVisible && 'overlayVisible'}`}
                  style={{
-                   opacity: isScrolled || overlayVisible ? 1 : 0,
+                   opacity: isScrolled ? 1 : 0,
                    touchAction: !isScrolled && 'none',
                  }}
             >
