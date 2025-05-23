@@ -231,10 +231,10 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     if (brandsParam) {
       obj.brandIds = brandsParam;
     }
-/*
-    if (selectedBrands?.length) {
-      obj.brandIds = selectedBrands.map(({id}) => id).join(',');
-    }*/
+    /*
+        if (selectedBrands?.length) {
+          obj.brandIds = selectedBrands.map(({id}) => id).join(',');
+        }*/
 
     if (collection) {
       obj.collName = collection;
@@ -279,7 +279,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
-    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}+${gender}` || collection;
+      `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}+${gender}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -366,12 +366,12 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
     if (!productsSlice[trimCollectionValue]?.length && !loading && !isLoading) {
       return (
-        <Empty
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          imageStyle={{ height: 100, paddingTop: "20px", width: '100%' }}
-          description="Ничего не найдено"
-          className="empty"
-        />
+          <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              imageStyle={{ height: 100, paddingTop: "20px", width: '100%' }}
+              description="Ничего не найдено"
+              className="empty"
+          />
       );
     }
 
@@ -432,16 +432,16 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
                 /*if ((productsSlice?.[trimCollectionValue]?.length || 1) + 1 === prev + 1) {
                   return prev + 1;
                 }*/
-              console.log('prev=',prev)
-              return prev + 1;
-            })
+                console.log('prev=',prev)
+                return prev + 1;
+              })
+            }
           }
+        } catch (e) {
+          console.log("e =", e);
         }
-      } catch (e) {
-        console.log("e =", e);
-      }
-    },
-    false,
+      },
+      false,
   );
 
   const onBrandClick = (brand) => {
@@ -527,8 +527,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     const index = CATEGORIES.findIndex((el) => el.id === Number(selectedCategory));
 
     return <span style={{cursor: "pointer"}}>{CATEGORIES[index]?.name
-      || categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
-      || ''}</span> ;
+        || categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
+        || ''}</span> ;
   }
 
   const onGoBackClick = () => {
@@ -630,7 +630,6 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     }
   }, [overlayVisible, spuId]);
 
-  console.log('isScrolled =',isScrolled)
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -715,7 +714,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
             <div className={`overlayWrapper ${isScrolled || overlayVisible ? 'scrolledHeader' : '' } ${overlayVisible && 'overlayVisible'}`}
                  style={{
-                   opacity: isScrolled || overlayVisible ? 1 : 0,
+                   opacity: isScrolled ? 1 : 0,
                    touchAction: !isScrolled && 'none',
                  }}
             >
@@ -742,18 +741,18 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         <ShoesBlock />
         {!isDesktopScreen && <MainProduct />}
         {!isDesktopScreen && (
-              <LazyProducts
-                  productsSlice={productsSlice}
-                  trimCollectionValue={trimCollectionValue}
-                  products={products}
-                  isLoading={isLoading}
-                  loading={loading}
-                  onAddToFavorite={onAddToFavorite}
-                  onAddToCart={onAddToCart}
-                  onPointerDown={onPointerDown}
-                  onPointerUp={onPointerUp}
-                  isDesktopScreen={isDesktopScreen}
-              />
+            <LazyProducts
+                productsSlice={productsSlice}
+                trimCollectionValue={trimCollectionValue}
+                products={products}
+                isLoading={isLoading}
+                loading={loading}
+                onAddToFavorite={onAddToFavorite}
+                onAddToCart={onAddToCart}
+                onPointerDown={onPointerDown}
+                onPointerUp={onPointerUp}
+                isDesktopScreen={isDesktopScreen}
+            />
         )}
 
         {isDesktopScreen && <CatalogBtnBlockV2 />}
