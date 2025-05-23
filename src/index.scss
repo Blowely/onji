@@ -531,7 +531,7 @@ footer {
   width: 100%;
   z-index: 1;
   height: fit-content;
-  transform: translateY(-100%);
+  transform: translateY(0);
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
 
   > div {
