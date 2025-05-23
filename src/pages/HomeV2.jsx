@@ -614,13 +614,16 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
 
       if (!spuId) setIsScrolled(show);
+
+      if (overlayVisible) {
+        setIsScrolled(true);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [spuId]);
+  }, [spuId, overlayVisible]);
 
-  console.log('isScrolled =',isScrolled)
   return (
       <Layout style={{
         backgroundColor: "white",
