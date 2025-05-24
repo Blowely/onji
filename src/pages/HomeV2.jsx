@@ -646,7 +646,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   }, [overlayVisible, spuId]);
 
   // Управляем позицией + transition
-  useEffect(() => {
+  /*useEffect(() => {
     const el = overlayRef.current;
     if (!el) return;
     const shouldShow = isScrolled || overlayVisible;
@@ -663,7 +663,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       // «Обычный» случай — анимируем
       el.style.opacity    = shouldShow ? '1' : '0';
     }
-  }, [isScrolled, overlayVisible]);
+  }, [isScrolled, overlayVisible]);*/
 
 
   useEffect(() => {
@@ -753,7 +753,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             />
         )}*/}
 
-        {!isDesktopScreen &&
+        {!isDesktopScreen && isScrolled &&
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''} ${isScrolled ?'scrolledHeader':''}`}
