@@ -757,7 +757,6 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''} ${isScrolled ?'scrolledHeader':''}`}
-                style={{opacity: window.scrollY === 0 ? 0 : 1}}
             >
               <SearchOverlay
                   visible={overlayVisible}
