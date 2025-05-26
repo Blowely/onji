@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './ReqProducts.module.scss';
 import BrandsSmallCarousel from "../BrandsSmallCarousel/BrandsSmallCarousel";
 

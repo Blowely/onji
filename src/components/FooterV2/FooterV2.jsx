@@ -1,3 +1,4 @@
+import React from 'react';
 import { WhatsAppOutlined } from "@ant-design/icons";
 import { Col, Row, Typography } from "antd";
 import styles from "./FooterV2.module.scss";

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Collapse } from 'antd';
 import styles from './FaqBlock.module.scss';
 import "./FaqBlcok.scss";
