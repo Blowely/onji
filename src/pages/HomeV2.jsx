@@ -678,10 +678,10 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         position: "relative",
         paddingBottom: !isDesktopScreen ? "200px" : 'unset',
       }}>
-        {spuId && <div className="productWrapper" id="productWrapper">
+        {/*{spuId && <div className="productWrapper" id="productWrapper">
           <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
         </div>
-        }
+        }*/}
         {isOpenBrandsModal && (
             <Modal
                 title="Бренды"

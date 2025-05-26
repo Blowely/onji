@@ -74,6 +74,8 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     //{ skip: !spuId || Object.keys(selectedProduct)?.length},
   );
 
+  console.log('remoteProduct',remoteProduct)
+
   useEffect(() => {
     setProduct(updatedProductData || remoteProduct || selectedProduct);
   },[selectedProduct, remoteProduct, updatedProductData]);
@@ -434,8 +436,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
           />
       }
       {isLoadingProduct && (
-          //<div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
-          <div style={{width: '100%', height: 'calc(100% - 140px)', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+          <div style={{width: '100%', height: 'calc(100vh - 140px)', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
             <LoadingOutlined style={{fontSize: '44px'}} spin />
           </div>)
       }
