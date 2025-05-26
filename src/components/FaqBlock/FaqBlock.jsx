@@ -3,7 +3,7 @@ import { Collapse } from 'antd';
 import styles from './FaqBlock.module.scss';
 import "./FaqBlcok.scss";
 
-import PlusIcon from '../../assets/svg/v2/plus-bold.svg?react';
+import {PlusIcon} from '../../assets/svg/v2/plus-bold'; // Vite-style
 
 const { Panel } = Collapse;
 
@@ -31,14 +31,16 @@ const FaqBlock = () => {
                     setActiveKey(key);
                 }}
                 expandIcon={({ isActive }) =>
-                    isActive ? <PlusIcon className={styles.closeIcon} /> : <PlusIcon className={styles.icon} />
+                    isActive
+                        ? <PlusIcon className={styles.closeIcon} />
+                        : <PlusIcon className={styles.icon} />
                 }
             >
                 {faqItems.map((item, index) => (
                     <Panel
                         header={item.question}
-                        key={index}
-                        className={activeKey == index ? "panel-active" : ""}
+                        key={String(index)}
+                        className={activeKey === String(index) ? "panel-active" : ""}
                     >
                         <div>{item.answer}</div>
                     </Panel>
