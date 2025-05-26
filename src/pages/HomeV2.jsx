@@ -756,7 +756,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
             <div
                 ref={overlayRef}
-                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''} ${isScrolled ?'scrolledHeader':''}`}
+                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
             >
               <SearchOverlay
                   visible={overlayVisible}
