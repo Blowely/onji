@@ -1,3 +1,4 @@
+import React from 'react';
 
 const NewBalanceIcon = () => (
   <svg viewBox="139.509 246.73 109.488 61.587"width="44.629" height="25.541">

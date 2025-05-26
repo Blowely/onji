@@ -1,3 +1,5 @@
+import React from 'react';
+
 const DotsIcon = () => (
 <svg viewBox="269.606 213.485 19.588 4.848" width="19.588" height="4.848">
     <g transform="matrix(0.611086, 0, 0, 0.611086, 269.605988, 206.114975)">

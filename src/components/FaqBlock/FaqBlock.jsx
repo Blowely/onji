@@ -3,7 +3,7 @@ import { Collapse } from 'antd';
 import styles from './FaqBlock.module.scss';
 import "./FaqBlcok.scss";
 
-import { ReactComponent as PlusIcon } from '../../assets/svg/v2/plus-bold.svg';
+import PlusIcon from '../../assets/svg/v2/plus-bold.svg?react';
 
 const { Panel } = Collapse;
 

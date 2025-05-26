@@ -1,3 +1,4 @@
+import React from 'react';
 const SberIcon = () => (
     <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 27" width="89" height="27">
         <title>image</title>

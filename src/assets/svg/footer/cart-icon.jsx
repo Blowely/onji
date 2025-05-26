@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const CartIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg"  width="currentSize" height="23" viewBox="0 0 50 46" fill="none">
         <path

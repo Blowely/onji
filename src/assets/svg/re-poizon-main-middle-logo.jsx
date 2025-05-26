@@ -1,3 +1,4 @@
+import React from 'react';
 
 const RePoizonMainMiddleLogo = () => (
 <svg viewBox="117.722 172.793 155 50" width="105">

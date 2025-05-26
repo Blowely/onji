@@ -1,3 +1,4 @@
+import React from 'react';
 
 const NoPhoto = () => (
 <svg viewBox="155.015 112.984 223 200" width="223" height="200" xmlns="http://www.w3.org/2000/svg">

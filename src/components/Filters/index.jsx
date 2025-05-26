@@ -5,7 +5,7 @@ import ColorSelector from "../ColorSelector/ColorSelector";
 import { APPAREL_SIZES, SIZES } from "../../pages/constants";
 import leftArrow from "../../assets/svg/v2/left-arrow.svg";
 import styles from "./Filters.module.scss";
-import { ReactComponent as PlusSmallIcon } from '../../assets/svg/v2/plus-small.svg';
+import PlusSmallIcon from '../../assets/svg/v2/plus-small.svg?react';
 
 const { Panel } = Collapse;
 

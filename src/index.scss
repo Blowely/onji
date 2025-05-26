@@ -532,6 +532,7 @@ footer {
   z-index: 1;
   height: fit-content;
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
+  border-bottom: 1px solid #002ab3;
 
   > div {
     padding-top: 60px;

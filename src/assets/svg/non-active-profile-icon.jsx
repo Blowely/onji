@@ -1,3 +1,4 @@
+import React from 'react';
 
 const NonActiveProfileIcon = () => (
     <svg viewBox="307.074 108.313 35.306 29.421" width="35.306" height="29.421">

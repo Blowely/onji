@@ -1,4 +1,4 @@
-
+import React from 'react';
 const iconHeartSmall = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a2a2a2"
          strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="tabler-icon tabler-icon-heart "

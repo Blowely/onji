@@ -1,3 +1,4 @@
+import React from 'react';
 
 const NonActiveCartIcon = () => (
     <svg viewBox="147.524 233.792 39.19 33.784" width="39.19" height="33.784">

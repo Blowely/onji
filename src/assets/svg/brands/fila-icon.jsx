@@ -1,3 +1,4 @@
+import React from 'react';
 
 const FilaIcon = () => (
 <svg viewBox="109.929 254.389 45 45" width="45px" height="45px">

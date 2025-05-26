@@ -17,9 +17,6 @@ export const ErrorFallback = ({ error, resetErrorBoundary }) => {
   return (
     <Layout>
       Упс, что-то пошло не так
-      {/*<Typography.Text>
-
-      </Typography.Text>*/}
     </Layout>
   );
 };

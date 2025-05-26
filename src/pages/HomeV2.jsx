@@ -11,7 +11,7 @@ import "../index.scss";
 import {useNavigate, useNavigationType, useSearchParams} from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
-import {addProducts, showSidebar} from "../common/productsSlice";
+import {addProducts} from "../common/productsSlice";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
 import Product from "./Product";

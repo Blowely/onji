@@ -1,3 +1,4 @@
+import React from 'react';
 
 const NonActiveBagIcon = () => (
     <svg viewBox="150.992 294.212 33.3 33.3" width="33.3" height="33.3">

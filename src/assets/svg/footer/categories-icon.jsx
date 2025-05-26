@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const CategoriesIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" height="23" viewBox="0 0 48 38" fill="none">
         <path

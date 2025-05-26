@@ -1,3 +1,4 @@
+import React from 'react';
 
 const AdidasIcon = () => (
     <svg viewBox="90.251 343.693 44.629 25.541" width="44.629" height="25.541">

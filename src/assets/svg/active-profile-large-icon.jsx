@@ -1,3 +1,4 @@
+import React from 'react';
 
 const ActiveProfileLargeIcon = () => (
 <svg viewBox="282.995 294.758 35.652 30.734" width="35.652" height="30.734">

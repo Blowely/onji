@@ -3,7 +3,7 @@ import { Carousel } from 'antd';
 import styles from './ImageSlider.module.scss';
 import './ImageSlider.scss';
 import {CATEGORIES} from "../../constants";
-import { ReactComponent as LeftArrow } from "../../../assets/svg/v2/left-arrow.svg";
+import LeftArrow from "../../../assets/svg/v2/left-arrow.svg?react";
 import {goBack} from "../../../common/utils";
 
 

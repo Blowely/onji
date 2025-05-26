@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const ArrowLeftIcon = () => (
     <svg
         width="25"
