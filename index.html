@@ -76,6 +76,10 @@
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
       document.body.classList.add('pwa');
     }
+
+    if (navigator.userAgent.includes("OnjiApp")) {
+      document.body.classList.add("onji-webview");
+    }
   </script>
   <script>
     if (!window.location.hostname.includes("localhost")) {
