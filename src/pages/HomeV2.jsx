@@ -719,7 +719,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity: opacity ? 1 : 0 }}
+                style={{ opacity }}
             >
               <SearchOverlay
                   visible={overlayVisible}
