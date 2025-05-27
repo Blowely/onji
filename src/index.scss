@@ -535,8 +535,7 @@ footer {
   border-bottom: 1px solid #ededed;
 
   &.overlayVisible {
-    //height: 100%;
-    height: fit-content;
+    height: 30%;
   }
 
   &.scrolledHeader {
