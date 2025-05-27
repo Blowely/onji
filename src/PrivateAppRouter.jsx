@@ -60,8 +60,8 @@ export function PrivateAppRouter({
   return (
       <Suspense fallback={<AppLoading />}>
         <Routes>
-          <Route path="/" element={<Navigate to="/men-products" />} replace />
-          <Route path="/products" element={<Navigate to="/men-products" />} replace />
+          <Route path="/" element={<Navigate to="/men-products" />} />
+          <Route path="/products" element={<Navigate to="/men-products" />} />
 
           <Route
               path="/men-products"
