@@ -534,10 +534,6 @@ footer {
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
   border-bottom: 1px solid #ededed;
 
-  body.onji-webview div {
-    padding-top: 60px;
-  }
-
   &.overlayVisible {
     height: 100%;
   }
