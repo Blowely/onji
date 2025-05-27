@@ -530,15 +530,22 @@ footer {
   left: 0;
   width: 100%;
   z-index: 2;
-  height: fit-content;
-  transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
+  transition: opacity 0.15s ease;
   border-bottom: 1px solid #ededed;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 
   &.overlayVisible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     height: 100%;
   }
 
-  &.scrolledHeader {
-    border-bottom: 1px solid #ededed;
+  &.overlayHidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 }

@@ -608,25 +608,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     setOffset(1);
   }
 
-  const [isScrolled, setIsScrolled] = useState(false);
   const [opacity, setOpacity] = useState(0);
 
   const overlayRef = useRef(null);
-
-  /*useEffect(() => {
-    const handleScroll = () => {
-      const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
-
-      if (!spuId) setIsScrolled(show);
-
-      if (overlayVisible) {
-        setIsScrolled(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [spuId, overlayVisible]);*/
 
   const prevYRef = useRef(0);
 
@@ -734,8 +718,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
             <div
                 ref={overlayRef}
-                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity: opacity || overlayVisible ? 1 : 0  }}
+                className={`overlayWrapper ${
+                    overlayVisible || opacity > 0 ? 'overlayVisible' : 'overlayHidden'
+                }`}
             >
               <SearchOverlay
                   visible={overlayVisible}
