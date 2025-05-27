@@ -114,7 +114,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 allowClear
             />
 
-            {visible && (
+            {/*{visible && (
                 <div className={styles.suggestionsWrapper}>
                     {query && suggestions.length > 0 && (
                         <div className={styles.suggestionTags}>
@@ -134,7 +134,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                                     className={styles.suggestionItem}
                                     onClick={() => handleSelect(s)}
                                 >
-                                    {/*<span className={styles.icon}><img className="search-icon" src={tinySearchSvg} alt="search" /></span>*/}
+                                    <span className={styles.icon}><img className="search-icon" src={tinySearchSvg} alt="search" /></span>
                                     <span>{s}</span>
                                 </div>
                             )) : (
@@ -168,7 +168,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                         </>
                     )}
                 </div>
-            )}
+            )}*/}
 
         </div>
     );
