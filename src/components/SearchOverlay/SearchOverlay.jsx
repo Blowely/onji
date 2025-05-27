@@ -84,9 +84,13 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
     }
 
     const isDesktopScreen = window?.innerWidth > 768;
+    const isWebView = navigator.userAgent.includes('OnjiApp');
 
     return (
-        <div className={`${styles.overlay} ${visible && styles.visible}`} ref={overlayRef}>
+        <div
+            className={`${styles.overlay} ${visible && styles.visible}`} ref={overlayRef}
+            style={{paddingTop: isWebView && '60px'}}
+        >
             {visible &&
                 <div className={styles.header}>
                     <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
