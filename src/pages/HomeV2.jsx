@@ -609,6 +609,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   }
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [opacity, setOpacity] = useState(0);
 
   const overlayRef = useRef(null);
 
@@ -625,13 +626,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [spuId, overlayVisible]);
-
-  useEffect(() => {
-    if (!overlayVisible && window.scrollY <= 10 && !spuId) {
-      setIsScrolled(false);
-    }
-  }, [overlayVisible, spuId]);*/
+  }, [spuId, overlayVisible]);*/
 
   const prevYRef = useRef(0);
 
@@ -640,7 +635,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       const y = window.scrollY;
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
 
-      if (!spuId) setIsScrolled(show);
+      if (!spuId) {
+        setOpacity(show ? 1 : 0)
+      }
 
       prevYRef.current = y;
     };
@@ -648,6 +645,14 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [spuId]);
+
+  useEffect(() => {
+    if (!overlayVisible && window.scrollY <= 10 && !spuId) {
+      setOpacity(0);
+    }
+  }, [overlayVisible, spuId]);
+
+  console.log('opacity', opacity);
 
   return (
       <Layout style={{
@@ -734,7 +739,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity: isScrolled || overlayVisible ? 1 : 0 }}
+                style={{ opacity: opacity }}
             >
               <SearchOverlay
                   visible={overlayVisible}
