@@ -609,13 +609,10 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   }
 
   const [opacity, setOpacity] = useState(0);
-  const [mounted, setMounted] = useState(false);
+
+  const overlayRef = useRef(null);
 
   const prevYRef = useRef(0);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -636,7 +633,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [spuId, overlayVisible]);
-
+  console.log('opacity', opacity);
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -720,9 +717,10 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
         {!isDesktopScreen &&
             <div
-                className={`overlayWrapper ${
-                    mounted && (overlayVisible || opacity > 0) ? 'overlayVisible' : 'overlayHidden'
-                }`}
+                ref={overlayRef}
+                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
+                //style={{ opacity: opacity || overlayVisible ? 1 : 0 }}
+                style={{ display: opacity || overlayVisible ? 'block' : 'none' }}
             >
               <SearchOverlay
                   visible={overlayVisible}
