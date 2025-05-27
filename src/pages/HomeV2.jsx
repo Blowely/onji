@@ -672,6 +672,34 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     }
   }, [overlayVisible, spuId]);
 
+  useEffect(() => {
+    if (window.scrollY === 0 ) {
+      overlayRef.current.style.opacity = "0";
+    }
+  },[])
+
+  window.addEventListener(
+      "scroll",
+      function (event) {
+        try {
+          overlayRef.current.style.opacity = "0";
+          const windowPageYOffset = window.pageYOffset;
+          console.log('windowPageYOffset=,', windowPageYOffset)
+          console.log('overlayRef.current.style.opacity=,', overlayRef.current.style.opacity)
+          if (windowPageYOffset === 0) {
+            overlayRef.current.style.opacity = "0";
+          } else if (windowPageYOffset !== 0 && overlayRef.current.style.opacity === "0") {
+            console.log('true');
+            overlayRef.current.style.opacity = "1";
+          }
+
+        } catch (e) {
+          console.log("e =", e);
+        }
+      },
+      false,
+  );
+
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -757,7 +785,6 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{opacity: isScrolled ? 1 : 0}}
             >
               <SearchOverlay
                   visible={overlayVisible}
