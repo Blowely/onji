@@ -46,9 +46,9 @@ export function PrivateAppRouter({
 
     const selectedCategory = category1Id || category2Id || category3Id;
 
-    if (spuId) {
+    /*if (spuId) {
       return <ProductPage spuId={spuId} />;
-    }
+    }*/
 
     return selectedCategory || search ? (
         <CategoryPage categoryId={selectedCategory} {...props} />

@@ -196,6 +196,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   const type = searchParams.get("type");
   const url = searchParams.get("url");
   const spuId = searchParams.get("spuId");
+  const scrollParam = searchParams.get("s");
   const sortBy = searchParams.get("sortBy");
   const category1Id = searchParams.get("category1Id");
   const category2Id = searchParams.get("category2Id");
@@ -672,44 +673,16 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     }
   }, [overlayVisible, spuId]);
 
-  useEffect(() => {
-    if (window.scrollY === 0 ) {
-      overlayRef.current.style.opacity = "0";
-    }
-  },[])
-
-  window.addEventListener(
-      "scroll",
-      function (event) {
-        try {
-          overlayRef.current.style.opacity = "0";
-          const windowPageYOffset = window.pageYOffset;
-          console.log('windowPageYOffset=,', windowPageYOffset)
-          console.log('overlayRef.current.style.opacity=,', overlayRef.current.style.opacity)
-          if (windowPageYOffset === 0) {
-            overlayRef.current.style.opacity = "0";
-          } else if (windowPageYOffset !== 0 && overlayRef.current.style.opacity === "0") {
-            console.log('true');
-            overlayRef.current.style.opacity = "1";
-          }
-
-        } catch (e) {
-          console.log("e =", e);
-        }
-      },
-      false,
-  );
-
   return (
       <Layout style={{
         backgroundColor: "white",
         position: "relative",
         paddingBottom: !isDesktopScreen ? "200px" : 'unset',
       }}>
-        {/*{spuId && <div className="productWrapper" id="productWrapper">
+        {spuId && <div className="productWrapper" id="productWrapper">
           <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
         </div>
-        }*/}
+        }
         {isOpenBrandsModal && (
             <Modal
                 title="Бренды"
