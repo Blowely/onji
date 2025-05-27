@@ -609,10 +609,13 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   }
 
   const [opacity, setOpacity] = useState(0);
-
-  const overlayRef = useRef(null);
+  const [mounted, setMounted] = useState(false);
 
   const prevYRef = useRef(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -717,9 +720,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
         {!isDesktopScreen &&
             <div
-                ref={overlayRef}
                 className={`overlayWrapper ${
-                    overlayVisible || opacity > 0 ? 'overlayVisible' : 'overlayHidden'
+                    mounted && (overlayVisible || opacity > 0) ? 'overlayVisible' : 'overlayHidden'
                 }`}
             >
               <SearchOverlay
