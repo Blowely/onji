@@ -366,7 +366,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     const foundedIndex = cartItems.findIndex((el) => el.skuId === skuId);
 
     if (foundedIndex < 0 || getCartItemNumberCount(product, skuId) === 0) {
-      return null
+      return <div className="counter-wrapper" style={{opacity: 0}}><span>1</span></div>
     }
 
     return <div className="counter-wrapper">

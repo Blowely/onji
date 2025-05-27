@@ -42,7 +42,7 @@
     display: flex;
     gap: 3px;
     overflow-x: auto;
-    padding: 3px;
+    padding-top: 10px;
 }
 
 .counter-wrapper {
@@ -59,7 +59,7 @@
 
 .size-wrapper {
     background-color: white;
-    padding: 10px;
+    padding: 3px 10px 10px 10px;
     border-radius: 0;
     cursor: pointer;
     border: solid #f1f1f5 1px;
@@ -68,7 +68,6 @@
     &.selected {
         box-sizing: border-box;
         border: solid #000000 1px;
-        padding: 10px;
     }
 }
 
@@ -392,7 +391,7 @@
 }
 
 .label {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
 }
