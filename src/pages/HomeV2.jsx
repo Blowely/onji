@@ -608,7 +608,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     setOffset(1);
   }
 
-  const [opacity, setOpacity] = useState(0);
+  const [opacity, setOpacity] = useState(1);
 
   const overlayRef = useRef(null);
 
@@ -633,6 +633,12 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [spuId, overlayVisible]);
+
+  useEffect(() => {
+    const show = window.scrollY > 10;
+    setOpacity(show ? 1 : 0)
+  },[])
+
   console.log('opacity', opacity);
   return (
       <Layout style={{
