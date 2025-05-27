@@ -19,7 +19,7 @@ const PhoneFooter = ({tab}) => {
 
     const onProfileClick = () => {
         if (token) {
-            navigate("/profile");
+            navigate("/profile", { replace: true });
         }
 
         setOpenAuth(true);
@@ -30,7 +30,7 @@ const PhoneFooter = ({tab}) => {
             id: 1,
             tab: 'products',
             Icon: HomeIcon,
-            onClick: () => navigate(`/${gender}-products`),
+            onClick: () => navigate(`/${gender}-products`, { replace: true }),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/home.svg",
             alt: "Главная",
             style: { height: '23px' }
@@ -39,7 +39,7 @@ const PhoneFooter = ({tab}) => {
             id: 2,
             tab: 'categories',
             Icon: CategoriesIcon,
-            onClick: () => navigate(`/${gender}-categories/`),
+            onClick: () => navigate(`/${gender}-categories/`, { replace: true }),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/categories.svg",
             alt: "Каталог",
             style: { height: '23px' }
@@ -48,7 +48,7 @@ const PhoneFooter = ({tab}) => {
             id: 3,
             tab: 'cart',
             Icon: CartIcon,
-            onClick: () => navigate("/cart"),
+            onClick: () => navigate("/cart", { replace: true }),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/cart.svg",
             alt: "Корзина",
             style: { height: '23px' }
@@ -57,7 +57,7 @@ const PhoneFooter = ({tab}) => {
             id: 4,
             tab: 'favorites',
             Icon: FavIcon,
-            onClick: () => navigate("/favorites"),
+            onClick: () => navigate("/favorites", { replace: true }),
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/test1/icons-onji/footer/fav.svg",
             alt: "Избранное",
             style: { height: '23px' }

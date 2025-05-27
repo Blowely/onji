@@ -106,8 +106,8 @@ export function PrivateAppRouter({
           <Route path="/visited" element={<VisitedProducts />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/sbp" element={<SBPayment />} />
-          <Route path="/men-categories/" element={<CategoriesTree />} replace />
-          <Route path="/women-categories/" element={<CategoriesTree />} replace />
+          <Route path="/men-categories/" element={<CategoriesTree />} />
+          <Route path="/women-categories/" element={<CategoriesTree />} />
           <Route path="/info" element={<Information />} />
 
           {/* Опционально, если не найден маршрут */}
