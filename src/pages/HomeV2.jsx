@@ -610,22 +610,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const navigationType = useNavigationType();
   const overlayRef = useRef(null);
-  const firstAfterPop = useRef(false);
-  const prevNavRef = useRef(navigationType);
-  // флаг «подавить анимацию при следующей установке позиции»
-  const suppressAnimRef = useRef(false);
 
-  // Отслеживаем реальное изменение navigationType на 'POP'
-  useEffect(() => {
-    if (navigationType === 'POP' && prevNavRef.current !== 'POP') {
-      suppressAnimRef.current = true;
-    }
-    prevNavRef.current = navigationType;
-  }, [navigationType]);
-
-  useEffect(() => {
+  /*useEffect(() => {
     const handleScroll = () => {
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
 
@@ -644,34 +631,23 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     if (!overlayVisible && window.scrollY <= 10 && !spuId) {
       setIsScrolled(false);
     }
-  }, [overlayVisible, spuId]);
+  }, [overlayVisible, spuId]);*/
 
-  // Управляем позицией + transition
-  /*useEffect(() => {
-    const el = overlayRef.current;
-    if (!el) return;
-    const shouldShow = isScrolled || overlayVisible;
-
-    if (suppressAnimRef.current) {
-      // 1) Мгновенно выставляем позицию без transition
-      el.style.transition = 'none';
-      el.style.opacity    = shouldShow ? '1' : '0';
-      void el.offsetHeight;              // форсим reflow
-      // 2) Включаем transition и сбрасываем флаг
-      el.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
-      suppressAnimRef.current = false;
-    } else {
-      // «Обычный» случай — анимируем
-      el.style.opacity    = shouldShow ? '1' : '0';
-    }
-  }, [isScrolled, overlayVisible]);*/
-
+  const prevYRef = useRef(0);
 
   useEffect(() => {
-    if (!overlayVisible && window.scrollY <= 10 && !spuId) {
-      setIsScrolled(false);
-    }
-  }, [overlayVisible, spuId]);
+    const handleScroll = () => {
+      const y = window.scrollY;
+      const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
+
+      if (!spuId) setIsScrolled(show);
+
+      prevYRef.current = y;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [spuId]);
 
   return (
       <Layout style={{
@@ -758,6 +734,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
+                style={{ opacity: isScrolled ? 1 : 0 }}
             >
               <SearchOverlay
                   visible={overlayVisible}
