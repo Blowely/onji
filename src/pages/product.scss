@@ -42,14 +42,16 @@
     display: flex;
     gap: 3px;
     overflow-x: auto;
+    padding: 3px;
 }
 
 .counter-wrapper {
-    position: absolute;
+    //position: absolute;
     background: #ececec;
     margin-top: -16px;
     margin-left: -16px;
     padding: 2.5px 6.5px;
+    width: fit-content;
     border-radius: 50%;
     font-size: 12px;
     border: 2px solid white;
