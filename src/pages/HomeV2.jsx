@@ -635,8 +635,12 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       const y = window.scrollY;
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
 
-      if (!spuId || overlayVisible) {
+      if (!spuId) {
         setOpacity(show ? 1 : 0)
+      }
+
+      if (overlayVisible) {
+        setOpacity(1);
       }
 
       prevYRef.current = y;
@@ -731,8 +735,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity: 1  }}
-                //style={{ opacity: opacity || overlayVisible ? 1 : 0  }}
+                style={{ opacity: opacity || overlayVisible ? 1 : 0  }}
             >
               <SearchOverlay
                   visible={overlayVisible}
