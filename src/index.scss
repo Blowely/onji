@@ -532,7 +532,7 @@ footer {
   z-index: 1;
   height: fit-content;
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
-  border-bottom: 1px solid #b30000;
+  border-bottom: 1px solid #ededed;
 
   > div {
     padding-top: 60px;
@@ -543,6 +543,6 @@ footer {
   }
 
   &.scrolledHeader {
-    border-bottom: 1px solid #404040;
+    border-bottom: 1px solid #ededed;
   }
 }
