@@ -608,8 +608,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     setOffset(1);
   }
 
-  const [opacity, setOpacity] = useState(1);
-
+  const opacityRef = useRef(1);
   const overlayRef = useRef(null);
 
   const prevYRef = useRef(0);
@@ -620,11 +619,11 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
 
       if (!spuId) {
-        setOpacity(show ? 1 : 0)
+        opacityRef.current = show ? 1 : 0;
       }
 
       if (overlayVisible) {
-        setOpacity(1);
+        opacityRef.current = 1;
       }
 
       prevYRef.current = y;
@@ -636,10 +635,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     const show = window.scrollY > 10;
-    setOpacity(show ? 1 : 0)
-  },[])
-
-  console.log('opacity', opacity);
+    opacityRef.current = show ? 1 : 0;
+  }, []);
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -725,7 +722,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity }}
+                style={{ opacity: opacityRef.current }}
             >
               <SearchOverlay
                   visible={overlayVisible}
