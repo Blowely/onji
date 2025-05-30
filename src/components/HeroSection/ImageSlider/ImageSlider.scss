@@ -58,7 +58,14 @@
 
     @media (max-width: 768px) {
       &.slide3 {
-        aspect-ratio: 768 / 550!important;
+        width: 100vw;
+        height: calc(100vw * (550 / 768)); // Calculate height based on aspect ratio
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-left: calc(-50vw + 50%); // Center the element
+        left: 0;
+        right: 0;
       }
     }
 
