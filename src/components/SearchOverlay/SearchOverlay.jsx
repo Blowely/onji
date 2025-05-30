@@ -92,8 +92,8 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             style={{paddingTop: isWebView && '60px'}}
         >
             {visible &&
-                <div className={styles.header}>
-                    <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
+                <div className={styles.header} onClick={onClose}>
+                    <img src={leftArrow} alt='backButton' className={styles.backIcon}/>
                 </div>
             }
             <Input
