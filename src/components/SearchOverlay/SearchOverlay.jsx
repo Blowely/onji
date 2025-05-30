@@ -9,7 +9,7 @@ import { flushSync } from 'react-dom';
 
 const popularQueries = ['jordan', 'ozweego', 'адидас', 'найк', 'худи', 'force'];
 
-const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, onSelect })=> {
+const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, onSelect, showInput = true })=> {
     const overlayRef = useRef(null);
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -96,22 +96,25 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                     <img src={leftArrow} alt='backButton' className={styles.backIcon}/>
                 </div>
             }
-            <Input
-                readOnly={!visible}
-                onMouseDown={e => e.preventDefault()}
-                onClick={handleFocus}
-                type="search"
-                rootClassName="input-search"
-                size="large"
-                ref={inputRef}
-                style={{ height: visible && '100vh', borderBottom: visible && !isDesktopScreen ? '1px solid #ededed' : 'none' }}
-                placeholder="поиск"
-                value={query}
-                onChange={handleChange}
-                onPressEnter={() => handleSelect(query)}
-                suffix={<img onClick={handleFocus} className="search-icon" src={tinySearchSvg} alt="search" />}
-                allowClear
-            />
+
+            {showInput &&
+                <Input
+                    readOnly={!visible}
+                    onMouseDown={e => e.preventDefault()}
+                    onClick={handleFocus}
+                    type="search"
+                    rootClassName="input-search"
+                    size="large"
+                    ref={inputRef}
+                    style={{ height: visible && '100vh', borderBottom: visible && !isDesktopScreen ? '1px solid #ededed' : 'none' }}
+                    placeholder="поиск"
+                    value={query}
+                    onChange={handleChange}
+                    onPressEnter={() => handleSelect(query)}
+                    suffix={<img onClick={handleFocus} className="search-icon" src={tinySearchSvg} alt="search" />}
+                    allowClear
+                />
+            }
 
             {visible && (
                 <div className={styles.suggestionsWrapper}>

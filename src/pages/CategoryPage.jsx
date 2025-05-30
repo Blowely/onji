@@ -615,14 +615,19 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
               }
           </div>
         }
-        {!isDesktopScreen && overlayVisible &&
-            <SearchOverlay
-                visible={overlayVisible}
-                onClose={() => setOverlayVisible(false)}
-                setOverlayVisible={setOverlayVisible}
-                recentSearches={recent}
-                onSelect={onSelectHandler}
-            />
+        {!isDesktopScreen &&
+            <div
+                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
+            >
+              <SearchOverlay
+                  visible={overlayVisible}
+                  showInput={overlayVisible}
+                  onClose={() => setOverlayVisible(false)}
+                  setOverlayVisible={setOverlayVisible}
+                  recentSearches={recent}
+                  onSelect={onSelectHandler}
+              />
+            </div>
         }
 
         <HeroSection/>
