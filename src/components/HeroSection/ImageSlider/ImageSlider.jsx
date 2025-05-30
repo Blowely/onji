@@ -49,6 +49,7 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
     }
 
     const isDesktop = window?.innerWidth > 768;
+    const isWebView = navigator.userAgent.includes('OnjiApp');
 
     return (
         <div className="beeon-slider">
