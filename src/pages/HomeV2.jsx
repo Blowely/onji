@@ -610,20 +610,28 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   const opacityRef = useRef(1);
   const overlayRef = useRef(null);
-
   const prevYRef = useRef(0);
+  const [_, forceUpdate] = useState(); // Used to force re-render when needed
+
+  // Update opacity without causing re-renders
+  const updateOpacity = (value) => {
+    if (opacityRef.current !== value) {
+      opacityRef.current = value;
+      if (overlayRef.current) {
+        overlayRef.current.style.opacity = value;
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY;
-      const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
-
-      if (!spuId) {
-        opacityRef.current = show ? 1 : 0;
-      }
+      const show = window.scrollY > 10;
 
       if (overlayVisible) {
-        opacityRef.current = 1;
+        updateOpacity(1);
+      } else if (!spuId) {
+        updateOpacity(show ? 1 : 0);
       }
 
       prevYRef.current = y;
@@ -635,7 +643,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     const show = window.scrollY > 10;
-    opacityRef.current = show ? 1 : 0;
+    updateOpacity(show ? 1 : 0);
+    // Force initial render to apply opacity
+    forceUpdate({});
   }, []);
   return (
       <Layout style={{
@@ -722,7 +732,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity: opacityRef.current }}
+                style={{ opacity: opacityRef.current, transition: 'opacity 0.2s ease-in-out' }}
             >
               <SearchOverlay
                   visible={overlayVisible}
