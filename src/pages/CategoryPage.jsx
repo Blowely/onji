@@ -238,24 +238,32 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const y = window.scrollY;
-      const show = window.scrollY > 10; // Измените 100 на нужное значение скролла
+      if (overlayVisible) {
+        setIsScrolled(true);
+        return;
+      }
 
-      if (!spuId) setIsScrolled(show);
+      const y = window.scrollY;
+      const show = y > 10;
+
+      if (!spuId) {
+        setIsScrolled(show);
+      }
 
       const slider = document.getElementsByClassName('beeon-slider');
 
       if (y < prevYRef.current && y > slider[0]?.clientHeight && !isDesktopScreen) {
-         setShowControls(true);
-       } else {
-         setShowControls(false);
-       }
-          prevYRef.current = y;
+        setShowControls(true);
+      } else {
+        setShowControls(false);
+      }
+      
+      prevYRef.current = y;
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [spuId]);
+  }, [spuId, overlayVisible]);
 
   const renderItems = () => {
     let productsItems = productsSlice[trimCollectionValue] || []
@@ -518,7 +526,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   }
 
   const isWebView = navigator.userAgent.includes('OnjiApp');
-
+  console.log('isScrolled', isScrolled)
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -639,9 +647,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
                 style={{
-                  opacity: isScrolled ? 1 : 0,
-                  touchAction: !isScrolled && 'none',
-                  display: search ? 'flex' : 'grid',
+                  opacity: isScrolled || overlayVisible ? 1 : 0,
+                  touchAction: (!isScrolled && !overlayVisible) ? 'none' : 'auto',
+                  display: search || overlayVisible ? 'flex' : 'grid',
+                  pointerEvents: overlayVisible ? 'none' : 'auto'
                 }}
                 ref={headerRef}
             >
