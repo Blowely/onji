@@ -531,11 +531,17 @@ footer {
   width: 100%;
   z-index: 2;
   height: fit-content;
-  transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
+  transition: all 0.3s ease-in-out; // Smooth transition for all properties
   border-bottom: 1px solid #ededed;
+  transform: translateY(-100%); // Start off-screen
+  opacity: 0; // Start transparent
+  pointer-events: none; // Prevent interaction when hidden
 
   &.overlayVisible {
     height: 100%;
+    transform: translateY(0); // Slide in
+    opacity: 1; // Fade in
+    pointer-events: auto; // Enable interaction when visible
   }
 
   &.scrolledHeader {

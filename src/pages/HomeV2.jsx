@@ -613,12 +613,25 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   const prevYRef = useRef(0);
   const [_, forceUpdate] = useState(); // Used to force re-render when needed
 
-  // Update opacity without causing re-renders
-  const updateOpacity = (value) => {
-    if (opacityRef.current !== value) {
-      opacityRef.current = value;
-      if (overlayRef.current) {
-        overlayRef.current.style.opacity = value;
+  // Update overlay visibility and animation
+  const updateOverlay = (isVisible) => {
+    if (overlayRef.current) {
+      const element = overlayRef.current;
+      if (isVisible) {
+        element.classList.add('overlayVisible');
+        // Force reflow to ensure the class is applied before starting the transition
+        void element.offsetHeight;
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      } else {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(-100%)';
+        // Remove the class after the transition ends
+        const onTransitionEnd = () => {
+          element.removeEventListener('transitionend', onTransitionEnd);
+          element.classList.remove('overlayVisible');
+        };
+        element.addEventListener('transitionend', onTransitionEnd, { once: true });
       }
     }
   };
@@ -629,9 +642,11 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       const show = window.scrollY > 10;
 
       if (overlayVisible) {
-        updateOpacity(1);
+        // Keep the overlay fully visible when it's supposed to be shown
+        updateOverlay(true);
       } else if (!spuId) {
-        updateOpacity(show ? 1 : 0);
+        // Update the overlay based on scroll position
+        updateOverlay(show);
       }
 
       prevYRef.current = y;
@@ -643,8 +658,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     const show = window.scrollY > 10;
-    updateOpacity(show ? 1 : 0);
-    // Force initial render to apply opacity
+    updateOverlay(show);
+    // Force initial render
     forceUpdate({});
   }, []);
   return (
@@ -732,7 +747,11 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity: opacityRef.current, transition: 'opacity 0.2s ease-in-out' }}
+                style={{
+                  opacity: overlayVisible ? 1 : 0,
+                  transform: overlayVisible ? 'translateY(0)' : 'translateY(-100%)',
+                  transition: 'all 0.3s ease-in-out'
+                }}
             >
               <SearchOverlay
                   visible={overlayVisible}
