@@ -91,12 +91,6 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             className={`${styles.overlay} ${visible && styles.visible}`} ref={overlayRef}
             style={{paddingTop: isWebView && '60px'}}
         >
-            {visible &&
-                <div className={styles.header}>
-                    <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
-                </div>
-            }
-
             <Input
                 readOnly={!visible}
                 onMouseDown={e => e.preventDefault()}
@@ -113,8 +107,13 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                 suffix={<img onClick={handleFocus} className="search-icon" src={tinySearchSvg} alt="search" />}
                 allowClear
             />
+            {visible &&
+                <div className={styles.header}>
+                    <img src={leftArrow} onClick={onClose} alt='backButton' className={styles.backIcon}/>
+                </div>
+            }
 
-            {/*{visible && (
+            {visible && (
                 <div className={styles.suggestionsWrapper}>
                     {query && suggestions.length > 0 && (
                         <div className={styles.suggestionTags}>
@@ -168,7 +167,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
                         </>
                     )}
                 </div>
-            )}*/}
+            )}
 
         </div>
     );
