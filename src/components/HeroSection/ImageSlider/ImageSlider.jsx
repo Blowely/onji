@@ -61,32 +61,47 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
                     adaptiveHeight={true}
                     infinite={true}
                     effect="scrollx"
+                    swipe={false}
                     dotPosition="bottom"
+                    dots={false}
                     draggable
                 >
-                    {slides.map((slide) => (
-                        <div
-                            key={slide.id}
-                            className={`slide ${slide.slide}`}
-                        >
-                        </div>
-                    ))}
+                    <div
+                        className={`slide ${slides[0].slide}`}
+                    >
+                    </div>
                 </Carousel>
                 : selectedCategory ? (
-                    <div className="slide slide3">
-                        {!isDesktop && (
-                            <div className={styles.backIconWrapper}>
-                                <LeftArrow onClick={goBack} alt='backButton' className={styles.backIcon}/>
+                        <Carousel
+                            ref={carouselRef}
+                            autoplay={false} // Отключаем встроенный autoplay
+                            beforeChange={onSlideChange}
+                            adaptiveHeight={true}
+                            infinite={true}
+                            effect="scrollx"
+                            swipe={false}
+                            dotPosition="bottom"
+                            dots={false}
+                            draggable
+                        >
+                            <div
+                                className={`slide slide3`}
+                            >
+                                {!isDesktop && (
+                                    <div className={styles.backIconWrapper}>
+                                        <LeftArrow onClick={goBack} alt='backButton' className={styles.backIcon}/>
+                                    </div>
+
+                                )}
+                                <div className={styles.itemsWrapper}>
+
+                                    {isDesktop &&
+                                        <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
+                                    <div className={styles.title}>{getCategoryTitle()}</div>
+                                </div>
                             </div>
+                        </Carousel>
 
-                        )}
-                        <div className={styles.itemsWrapper}>
-
-                            {isDesktop &&
-                                <div className={styles.breadcrumbs}>главная / одежда / повседневная одежда</div>}
-                            <div className={styles.title}>{getCategoryTitle()}</div>
-                        </div>
-                    </div>
                 ) : <div className="slide">
                     {!isDesktop && (
                         <div className={styles.backIconWrapper}>
