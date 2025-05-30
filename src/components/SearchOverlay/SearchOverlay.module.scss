@@ -102,6 +102,48 @@
   padding: 0 16px;
 }
 
+:global {
+  .input-search {
+    &.ant-input-affix-wrapper,
+    .ant-input {
+      &:focus,
+      &:focus-within,
+      &:active,
+      &:focus-visible {
+        box-shadow: none !important;
+        outline: none !important;
+      }
+    }
+
+    &.ant-input-outlined {
+      border-color: rgb(237, 237, 237) !important;
+    }
+    
+    &.ant-input-affix-wrapper:focus,
+    &.ant-input-affix-wrapper-focused,
+    &.ant-input-affix-wrapper:focus-within {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    &.ant-input-outlined:focus-within {
+      box-shadow: none !important;
+    }
+
+    /* Target the specific Ant Design class with the dynamic hash */
+    &[class*="ant-input"],
+    :where([class*="ant-input"]) {
+      &:focus,
+      &:focus-within,
+      &:active,
+      &:focus-visible {
+        box-shadow: none !important;
+        outline: none !important;
+      }
+    }
+  }
+}
+
 .suggestionTags {
   margin: 12px 0;
   display: flex;
