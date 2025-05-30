@@ -88,7 +88,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
 
     return (
         <div
-            className={`${styles.overlay} ${visible && styles.visible}`} ref={overlayRef}
+            className={`${styles.overlay} searchOverlay ${visible ? 'visible' : ''} ${visible ? styles.visible : ''}`} ref={overlayRef}
             style={{paddingTop: isWebView && '60px'}}
         >
             {visible &&
