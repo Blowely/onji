@@ -660,14 +660,14 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                                       {getCartItemCount(product, el?.size, el?.skuId)}
                                       <div
                                           style={{
-                                            fontSize: "17px",
-                                            fontWeight: "600",
+                                            fontSize: "15px",
+                                            fontWeight: "500",
                                             textAlign: "center",
                                           }}
                                       >
                                         {getValue(el?.size)}
                                       </div>
-                                      <div
+                                      {/*<div
                                           style={{
                                             fontSize: "13px",
                                             textAlign: "center",
@@ -677,7 +677,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                                           }}
                                       >
                                         {getTitlePrice(el.price) || "--"}
-                                      </div>
+                                      </div>*/}
                                     </div>
                                 ))}
                               </div>
@@ -856,14 +856,14 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                                 {getCartItemCount(product, el?.size, el.skuId)}
                                 <div
                                     style={{
-                                      fontSize: "17px",
-                                      fontWeight: "600",
+                                      fontSize: "15px",
+                                      fontWeight: "500",
                                       textAlign: "center",
                                     }}
                                 >
                                   {getValue(el?.size)}
                                 </div>
-                                <div
+                                {/*<div
                                     style={{
                                       fontSize: "13px",
                                       textAlign: "center",
@@ -873,7 +873,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                                     }}
                                 >
                                   {getTitlePrice(el?.price) || "--"}
-                                </div>
+                                </div>*/}
                               </div>
                           ))}
                         </div>
