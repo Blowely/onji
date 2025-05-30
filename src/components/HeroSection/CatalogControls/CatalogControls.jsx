@@ -15,6 +15,8 @@ const CatalogControls = ({setShowFilters}) => {
     const [loading, setLoading] = useState(false);
 
     const sortBy = searchParams.get("sortBy");
+    const search = searchParams.get("search");
+
     const isDesktop = window?.innerWidth > 768;
     const [sort, setSort] = useState(sortBy || 'by-relevance');
     const handleChange = (value) => {
@@ -25,8 +27,13 @@ const CatalogControls = ({setShowFilters}) => {
         setOffset(1);
     };
 
+
     return (
-        <div className={styles.catalogControlsWrapper}>
+        <div className={styles.catalogControlsWrapper}
+            style={{
+                borderTop: (!search && !isDesktop) ? "border-top: 1px solid rgba(0, 0, 0, 0.2)" : "none",
+            }}
+        >
             <div className={styles.catalogControlsBlock}>
                 <span className={styles.catalogControlItem} onClick={() => setShowFilters(true)}>
                     <img

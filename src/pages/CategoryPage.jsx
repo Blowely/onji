@@ -672,7 +672,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
          ${showControls ? styles.controlsVisible : styles.controlsHidden}
         `}
          style={{
-           borderTop: !search && !isDesktopScreen ? "border-top: 1px solid rgba(0, 0, 0, 0.2)" : "none",
            transform: showControls && isWebView && 'translateY(calc(100% + 62px))',
          }}
         >
