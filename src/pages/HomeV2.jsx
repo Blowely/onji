@@ -613,14 +613,12 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   const prevYRef = useRef(0);
   const [_, forceUpdate] = useState(); // Used to force re-render when needed
 
-  // Update overlay visibility with animation
-  const updateOverlay = (isVisible) => {
-    if (overlayRef.current) {
-      const element = overlayRef.current;
-      if (isVisible) {
-        element.classList.add('overlayVisible');
-      } else {
-        element.classList.remove('overlayVisible');
+  // Update opacity without causing re-renders
+  const updateOpacity = (value) => {
+    if (opacityRef.current !== value) {
+      opacityRef.current = value;
+      if (overlayRef.current) {
+        overlayRef.current.style.opacity = value;
       }
     }
   };
@@ -631,9 +629,9 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
       const show = window.scrollY > 10;
 
       if (overlayVisible) {
-        updateOverlay(true);
+        updateOpacity(1);
       } else if (!spuId) {
-        updateOverlay(show);
+        updateOpacity(show ? 1 : 0);
       }
 
       prevYRef.current = y;
@@ -645,8 +643,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     const show = window.scrollY > 10;
-    updateOverlay(show);
-    // Force initial render
+    updateOpacity(show ? 1 : 0);
+    // Force initial render to apply opacity
     forceUpdate({});
   }, []);
   return (
@@ -733,8 +731,8 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
             <div
                 ref={overlayRef}
-                className={`overlayWrapper ${overlayVisible ? 'overlayVisible searchOpen' : ''}`}
-                style={{ transition: 'all 0.3s ease-in-out' }}
+                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
+                style={{ opacity: opacityRef.current, transition: 'opacity 0.2s ease-in-out' }}
             >
               <SearchOverlay
                   visible={overlayVisible}
