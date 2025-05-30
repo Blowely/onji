@@ -517,6 +517,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     setOverlayVisible(true);
   }
 
+  const isWebView = navigator.userAgent.includes('OnjiApp');
+
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -669,7 +671,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
          ${styles.categoryTableWrapper}
          ${showControls ? styles.controlsVisible : styles.controlsHidden}
         `}
-         style={{borderTop: !search && !isDesktopScreen ? "border-top: 1px solid rgba(0, 0, 0, 0.2)" : "none"}}
+         style={{
+           borderTop: !search && !isDesktopScreen ? "border-top: 1px solid rgba(0, 0, 0, 0.2)" : "none",
+           transform: showControls && isWebView && 'translateY(calc(100% + 62px))',
+         }}
         >
           <CatalogControls setShowFilters={setShowFilters}/>
         </div>
