@@ -37,10 +37,15 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             document.body.style.right = '0';
             document.body.style.overflow = 'hidden';
             document.body.style.width = '100%';
+            
+            // Auto-focus the input when overlay becomes visible
+            if (showInput && inputRef.current) {
+                inputRef.current.focus({ preventScroll: true });
+            }
         } else {
             handleHideOverlay();
         }
-    }, [visible]);
+    }, [visible, showInput]);
 
     // при вводе в инпут
     const handleChange = async e => {
