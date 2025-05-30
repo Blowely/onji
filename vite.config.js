@@ -1,26 +1,36 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import { visualizer } from 'rollup-plugin-visualizer';
+
+// Create a function to get plugins
+const getPlugins = () => {
+  const plugins = [
+    react({
+      // Only enable fast refresh in development
+      fastRefresh: process.env.NODE_ENV !== 'production',
+    }),
+    svgr(),
+  ];
+
+  // Only load visualizer when ANALYZE env is set
+  if (process.env.ANALYZE) {
+    const { visualizer } = require('rollup-plugin-visualizer');
+    plugins.push(visualizer({
+      open: false,
+      filename: 'bundle-analyzer.html',
+      gzipSize: true,
+      brotliSize: true,
+    }));
+  }
+
+  return plugins;
+};
 
 export default defineConfig(({ command, mode }) => {
   const isProduction = mode === 'production';
 
   return {
-    plugins: [
-      react({
-        // Only enable fast refresh in development
-        fastRefresh: !isProduction,
-      }),
-      svgr(),
-      // Visualizer for bundle analysis (only in production)
-      isProduction && visualizer({
-        open: false,
-        filename: 'bundle-analyzer.html',
-        gzipSize: true,
-        brotliSize: true,
-      }),
-    ].filter(Boolean),
+    plugins: getPlugins(),
     
     // Development server configuration
     server: {
@@ -35,22 +45,23 @@ export default defineConfig(({ command, mode }) => {
     // Build configuration
     build: {
       outDir: 'build',
-      sourcemap: isProduction ? false : 'inline',
+      // Disable sourcemaps in production for faster builds
+      sourcemap: false,
+      // Disable minification in development for faster builds
       minify: isProduction ? 'esbuild' : false,
+      // Enable faster build with esbuild for minification
+      target: 'esnext',
+      // Disable brotli size reporting for faster builds
+      brotliSize: false,
       
-      // Rollup options
+      // Rollup options - simplified for faster builds
       rollupOptions: {
         output: {
-          manualChunks: (id) => {
-            if (id.includes('node_modules')) {
-              if (id.includes('react') || id.includes('react-dom')) {
-                return 'vendor-react';
-              }
-              if (id.includes('@ant-design') || id.includes('antd')) {
-                return 'vendor-antd';
-              }
-              return 'vendor-other';
-            }
+          manualChunks: {
+            // Group large dependencies into separate chunks
+            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+            'antd-vendor': ['antd', '@ant-design/icons'],
+            // Add other large dependencies here if needed
           },
         },
       },
@@ -70,16 +81,19 @@ export default defineConfig(({ command, mode }) => {
       chunkSizeWarningLimit: 1000,
     },
     
-    // Optimize dependencies
+    // Optimize dependencies - disable force pre-bundling for faster builds
     optimizeDeps: {
       include: [
         'react',
         'react-dom',
         'react-router-dom',
-        // Add other frequently used dependencies here
       ],
-      // Force dependency pre-bundling
+      // Disable force pre-bundling for faster builds
       force: false,
+      // Enable esbuild optimizations
+      esbuildOptions: {
+        target: 'es2020',
+      },
     },
     
     // Resolve configuration
