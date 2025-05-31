@@ -117,8 +117,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       'men': ['MALE'],
     }
 
+    const limit = 20; // Items per page
+
     let obj = {
-      limit: 20,
+      limit: limit,
       search: search?.toLowerCase(),
       fit: genderToFit[gender],
       sort: sortBy || 'by-relevance',
@@ -166,32 +168,94 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   }, [brandsParam, category1IdParam, category2IdParam, category3IdParam, 
       collection, colorsParam, gender, maxPriceParam, minPriceParam, search, sizesParam, sortBy]);
 
+  const [page, setPage] = useState(1);
   const {
     data: products = { items: [], totalCount: 0 },
     isFetching: isLoading,
     refetch: refetchProducts,
-  } = useGetProductsQuery(buildRequest(1));
+  } = useGetProductsQuery(buildRequest(page));
 
-  const loadMoreItems = useCallback(async (startIndex, endIndex) => {
+  // Track current page to prevent multiple loads
+  const currentPage = useRef(false);
+  const wrapperRef = useRef(null);
+
+  const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
+      `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}+${gender}` || collection;
+  const prevCollectionValue = usePrevious(searchOrCollection);
+  const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
+
+  // Set up scroll event listener for infinite loading
+  useEffect(() => {
+    let timeoutId = null;
+    
+    const handleScroll = () => {
+      // Clear any existing timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      
+      // Set a new timeout
+      timeoutId = setTimeout(() => {
+        try {
+          if (!wrapperRef.current || isLoading || currentPage.current) return;
+          
+          const wrapper = wrapperRef.current;
+          const wrapperHeight = wrapper.scrollHeight;
+          const triggerPoint = wrapperHeight * 0.7; // Load more when scrolled 50% down
+          const windowPageYOffset = window.pageYOffset + window.innerHeight;
+
+          // Trigger when scrolled past the halfway point
+          if (windowPageYOffset >= triggerPoint && products?.items?.length === 20) {
+            currentPage.current = true;
+            setPage(prev => {
+              const nextPage = prev + 1;
+              console.log('Loading more items, next page:', nextPage);
+              return nextPage;
+            });
+          }
+        } catch (e) {
+          console.error('Scroll error:', e);
+        }
+      }, 50); // 300ms debounce
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isLoading, products?.items?.length]);
+
+  // Reset currentPage and page when search or filters change
+  useEffect(() => {
+    if (products?.items?.length) {
+      currentPage.current = false;
+    }
+  }, [products, searchOrCollection]);
+
+  // Reset to first page when search or filters change
+  useEffect(() => {
+    setPage(1);
+  }, [searchOrCollection]);
+
+  // Load more items function
+  const loadMoreItems = useCallback(async (page) => {
     if (!hasMore || isLoading) return;
     
     try {
       setLoading(true);
       setError(null);
       
-      const nextPage = Math.floor(startIndex / 20) + 1;
-      if (nextPage <= offset) return; // Уже загружено
-      
-      const result = await refetchProducts(buildRequest(nextPage));
+      const result = await refetchProducts(buildRequest(page));
       
       if (result.error) {
         throw new Error('Ошибка при загрузке товаров');
       }
       
-      setOffset(nextPage);
-      
-      // Проверяем, есть ли еще данные для загрузки
-      if (result.data?.items?.length < 20) {
+      // Check if there are more items to load
+      if (result.data?.items?.length < limit) {
         setHasMore(false);
       }
     } catch (err) {
@@ -200,12 +264,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     } finally {
       setLoading(false);
     }
-  }, [buildRequest, hasMore, isLoading, offset, refetchProducts]);
-
-  const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
-    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}+${gender}` || collection;
-  const prevCollectionValue = usePrevious(searchOrCollection);
-  const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
+  }, [buildRequest, hasMore, isLoading, refetchProducts]);
 
   useEffect(() => {
     setLoading(false);
@@ -345,55 +404,20 @@ const productsItems = useMemo(() => {
   }, [productsSlice, trimCollectionValue]);
 
   const renderItems = () => (
-    <OptimizedCategoryPageWrapper 
-      onAddToFavorite={onAddToFavorite}
-      onAddToCart={onAddToCart}
-      onPointerDown={onPointerDown}
-      onPointerUp={onPointerUp}
-      isLoading={isLoading}
-      loading={loading}
-      trimCollectionValue={trimCollectionValue}
-    />
+    <div ref={wrapperRef}>
+      <OptimizedCategoryPageWrapper 
+        onAddToFavorite={onAddToFavorite}
+        onAddToCart={onAddToCart}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        isLoading={isLoading}
+        loading={loading}
+        trimCollectionValue={trimCollectionValue}
+      />
+    </div>
   );
 
   const docElements = document.getElementsByClassName("cards-section-wrapper");
-
-  let currentPage = true;
-
-  useEffect(() => {
-    currentPage = false;
-  }, [products]);
-
-
-  window.addEventListener(
-      "scroll",
-      function (event) {
-        try {
-          const lastEl =
-              docElements[0]?.children[docElements[0]?.children?.length - 1]
-                  ?.offsetTop - 3500;
-          const windowPageYOffset = window.pageYOffset;
-
-
-          if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
-            currentPage = true;
-
-            if (products.items.length === limit) {
-              setOffset((prev) => {
-                /*if ((productsSlice?.[trimCollectionValue]?.length || 1) + 1 === prev + 1) {
-                  return prev + 1;
-                }*/
-              console.log('prev=',prev)
-              return prev + 1;
-            })
-          }
-        }
-      } catch (e) {
-        console.log("e =", e);
-      }
-    },
-    false,
-  );
 
   const onBrandClick = (brand) => {
     if (brand.toString() === brandsParam) {

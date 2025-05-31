@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo, forwardRef } from "react";
 import PropTypes from "prop-types";
 import { useAppSelector } from "../store";
 import { Empty } from "antd";
 import OptimizedCategoryPage from "./OptimizedCategoryPage";
 
-const OptimizedCategoryPageWrapper = ({ 
+const OptimizedCategoryPageWrapper = forwardRef(({ 
   onAddToFavorite, 
   onAddToCart, 
   onPointerDown, 
@@ -12,7 +12,7 @@ const OptimizedCategoryPageWrapper = ({
   isLoading, 
   loading,
   trimCollectionValue = "new"
-}) => {
+}, ref) => {
   const productsSlice = useAppSelector((state) => state.products);
   
   // Get products for the current collection
@@ -43,16 +43,18 @@ const OptimizedCategoryPageWrapper = ({
   }
 
   return (
-    <OptimizedCategoryPage 
-      products={displayItems}
-      isLoading={isLoading || loading}
-      onAddToFavorite={onAddToFavorite}
-      onAddToCart={onAddToCart}
-      onPointerDown={onPointerDown}
-      onPointerUp={onPointerUp}
-    />
+    <div ref={ref}>
+      <OptimizedCategoryPage 
+        products={displayItems}
+        isLoading={isLoading || loading}
+        onAddToFavorite={onAddToFavorite}
+        onAddToCart={onAddToCart}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+      />
+    </div>
   );
-};
+});
 
 OptimizedCategoryPageWrapper.propTypes = {
   onAddToFavorite: PropTypes.func,
