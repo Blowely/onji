@@ -1,15 +1,17 @@
 import React, {
-  Suspense,
   useEffect,
   useRef,
-  useState
+  useState,
+  useCallback,
+  useMemo,
+  memo, Suspense
 } from "react";
-import Card from "../components/Card";
-import {Button, Empty, Layout, Modal} from "antd";
-import { useGetProductsQuery } from "../store/products.store";
-import "../index.scss";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Layout, Button, Modal } from "antd";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
+import { useOptimizedScroll } from "../hooks/useOptimizedScroll";
+import OptimizedCategoryPageWrapper from "./OptimizedCategoryPageWrapper";
+import "../index.scss";
 import { useAppDispatch, useAppSelector } from "../store";
 import {addProducts} from "../common/productsSlice";
 import "../components/InitAnimation/InitAnimation.styles.scss";
@@ -27,6 +29,7 @@ import leftArrow from "../assets/svg/v2/left-arrow.svg";
 import searchSvg from '../assets/svg/v2/search.svg';
 import Filters from "../components/Filters";
 import SearchOverlay from "../components/SearchOverlay/SearchOverlay";
+import {useGetProductsQuery} from "../store/products.store";
 
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
@@ -47,7 +50,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
 
   const [limit] = useState(20);
-  const [offset, setOffset] = useState(1);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(minPriceParam || '');
@@ -58,9 +62,27 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState(null);
   const [showControls, setShowControls] = useState(false);
   const prevYRef = useRef(0);
+  
+  // Стили для виртуального списка
+  const listStyles = {
+    height: 'calc(100vh - 200px)',
+    width: '100%',
+    margin: '0 auto',
+    padding: '0 10px',
+    boxSizing: 'border-box',
+  };
+  
+  const loadingStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100px',
+    fontSize: '16px',
+    color: '#666',
+  };
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
@@ -89,7 +111,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     startLoaderAnimation();
   }, []);
 
-  const buildRequest = () => {
+  const buildRequest = useCallback((page = 1) => {
     const genderToFit = {
       'women': ['FEMALE'],
       'men': ['MALE'],
@@ -99,22 +121,17 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       limit: 20,
       search: search?.toLowerCase(),
       fit: genderToFit[gender],
-      sort: sortBy || 'by-relevance'
+      sort: sortBy || 'by-relevance',
+      page
     };
 
     if (brandsParam) {
       obj.brandIds = brandsParam;
     }
-/*
-    if (selectedBrands?.length) {
-      obj.brandIds = selectedBrands.map(({id}) => id).join(',');
-    }*/
 
     if (collection) {
       obj.collName = collection;
     }
-
-    obj.page = offset || 1;
 
     if (minPriceParam) {
       obj.minPrice = minPriceParam;
@@ -124,9 +141,11 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       obj.maxPrice = maxPriceParam;
     }
 
+
     if (sizesParam) {
       obj.sizes = sizesParam;
     }
+
 
     if (colorsParam) {
       obj.colors = colorsParam;
@@ -139,18 +158,49 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     if (category2IdParam) {
       obj.category2Id = category2IdParam;
     }
-
     if (category1IdParam) {
       obj.category1Id = category1IdParam;
     }
 
     return obj;
-  };
+  }, [brandsParam, category1IdParam, category2IdParam, category3IdParam, 
+      collection, colorsParam, gender, maxPriceParam, minPriceParam, search, sizesParam, sortBy]);
 
   const {
     data: products = { items: [], totalCount: 0 },
     isFetching: isLoading,
-  } = useGetProductsQuery(buildRequest());
+    refetch: refetchProducts,
+  } = useGetProductsQuery(buildRequest(1));
+
+  const loadMoreItems = useCallback(async (startIndex, endIndex) => {
+    if (!hasMore || isLoading) return;
+    
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const nextPage = Math.floor(startIndex / 20) + 1;
+      if (nextPage <= offset) return; // Уже загружено
+      
+      const result = await refetchProducts(buildRequest(nextPage));
+      
+      if (result.error) {
+        throw new Error('Ошибка при загрузке товаров');
+      }
+      
+      setOffset(nextPage);
+      
+      // Проверяем, есть ли еще данные для загрузки
+      if (result.data?.items?.length < 20) {
+        setHasMore(false);
+      }
+    } catch (err) {
+      console.error('Ошибка при загрузке товаров:', err);
+      setError('Не удалось загрузить товары. Пожалуйста, попробуйте еще раз.');
+    } finally {
+      setLoading(false);
+    }
+  }, [buildRequest, hasMore, isLoading, offset, refetchProducts]);
 
   const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
     `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}+${gender}` || collection;
@@ -190,35 +240,35 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     }
   }, [products]);
 
-  const onCardClickHandler = (item) => {
-
-    setSelectedProduct(item);
-    const spuId = item?.spuId || '';
-    searchParams.set('spuId', spuId);
-    setSearchParams(searchParams);
-    localStorage.setItem('product', JSON.stringify(item));
-  };
+  const onCardClickHandler = useCallback((item) => {
+  setSelectedProduct(item);
+  const spuId = item?.spuId || '';
+  const newSearchParams = new URLSearchParams(searchParams);
+  newSearchParams.set('spuId', spuId);
+  setSearchParams(newSearchParams);
+  localStorage.setItem('product', JSON.stringify(item));
+}, [searchParams, setSearchParams]);
 
   let startY = 0;
   let isScrolling = false;
 
-  const onPointerDown = (event) => {
-    startY = event.touches ? event.touches[0].clientY : event.clientY;
-    isScrolling = false;
-  };
+  const onPointerDown = useCallback((event) => {
+  startY = event.touches ? event.touches[0].clientY : event.clientY;
+  isScrolling = false;
+}, []);
 
-  const onPointerMove = () => {
-    isScrolling = true;
-  };
+  const onPointerMove = useCallback(() => {
+  isScrolling = true;
+}, []);
 
-  const onPointerUp = (item, event) => {
-    const endY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
-    const diff = Math.abs(startY - endY);
+  const onPointerUp = useCallback((item, event) => {
+  const endY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+  const diff = Math.abs(startY - endY);
 
-    if (!isScrolling && diff < 5) {
-      onCardClickHandler(item);
-    }
-  };
+  if (!isScrolling && diff < 5) {
+    onCardClickHandler(item);
+  }
+}, [onCardClickHandler]);
 
   useEffect(() => {
     window.addEventListener('pointermove', onPointerMove);
@@ -236,84 +286,75 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     window.scrollTo({ top: 0 });
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (overlayVisible) {
-        setIsScrolled(true);
-        return;
-      }
-
-      const y = window.scrollY;
-      const show = y > 10;
-
-      if (!spuId) {
-        setIsScrolled(show);
-      }
-
-      const slider = document.getElementsByClassName('beeon-slider');
-
-      if (y < prevYRef.current && y > slider[0]?.clientHeight && !isDesktopScreen) {
-        setShowControls(true);
-      } else {
-        setShowControls(false);
-      }
-      
-      prevYRef.current = y;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [spuId, overlayVisible]);
-
-  const renderItems = () => {
-    let productsItems = productsSlice[trimCollectionValue] || []
-
-    productsItems = [...productsItems, ...[...Array(15)]];
-
-    if (productsSlice[trimCollectionValue]?.length && products?.items?.length < 20 && !isLoading && !loading) {
-      productsItems = productsSlice[trimCollectionValue]
+  // Optimized scroll handling
+  const handleScroll = useCallback(() => {
+    if (overlayVisible) {
+      setIsScrolled(true);
+      return;
     }
 
-    if (!productsSlice[trimCollectionValue]?.length && !loading && !isLoading) {
-      return (
-        <Empty
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          imageStyle={{ height: 100, paddingTop: "20px", width: '100%' }}
-          description="Ничего не найдено"
-          className="empty"
-        />
-      );
+    const y = window.scrollY;
+    const show = y > 10;
+
+    if (!spuId) {
+      setIsScrolled(show);
     }
 
-    return (
-        <div className="cards-section-wrapper">
-          {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
-            const image = item?.images[0] || '';
-            const title = item?.name || '';
-            const price = item?.price || '';
+    const slider = document.getElementsByClassName('beeon-slider');
+    const sliderHeight = slider[0]?.clientHeight || 0;
 
-            return (
-                <div key={`${item?.spuId}-${index}`} style={{height:'100%'}}>
-                  <Card
-                      onFavorite={(obj) => onAddToFavorite(obj)}
-                      onPlus={(obj) => onAddToCart(obj)}
-                      loading={isLoading}
-                      image={image}
-                      price={price}
-                      item={item}
-                      name={title}
-                      index={index + 1}
-                      onPointerDown={onPointerDown}
-                      onPointerUp={onPointerUp}
-                      onTouchStart={onPointerDown}
-                      onTouchEnd={onPointerUp}
-                  />
-                </div>
-            );
-          })}
-        </div>
-    );
-  };
+    if (y < prevYRef.current && y > sliderHeight && !isDesktopScreen) {
+      setShowControls(true);
+    } else if (y <= sliderHeight || y >= prevYRef.current) {
+      setShowControls(false);
+    }
+    
+    prevYRef.current = y;
+  }, [spuId, overlayVisible, isDesktopScreen]);
+
+  // Use optimized scroll hook
+  useOptimizedScroll(handleScroll);
+
+  const MemoizedCard = memo(({ item, index, onAddToFavorite, onAddToCart, onPointerDown, onPointerUp, isLoading }) => {
+  const image = item?.images?.[0] || '';
+  const title = item?.name || '';
+  const price = item?.price || '';
+
+  return (
+    <div key={`${item?.spuId}-${index}`} style={{height:'100%'}}>
+      <Card
+        onFavorite={onAddToFavorite}
+        onPlus={onAddToCart}
+        loading={isLoading}
+        image={image}
+        price={price}
+        item={item}
+        name={title}
+        index={index + 1}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onTouchStart={onPointerDown}
+        onTouchEnd={onPointerUp}
+      />
+    </div>
+  );
+});
+
+const productsItems = useMemo(() => {
+    return productsSlice[trimCollectionValue] || [];
+  }, [productsSlice, trimCollectionValue]);
+
+  const renderItems = () => (
+    <OptimizedCategoryPageWrapper 
+      onAddToFavorite={onAddToFavorite}
+      onAddToCart={onAddToCart}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      isLoading={isLoading}
+      loading={loading}
+      trimCollectionValue={trimCollectionValue}
+    />
+  );
 
   const docElements = document.getElementsByClassName("cards-section-wrapper");
 
