@@ -94,10 +94,11 @@ function Card({
          key={key}
     >
       <div
-          onPointerDown={onPointerDown}
+          /*onPointerDown={onPointerDown}
           onPointerUp={(e) => onPointerUp(item, e)}
           onTouchStart={onPointerDown}
-          onTouchEnd={(e) => onPointerUp(item, e)}
+          onTouchEnd={(e) => onPointerUp(item, e)}*/
+          onClick={(e) => onPointerUp(item, e)}
           style={{height:'100%'}}
       >
         {!name && (
