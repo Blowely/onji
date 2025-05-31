@@ -300,34 +300,30 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
   const onCardClickHandler = useCallback((item) => {
-  setSelectedProduct(item);
-  const spuId = item?.spuId || '';
-  const newSearchParams = new URLSearchParams(searchParams);
-  newSearchParams.set('spuId', spuId);
-  setSearchParams(newSearchParams);
-  localStorage.setItem('product', JSON.stringify(item));
-}, [searchParams, setSearchParams]);
+    console.log('item=',item)
+    setSelectedProduct(item);
+    const spuId = item?.spuId || '';
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('spuId', spuId);
+    setSearchParams(newSearchParams);
+    localStorage.setItem('product', JSON.stringify(item));
+  }, [searchParams, setSearchParams]);
 
   let startY = 0;
   let isScrolling = false;
 
   const onPointerDown = useCallback((event) => {
-  startY = event.touches ? event.touches[0].clientY : event.clientY;
-  isScrolling = false;
-}, []);
+    startY = event.touches ? event.touches[0].clientY : event.clientY;
+    isScrolling = false;
+  }, []);
 
   const onPointerMove = useCallback(() => {
-  isScrolling = true;
-}, []);
+    isScrolling = true;
+  }, []);
 
   const onPointerUp = useCallback((item, event) => {
-  const endY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
-  const diff = Math.abs(startY - endY);
-
-  if (!isScrolling && diff < 5) {
     onCardClickHandler(item);
-  }
-}, [onCardClickHandler]);
+  }, [onCardClickHandler]);
 
   useEffect(() => {
     window.addEventListener('pointermove', onPointerMove);
@@ -591,7 +587,7 @@ const productsItems = useMemo(() => {
   }
 
   const isWebView = navigator.userAgent.includes('OnjiApp');
-  console.log('isScrolled', isScrolled)
+
   return (
       <Layout style={{
         backgroundColor: "white",
