@@ -290,117 +290,69 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const wasProductOpen = useRef(false);
 
   useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector(`.${styles.contentBlockHeader}`);
+      if (header && !spuId) { // Only update header if not in product view
+        const shouldShow = window.scrollY > 10;
+        header.style.opacity = shouldShow ? '1' : '0';
+        header.style.pointerEvents = shouldShow ? 'auto' : 'none';
+      }
+    };
+
+    // Initial check
+    handleScroll();
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [spuId]); // Re-run when product view changes
+
+  useEffect(() => {
     if (spuId) {
       // When opening the product
       wasProductOpen.current = true;
+      document.body.style.overflow = 'hidden';
+      
+      // Show and animate product in
       if (productRef.current) {
         productRef.current.style.display = 'block';
         void productRef.current.offsetHeight; // Trigger reflow
-        setIsAnimating(true);
         setIsProductVisible(true);
-        
-        // End animation after it completes
-        const timer = setTimeout(() => {
-          setIsAnimating(false);
-        }, 300);
-        
-        return () => clearTimeout(timer);
       }
-      document.body.style.overflow = 'hidden';
+      
+      // Force header to be visible when product is open
+      const header = document.querySelector(`.${styles.contentBlockHeader}`);
+      if (header) {
+        header.style.opacity = '1';
+        header.style.pointerEvents = 'auto';
+      }
+      
     } else if (wasProductOpen.current) {
-      // When closing the product - no animation
+      // When closing the product
       wasProductOpen.current = false;
       setIsProductVisible(false);
-      
-      // Hide the product immediately
-      if (productRef.current) {
-        productRef.current.style.display = 'none';
-      }
-      
       document.body.style.overflow = 'auto';
-    }
-  }, [spuId]);
-
-  const [headerRef, headerInView] = useInView({
-    threshold: 0,
-    initialInView: false,
-    triggerOnce: false,
-    rootMargin: '1px 0px 0px 0px',
-  });
-
-  const [sentinelRef, sentinelInView] = useInView({
-    threshold: 0,
-    initialInView: true,
-  });
-
-  useEffect(() => {
-    if (!spuId && wasProductOpen.current) {
-      wasProductOpen.current = false;
       
-      // Force update header visibility based on scroll position
-      const handleScroll = () => {
+      // Hide the product after a small delay
+      const timer = setTimeout(() => {
+        if (productRef.current) {
+          productRef.current.style.display = 'none';
+        }
+        
+        // Force update header state
         const header = document.querySelector(`.${styles.contentBlockHeader}`);
         if (header) {
-          const shouldShow = window.scrollY > 0;
+          const shouldShow = window.scrollY > 10;
           header.style.opacity = shouldShow ? '1' : '0';
           header.style.pointerEvents = shouldShow ? 'auto' : 'none';
         }
-      };
-      
-      // Add a small delay to ensure DOM is updated
-      const timer = setTimeout(() => {
-        handleScroll();
-        window.addEventListener('scroll', handleScroll, { passive: true });
       }, 50);
       
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener('scroll', handleScroll);
-      };
+      return () => clearTimeout(timer);
     }
-  }, [spuId]);
-
-  useEffect(() => {
-    return () => {
-      const header = document.querySelector(`.${styles.contentBlockHeader}`);
-      if (header) {
-        header.style.opacity = '';
-        header.style.pointerEvents = '';
-      }
-    };
-  }, []);
-
-  // Optimized scroll handling for other components
-  const handleMainScroll = useCallback(() => {
-    if (overlayVisible) return;
-
-    const slider = document.getElementsByClassName('beeon-slider');
-    const sliderHeight = slider[0]?.clientHeight || 0;
-    const y = window.scrollY;
-
-    if (y < prevYRef.current && y > sliderHeight && !isDesktopScreen) {
-      setShowControls(true);
-    } else if (y <= sliderHeight || y >= prevYRef.current) {
-      setShowControls(false);
-    }
-
-    prevYRef.current = y;
-  }, [overlayVisible, isDesktopScreen]);
-
-  useOptimizedScroll(handleMainScroll);
-
-  // Handle body overflow when product is open
-  useEffect(() => {
-    if (spuId) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-
-    // Cleanup function to reset overflow when component unmounts
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
   }, [spuId]);
 
   const isWebView = navigator.userAgent.includes('OnjiApp');
@@ -546,6 +498,50 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [isProductVisible, setIsProductVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const productRef = useRef(null);
+
+  const handleMainScroll = useCallback(() => {
+    if (overlayVisible) return;
+
+    const slider = document.getElementsByClassName('beeon-slider');
+    const sliderHeight = slider[0]?.clientHeight || 0;
+    const y = window.scrollY;
+
+    if (y < prevYRef.current && y > sliderHeight && !isDesktopScreen) {
+      setShowControls(true);
+    } else if (y <= sliderHeight || y >= prevYRef.current) {
+      setShowControls(false);
+    }
+
+    prevYRef.current = y;
+  }, [overlayVisible, isDesktopScreen]);
+
+  useOptimizedScroll(handleMainScroll);
+
+  // Handle body overflow when product is open
+  useEffect(() => {
+    if (spuId) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [spuId]);
+
+  const [headerRef, headerInView] = useInView({
+    threshold: 0,
+    initialInView: false,
+    triggerOnce: false,
+    rootMargin: '1px 0px 0px 0px',
+  });
+
+  const [sentinelRef, sentinelInView] = useInView({
+    threshold: 0,
+    initialInView: true,
+  });
 
   return (
       <Layout style={{
