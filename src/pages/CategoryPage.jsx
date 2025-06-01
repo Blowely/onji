@@ -78,6 +78,9 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const filtersRef = useRef(null);
   const headerRef = useRef(null);
+  const isInitialMount = useRef(true);
+  const isScrolledRef = useRef(false);
+  const scrollTimeout = useRef(null);
 
   const gender = localStorage.getItem("gender") || "men";
 
@@ -289,25 +292,53 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Set initial scroll state when component mounts
+  // Handle scroll and visibility
   useEffect(() => {
-    // Set initial opacity to 0
-    if (headerRef.current) {
-      headerRef.current.style.opacity = '0';
-      headerRef.current.style.pointerEvents = 'none';
-    }
+    const header = headerRef.current;
+    if (!header) return;
 
-    // Add scroll listener
     const handleScroll = () => {
-      const y = window.scrollY;
-      const show = y > 0;
-      
-      if (headerRef.current) {
-        headerRef.current.style.opacity = show ? '1' : '0';
-        headerRef.current.style.pointerEvents = show ? 'auto' : 'none';
+      if (scrollTimeout.current) {
+        cancelAnimationFrame(scrollTimeout.current);
       }
+
+      scrollTimeout.current = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const shouldShow = y > 0;
+        
+        if (shouldShow !== isScrolledRef.current) {
+          isScrolledRef.current = shouldShow;
+          
+          // Use requestAnimationFrame for smooth updates
+          requestAnimationFrame(() => {
+            if (!header) return;
+            header.style.opacity = shouldShow ? '1' : '0';
+            header.style.pointerEvents = shouldShow ? 'auto' : 'none';
+            
+            // Add/remove transition only after initial mount to prevent flicker
+            if (isInitialMount.current) {
+              header.style.transition = 'none';
+              isInitialMount.current = false;
+              
+              // Force reflow
+              void header.offsetHeight;
+              
+              // Enable transition after initial render
+              requestAnimationFrame(() => {
+                if (header) {
+                  header.style.transition = 'opacity 0.2s ease-in-out';
+                }
+              });
+            }
+          });
+        }
+      });
     };
 
+    // Set initial state
+    header.style.opacity = '0';
+    header.style.pointerEvents = 'none';
+    
     // Initial check
     handleScroll();
 
@@ -316,6 +347,9 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
     // Cleanup
     return () => {
+      if (scrollTimeout.current) {
+        cancelAnimationFrame(scrollTimeout.current);
+      }
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -661,13 +695,12 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
         {!isDesktopScreen && (
             <div
-                className={`${styles.contentBlockHeader}`}
-                style={{
-                  transition: 'opacity 0.2s ease-in-out',
-                  touchAction: 'auto',
-                  display: search || overlayVisible ? 'flex' : 'grid',
-                }}
                 ref={headerRef}
+                className={styles.contentBlockHeader}
+                style={{
+                  display: search || overlayVisible ? 'flex' : 'grid',
+                  touchAction: 'auto',
+                }}
             >
               {search && (
                   <span style={{display: "flex", gap: "10px", alignItems: "center", flex: 1, minWidth: 0}}>
