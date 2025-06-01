@@ -29,7 +29,7 @@ import searchSvg from '../assets/svg/v2/search.svg';
 import Filters from "../components/Filters";
 import SearchOverlay from "../components/SearchOverlay/SearchOverlay";
 import {useGetProductsQuery} from "../store/products.store";
-
+import { motion, AnimatePresence } from "framer-motion";
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -487,10 +487,30 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         position: "relative",
         paddingBottom: !isDesktopScreen ? "200px" : 'unset'
       }}>
-        {spuId && <div className="productWrapper" id="productWrapper">
-          <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
-        </div>
-        }
+        <AnimatePresence>
+          {spuId && (
+            <motion.div 
+              className="productWrapper" 
+              id="productWrapper"
+              initial={{ x: '100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
+              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
+              style={{
+                position: 'fixed',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                backgroundColor: 'white',
+                zIndex: 1000,
+                overflowY: 'auto'
+              }}
+            >
+              <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
+            </motion.div>
+          )}
+        </AnimatePresence>
         {isOpenBrandsModal && (
             <Modal
                 title="Бренды"
