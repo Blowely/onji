@@ -305,24 +305,24 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       scrollTimeout.current = requestAnimationFrame(() => {
         const y = window.scrollY;
         const shouldShow = y > 0;
-        
+
         if (shouldShow !== isScrolledRef.current) {
           isScrolledRef.current = shouldShow;
-          
+
           // Use requestAnimationFrame for smooth updates
           requestAnimationFrame(() => {
             if (!header) return;
             header.style.opacity = shouldShow ? '1' : '0';
             header.style.pointerEvents = shouldShow ? 'auto' : 'none';
-            
+
             // Add/remove transition only after initial mount to prevent flicker
             if (isInitialMount.current) {
               header.style.transition = 'none';
               isInitialMount.current = false;
-              
+
               // Force reflow
               void header.offsetHeight;
-              
+
               // Enable transition after initial render
               requestAnimationFrame(() => {
                 if (header) {
@@ -338,7 +338,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     // Set initial state
     header.style.opacity = '0';
     header.style.pointerEvents = 'none';
-    
+
     // Initial check
     handleScroll();
 
@@ -357,7 +357,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   // Optimized scroll handling for other components
   const handleMainScroll = useCallback(() => {
     if (overlayVisible) return;
-    
+
     const slider = document.getElementsByClassName('beeon-slider');
     const sliderHeight = slider[0]?.clientHeight || 0;
     const y = window.scrollY;
@@ -377,20 +377,14 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   useEffect(() => {
     if (spuId) {
       document.body.style.overflow = 'hidden';
-      document.body.style.touchAction = 'none';
-      
-      // Enable scroll after animation completes
-      const timer = setTimeout(() => {
-        document.body.style.overflow = '';
-        document.body.style.touchAction = '';
-      }, 400); // Match this with your animation duration
-
-      return () => {
-        clearTimeout(timer);
-        document.body.style.overflow = '';
-        document.body.style.touchAction = '';
-      };
+    } else {
+      document.body.style.overflow = 'auto';
     }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, [spuId]);
 
   const isWebView = navigator.userAgent.includes('OnjiApp');
@@ -548,19 +542,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         setIsProductVisible(true);
       }
       document.body.style.overflow = 'hidden';
-      document.body.style.touchAction = 'none';
-      
-      // Enable scroll after animation completes
-      const timer = setTimeout(() => {
-        document.body.style.overflow = '';
-        document.body.style.touchAction = '';
-      }, 400); // Match this with your animation duration
-
-      return () => {
-        clearTimeout(timer);
-        document.body.style.overflow = '';
-        document.body.style.touchAction = '';
-      };
     } else {
       // When closing the product - no animation
       setIsProductVisible(false);
@@ -572,38 +553,34 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     }
   }, [spuId]);
 
-  const productWrapperStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#fff',
-    zIndex: 1000,
-    overflowY: 'auto',
-    paddingTop: isWebView ? '60px' : 0,
-    transform: isProductVisible ? 'translateX(0)' : 'translateX(100%)',
-    transition: isAnimating ? 'transform 0.4s cubic-bezier(0.16, 1, 0.2, 1)' : 'none',
-    willChange: 'transform',
-    backfaceVisibility: 'hidden',
-    WebkitFontSmoothing: 'subpixel-antialiased',
-    WebkitOverflowScrolling: 'touch',
-    overscrollBehavior: 'contain', // Prevent scroll chaining
-    touchAction: isAnimating ? 'none' : 'pan-y', // Disable touch during animation
-  };
-
   return (
       <Layout style={{
         backgroundColor: "white",
         position: "relative",
         paddingBottom: !isDesktopScreen ? "200px" : 'unset'
       }}>
-        <div 
-          ref={productRef}
-          style={productWrapperStyle}
+        <div
+            ref={productRef}
+            style={{
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundColor: 'white',
+              zIndex: 1000,
+              overflowY: 'auto',
+              paddingTop: isWebView ? '60px' : 0,
+              transform: isProductVisible ? 'translateX(0)' : 'translateX(100%)',
+              transition: isAnimating ? 'transform 0.2s cubic-bezier(0.16, 1, 0.2, 1)' : 'none',
+              willChange: 'transform',
+              backfaceVisibility: 'hidden',
+              WebkitFontSmoothing: 'subpixel-antialiased',
+              display: 'none' // Initially hidden
+            }}
         >
           {spuId && (
-            <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
+              <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
           )}
         </div>
         {isOpenBrandsModal && (
