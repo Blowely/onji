@@ -291,39 +291,42 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   // Set initial scroll state when component mounts
   useEffect(() => {
-    const y = window.scrollY;
-    const show = y > 0;
-    setIsScrolled(show);
-    
-    // Update header immediately on mount
+    // Set initial opacity to 0
     if (headerRef.current) {
-      headerRef.current.style.opacity = show ? '1' : '0';
-      headerRef.current.style.pointerEvents = show ? 'auto' : 'none';
-    }
-  }, []);
-
-  // Optimized scroll handling
-  const handleScroll = useCallback(() => {
-    if (overlayVisible) {
-      setIsScrolled(true);
-      return;
+      headerRef.current.style.opacity = '0';
+      headerRef.current.style.pointerEvents = 'none';
     }
 
-    const y = window.scrollY;
-    const show = y > 0;
-
-    if (!spuId) {
-      setIsScrolled(show);
+    // Add scroll listener
+    const handleScroll = () => {
+      const y = window.scrollY;
+      const show = y > 0;
       
-      // Update header opacity directly for immediate feedback
       if (headerRef.current) {
         headerRef.current.style.opacity = show ? '1' : '0';
         headerRef.current.style.pointerEvents = show ? 'auto' : 'none';
       }
-    }
+    };
 
+    // Initial check
+    handleScroll();
+
+    // Add event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Optimized scroll handling for other components
+  const handleMainScroll = useCallback(() => {
+    if (overlayVisible) return;
+    
     const slider = document.getElementsByClassName('beeon-slider');
     const sliderHeight = slider[0]?.clientHeight || 0;
+    const y = window.scrollY;
 
     if (y < prevYRef.current && y > sliderHeight && !isDesktopScreen) {
       setShowControls(true);
@@ -332,10 +335,9 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     }
 
     prevYRef.current = y;
-  }, [spuId, overlayVisible, isDesktopScreen]);
+  }, [overlayVisible, isDesktopScreen]);
 
-  // Use optimized scroll hook
-  useOptimizedScroll(handleScroll);
+  useOptimizedScroll(handleMainScroll);
 
   // Handle body overflow when product is open
   useEffect(() => {
@@ -659,13 +661,11 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
         {!isDesktopScreen && (
             <div
-                className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
+                className={`${styles.contentBlockHeader}`}
                 style={{
-                  opacity: 1, 
-                  transition: 'opacity 0.2s ease-in-out', 
-                  touchAction: 'auto', 
+                  transition: 'opacity 0.2s ease-in-out',
+                  touchAction: 'auto',
                   display: search || overlayVisible ? 'flex' : 'grid',
-                  pointerEvents: isScrolled && !overlayVisible ? 'auto' : 'none' 
                 }}
                 ref={headerRef}
             >
