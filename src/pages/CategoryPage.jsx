@@ -486,7 +486,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                   id="productWrapper"
                   initial={{ x: '100%', opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ type: 'tween', ease: 'easeInOut', duration: 0.2 }}
+                  transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
                   style={{
                     position: 'fixed',
                     top: 0,
