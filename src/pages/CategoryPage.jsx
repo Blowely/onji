@@ -495,7 +495,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                     left: 0,
                     backgroundColor: 'white',
                     zIndex: 1000,
-                    overflowY: 'auto'
+                    overflowY: 'auto',
+                    paddingTop: isWebView && '60px'
                   }}
               >
                 <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
