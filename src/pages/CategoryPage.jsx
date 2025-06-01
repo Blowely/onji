@@ -549,6 +549,32 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     const handleScroll = () => {
       const header = document.querySelector(`.${styles.contentBlockHeader}`);
       if (header && !spuId) { // Only update header if not in product view
+        const shouldShow = window.scrollY > 10 || overlayVisible;
+        header.style.opacity = shouldShow ? '1' : '0';
+        header.style.pointerEvents = shouldShow ? 'auto' : 'none';
+      }
+    };
+
+    // Initial check
+    handleScroll();
+    
+    // Add scroll listener with passive true for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Also update when overlay visibility changes
+    if (overlayVisible) {
+      handleScroll();
+    }
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [spuId, overlayVisible]); // Add overlayVisible to dependencies
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector(`.${styles.contentBlockHeader}`);
+      if (header && !spuId) { // Only update header if not in product view
         const shouldShow = window.scrollY > 10;
         header.style.opacity = shouldShow ? '1' : '0';
         header.style.pointerEvents = shouldShow ? 'auto' : 'none';
