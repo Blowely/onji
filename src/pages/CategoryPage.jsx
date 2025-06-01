@@ -479,14 +479,21 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         position: "relative",
         paddingBottom: !isDesktopScreen ? "200px" : 'unset'
       }}>
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {spuId && (
               <motion.div
                   className="productWrapper"
                   id="productWrapper"
-                  initial={{ x: '100%', opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
+                  initial={{ x: '100%', opacity: 0, willChange: 'transform' }}
+                  animate={{ 
+                    x: 0, 
+                    opacity: 1,
+                    transition: { 
+                      duration: 0.3,
+                      ease: [0.16, 1, 0.3, 1], // Custom cubic-bezier for smoother motion
+                      when: 'beforeChildren'
+                    }
+                  }}
                   style={{
                     position: 'fixed',
                     top: 0,
@@ -496,8 +503,12 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                     backgroundColor: 'white',
                     zIndex: 1000,
                     overflowY: 'auto',
-                    paddingTop: isWebView && '60px'
+                    paddingTop: isWebView ? '60px' : 0,
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)',
+                    WebkitFontSmoothing: 'subpixel-antialiased',
                   }}
+                  key={spuId}
               >
                 <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
               </motion.div>
