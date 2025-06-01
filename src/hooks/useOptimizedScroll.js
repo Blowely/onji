@@ -6,7 +6,7 @@ export function useOptimizedScroll(callback, deps = []) {
 
   const throttledCallback = useCallback((...args) => {
     const now = Date.now();
-    const THROTTLE_MS = 50; // 50ms throttle for smooth scrolling
+    const THROTTLE_MS = 0; // 50ms throttle for smooth scrolling
     
     if (now - lastScrollTime.current > THROTTLE_MS) {
       lastScrollTime.current = now;
