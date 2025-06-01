@@ -551,7 +551,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         )}
         {showFilters &&
             <div
-                style={{paddingTop: isWebView && 100 }}
+                style={{paddingTop: isWebView && '60px' }}
                 className={styles.filtersPhoneWrapper}
                 ref={filtersRef}
             >
