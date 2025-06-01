@@ -591,7 +591,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
             <div
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{opacity: overlayVisible ? 1 : 0}}
+                style={{opacity: overlayVisible ? 1 : 0, marginTop: window.scrollY}}
             >
               <SearchOverlay
                   visible={overlayVisible}
@@ -612,7 +612,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                 style={{
                   opacity: isScrolled || overlayVisible ? 1 : 0,
                   touchAction: (!isScrolled && !overlayVisible) ? 'none' : 'auto',
-                  display: search || overlayVisible ? 'flex' : 'grid',
+                  display: search ? 'flex' : 'grid',
                   pointerEvents: overlayVisible ? 'none' : 'auto'
                 }}
                 ref={headerRef}

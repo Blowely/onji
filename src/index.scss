@@ -525,17 +525,17 @@ footer {
 }
 
 .overlayWrapper {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
   height: fit-content;
   transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
   border-bottom: 1px solid #ededed;
 
   &.overlayVisible {
-    height: 100%;
+    height: 100vh;
   }
 
   &.scrolledHeader {
