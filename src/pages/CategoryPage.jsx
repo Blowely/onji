@@ -550,7 +550,11 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             </Modal>
         )}
         {showFilters &&
-            <div className={styles.filtersPhoneWrapper} ref={filtersRef}>
+            <div
+                style={{paddingTop: isWebView && 100 }}
+                className={styles.filtersPhoneWrapper}
+                ref={filtersRef}
+            >
               <Filters
                   setShowFilters={setShowFilters}
                   sizes={sizes}
