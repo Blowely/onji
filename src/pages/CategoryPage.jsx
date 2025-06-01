@@ -290,10 +290,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
-
   // Optimized scroll handling
   const handleScroll = useCallback(() => {
     if (overlayVisible) {
@@ -323,6 +319,21 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   // Use optimized scroll hook
   useOptimizedScroll(handleScroll);
 
+  // Handle body overflow when product is open
+  useEffect(() => {
+    if (spuId) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [spuId]);
+
+  const isWebView = navigator.userAgent.includes('OnjiApp');
 
   const renderItems = () => (
       <div ref={wrapperRef}>
@@ -440,23 +451,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     setOpenSizesModal(false);
   }
 
-  const scrollButton = document.getElementById('scrollToTop');
-
-  window?.addEventListener('scroll', () => {
-    if (window?.scrollY > 200) {
-      scrollButton?.classList?.add('show');
-    } else {
-      scrollButton?.classList?.remove('show');
-    }
-  });
-
-  scrollButton?.addEventListener('click', () => {
-    window?.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-
   const onInfoBlockItemClick = (link) => {
     window.open(link);
   }
@@ -478,8 +472,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const onSearchClick = () => {
     setOverlayVisible(true);
   }
-
-  const isWebView = navigator.userAgent.includes('OnjiApp');
 
   return (
       <Layout style={{
