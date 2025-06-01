@@ -61,15 +61,16 @@ const ImageSlider = ({ onSlideChange, search, selectedCategory, categoryName }) 
                     adaptiveHeight={true}
                     infinite={true}
                     effect="scrollx"
-                    swipe={false}
                     dotPosition="bottom"
-                    dots={false}
                     draggable
                 >
-                    <div
-                        className={`slide ${slides[0].slide}`}
-                    >
-                    </div>
+                    {slides.map((slide) => (
+                        <div
+                            key={slide.id}
+                            className={`slide ${slide.slide}`}
+                        >
+                        </div>
+                    ))}
                 </Carousel>
                 : selectedCategory ? (
                         <Carousel
