@@ -29,7 +29,6 @@ import searchSvg from '../assets/svg/v2/search.svg';
 import Filters from "../components/Filters";
 import SearchOverlay from "../components/SearchOverlay/SearchOverlay";
 import {useGetProductsQuery} from "../store/products.store";
-import { motion, AnimatePresence } from "framer-motion";
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -473,43 +472,62 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     setOverlayVisible(true);
   }
 
+  const [isProductVisible, setIsProductVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const productRef = useRef(null);
+
+  useEffect(() => {
+    if (spuId) {
+      // When opening the product
+      if (productRef.current) {
+        productRef.current.style.display = 'block';
+        // Trigger reflow
+        void productRef.current.offsetHeight;
+        setIsAnimating(true);
+        setIsProductVisible(true);
+      }
+      document.body.style.overflow = 'hidden';
+    } else {
+      // When closing the product - no animation
+      setIsProductVisible(false);
+      setIsAnimating(false);
+      if (productRef.current) {
+        productRef.current.style.display = 'none';
+      }
+      document.body.style.overflow = 'auto';
+    }
+  }, [spuId]);
+
   return (
       <Layout style={{
         backgroundColor: "white",
         position: "relative",
         paddingBottom: !isDesktopScreen ? "200px" : 'unset'
       }}>
-        <AnimatePresence mode="popLayout">
+        <div 
+          ref={productRef}
+          style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            backgroundColor: 'white',
+            zIndex: 1000,
+            overflowY: 'auto',
+            paddingTop: isWebView ? '60px' : 0,
+            transform: isProductVisible ? 'translateX(0)' : 'translateX(100%)',
+            transition: isAnimating ? 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitFontSmoothing: 'subpixel-antialiased',
+            display: 'none' // Initially hidden
+          }}
+        >
           {spuId && (
-              <motion.div
-                  className="productWrapper"
-                  id="productWrapper"
-                  initial={{ x: '100%', opacity: 0, willChange: 'transform' }}
-                  animate={{ 
-                    x: 0, 
-                    opacity: 1,
-                  }}
-                  transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
-                  style={{
-                    position: 'fixed',
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
-                    backgroundColor: 'white',
-                    zIndex: 1000,
-                    overflowY: 'auto',
-                    paddingTop: isWebView ? '60px' : 0,
-                    backfaceVisibility: 'hidden',
-                    transform: 'translateZ(0)',
-                    WebkitFontSmoothing: 'subpixel-antialiased',
-                  }}
-                  key={spuId}
-              >
-                <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
-              </motion.div>
+            <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
           )}
-        </AnimatePresence>
+        </div>
         {isOpenBrandsModal && (
             <Modal
                 title="Бренды"
