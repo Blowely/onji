@@ -186,10 +186,6 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     }
   }, [product, selectedVariation]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
-
   const onAddToCart = () => {
     if (getCartItemNumberCount(product, choice.skuId) === 2) return;
 
