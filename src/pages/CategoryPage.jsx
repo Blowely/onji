@@ -29,6 +29,7 @@ import searchSvg from '../assets/svg/v2/search.svg';
 import Filters from "../components/Filters";
 import SearchOverlay from "../components/SearchOverlay/SearchOverlay";
 import {useGetProductsQuery} from "../store/products.store";
+import { useInView } from 'react-intersection-observer';
 
 function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -77,10 +78,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [recent, setRecent] = useState(['adidas ozweego', 'джорданы', 'худи', 'рубашка']);
 
   const filtersRef = useRef(null);
-  const headerRef = useRef(null);
-  const isInitialMount = useRef(true);
-  const isScrolledRef = useRef(false);
-  const scrollTimeout = useRef(null);
 
   const gender = localStorage.getItem("gender") || "men";
 
@@ -290,67 +287,33 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     };
   }, []);
 
-  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle scroll and visibility
+  const [headerRef, headerInView] = useInView({
+    threshold: 0,
+    initialInView: false,
+    triggerOnce: false,
+    rootMargin: '1px 0px 0px 0px',
+  });
+
+  const [sentinelRef] = useInView({
+    threshold: 0,
+    initialInView: true,
+    onChange: (inView) => {
+      const header = document.querySelector(`.${styles.contentBlockHeader}`);
+      if (header) {
+        header.style.opacity = inView ? '0' : '1';
+        header.style.pointerEvents = inView ? 'none' : 'auto';
+      }
+    },
+  });
+
   useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    const handleScroll = () => {
-      if (scrollTimeout.current) {
-        cancelAnimationFrame(scrollTimeout.current);
-      }
-
-      scrollTimeout.current = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const shouldShow = y > 0;
-
-        if (shouldShow !== isScrolledRef.current) {
-          isScrolledRef.current = shouldShow;
-
-          // Use requestAnimationFrame for smooth updates
-          requestAnimationFrame(() => {
-            if (!header) return;
-            header.style.opacity = shouldShow ? '1' : '0';
-            header.style.pointerEvents = shouldShow ? 'auto' : 'none';
-
-            // Add/remove transition only after initial mount to prevent flicker
-            if (isInitialMount.current) {
-              header.style.transition = 'none';
-              isInitialMount.current = false;
-
-              // Force reflow
-              void header.offsetHeight;
-
-              // Enable transition after initial render
-              requestAnimationFrame(() => {
-                if (header) {
-                  header.style.transition = 'opacity 0.2s ease-in-out';
-                }
-              });
-            }
-          });
-        }
-      });
-    };
-
-    // Set initial state
-    header.style.opacity = '0';
-    header.style.pointerEvents = 'none';
-
-    // Initial check
-    handleScroll();
-
-    // Add event listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Cleanup
     return () => {
-      if (scrollTimeout.current) {
-        cancelAnimationFrame(scrollTimeout.current);
+      const header = document.querySelector(`.${styles.contentBlockHeader}`);
+      if (header) {
+        header.style.opacity = '';
+        header.style.pointerEvents = '';
       }
-      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -693,13 +656,17 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
         <HeroSection/>
 
+        <div ref={sentinelRef} style={{ position: 'absolute', top: '1px', width: '1px', height: '1px' }} />
+
         {!isDesktopScreen && (
             <div
+                className={`${styles.contentBlockHeader}`}
                 ref={headerRef}
-                className={styles.contentBlockHeader}
                 style={{
                   display: search || overlayVisible ? 'flex' : 'grid',
-                  touchAction: 'auto',
+                  transition: 'opacity 0.2s ease-in-out',
+                  opacity: 0, // Start hidden
+                  pointerEvents: 'none',
                 }}
             >
               {search && (
