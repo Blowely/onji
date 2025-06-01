@@ -18,7 +18,6 @@
   line-height: 16px;
   z-index: 2;
   opacity: 0; // Начальная прозрачность
-  transition: opacity 0.2s ease;
 
   // Стили при появлении
   &.scrolledHeader {
@@ -30,7 +29,7 @@
   > img:last-child { justify-self: end; }
 
   @media (max-width: 768px) {
-    height: fit-content;
+    height: unset;
     padding: 71px 20px 15px 20px;
     margin-top: -60px;
   }

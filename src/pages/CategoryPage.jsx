@@ -142,8 +142,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     }
 
     return obj;
-  }, [brandsParam, category1IdParam, category2IdParam, category3IdParam, 
-      collection, colorsParam, gender, maxPriceParam, minPriceParam, search, sizesParam, sortBy]);
+  }, [brandsParam, category1IdParam, category2IdParam, category3IdParam,
+    collection, colorsParam, gender, maxPriceParam, minPriceParam, search, sizesParam, sortBy]);
 
   const [page, setPage] = useState(1);
   const {
@@ -164,18 +164,18 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   // Set up scroll event listener for infinite loading
   useEffect(() => {
     let timeoutId = null;
-    
+
     const handleScroll = () => {
       // Clear any existing timeout
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-      
+
       // Set a new timeout
       timeoutId = setTimeout(() => {
         try {
           if (!wrapperRef.current || isLoading || currentPage.current) return;
-          
+
           const wrapper = wrapperRef.current;
           const wrapperHeight = wrapper.scrollHeight;
           const triggerPoint = wrapperHeight * 0.7; // Load more when scrolled 50% down
@@ -316,7 +316,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     } else if (y <= sliderHeight || y >= prevYRef.current) {
       setShowControls(false);
     }
-    
+
     prevYRef.current = y;
   }, [spuId, overlayVisible, isDesktopScreen]);
 
@@ -325,17 +325,17 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
 
   const renderItems = () => (
-    <div ref={wrapperRef}>
-      <OptimizedCategoryPageWrapper 
-        onAddToFavorite={onAddToFavorite}
-        onAddToCart={onAddToCart}
-        onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
-        isLoading={isLoading}
-        loading={loading}
-        trimCollectionValue={trimCollectionValue}
-      />
-    </div>
+      <div ref={wrapperRef}>
+        <OptimizedCategoryPageWrapper
+            onAddToFavorite={onAddToFavorite}
+            onAddToCart={onAddToCart}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            isLoading={isLoading}
+            loading={loading}
+            trimCollectionValue={trimCollectionValue}
+        />
+      </div>
   );
 
   const onMinPriceChange = (val) => {
@@ -400,8 +400,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     const index = CATEGORIES.findIndex((el) => el.id === Number(selectedCategory));
 
     return <span style={{cursor: "pointer"}}>{CATEGORIES[index]?.name
-      || categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
-      || ''}</span> ;
+        || categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
+        || ''}</span> ;
   }
 
   const onGoBackClick = () => {
@@ -559,7 +559,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             </Modal>
         )}
         {showFilters &&
-          <div className={styles.filtersPhoneWrapper} ref={filtersRef}>
+            <div className={styles.filtersPhoneWrapper} ref={filtersRef}>
               <Filters
                   setShowFilters={setShowFilters}
                   sizes={sizes}
@@ -586,12 +586,12 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                     </Button>
                   </div>
               }
-          </div>
+            </div>
         }
         {!isDesktopScreen &&
             <div
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{opacity: overlayVisible ? 1 : 0, marginTop: window.scrollY}}
+                style={{opacity: overlayVisible ? 1 : 0}}
             >
               <SearchOverlay
                   visible={overlayVisible}
@@ -612,7 +612,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                 style={{
                   opacity: isScrolled || overlayVisible ? 1 : 0,
                   touchAction: (!isScrolled && !overlayVisible) ? 'none' : 'auto',
-                  display: search ? 'flex' : 'grid',
+                  display: search || overlayVisible ? 'flex' : 'grid',
                   pointerEvents: overlayVisible ? 'none' : 'auto'
                 }}
                 ref={headerRef}
@@ -643,9 +643,9 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
          ${styles.categoryTableWrapper}
          ${showControls ? styles.controlsVisible : styles.controlsHidden}
         `}
-         style={{
-           transform: showControls && isWebView && 'translateY(calc(100% + 62px))',
-         }}
+             style={{
+               transform: showControls && isWebView && 'translateY(calc(100% + 62px))',
+             }}
         >
           <CatalogControls setShowFilters={setShowFilters}/>
         </div>
