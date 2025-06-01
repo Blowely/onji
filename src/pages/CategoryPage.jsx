@@ -610,10 +610,11 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
                 style={{
-                  opacity: isScrolled || overlayVisible ? 1 : 0,
-                  touchAction: (!isScrolled && !overlayVisible) ? 'none' : 'auto',
-                  display: search || overlayVisible ? 'flex' : 'grid',
-                  pointerEvents: overlayVisible ? 'none' : 'auto'
+                  opacity: isScrolled || overlayVisible || search ? 1 : 0,
+                  touchAction: (!isScrolled && !overlayVisible && !search) ? 'none' : 'auto',
+                  display: search || overlayVisible || isScrolled ? 'flex' : 'grid',
+                  pointerEvents: overlayVisible ? 'auto' : 'auto',
+                  transition: 'opacity 0.3s ease'
                 }}
                 ref={headerRef}
             >
