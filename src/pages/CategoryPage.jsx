@@ -287,6 +287,45 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     };
   }, []);
 
+  const wasProductOpen = useRef(false);
+
+  useEffect(() => {
+    if (spuId) {
+      // When opening the product
+      wasProductOpen.current = true;
+      if (productRef.current) {
+        productRef.current.style.display = 'block';
+        void productRef.current.offsetHeight; // Trigger reflow
+        setIsAnimating(true);
+        setIsProductVisible(true);
+        
+        // End animation after it completes
+        const timer = setTimeout(() => {
+          setIsAnimating(false);
+        }, 300);
+        
+        return () => clearTimeout(timer);
+      }
+      document.body.style.overflow = 'hidden';
+    } else if (wasProductOpen.current) {
+      // When closing the product - no animation
+      wasProductOpen.current = false;
+      setIsProductVisible(false);
+      
+      // Reset header pointer events immediately
+      const header = document.querySelector(`.${styles.contentBlockHeader}`);
+      if (header) {
+        header.style.pointerEvents = '';
+      }
+      
+      // Hide the product immediately
+      if (productRef.current) {
+        productRef.current.style.display = 'none';
+      }
+      
+      document.body.style.overflow = 'auto';
+    }
+  }, [spuId]);
 
   const [headerRef, headerInView] = useInView({
     threshold: 0,
@@ -352,7 +391,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const isWebView = navigator.userAgent.includes('OnjiApp');
 
-  const renderItems = () => (
+  /*const renderItems = () => (
       <div ref={wrapperRef}>
         <OptimizedCategoryPageWrapper
             onAddToFavorite={onAddToFavorite}
@@ -364,7 +403,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             trimCollectionValue={trimCollectionValue}
         />
       </div>
-  );
+  );*/
 
   const onMinPriceChange = (val) => {
     setMinPrice(val);
@@ -494,27 +533,19 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const productRef = useRef(null);
 
-  useEffect(() => {
-    if (spuId) {
-      // When opening the product
-      if (productRef.current) {
-        productRef.current.style.display = 'block';
-        // Trigger reflow
-        void productRef.current.offsetHeight;
-        setIsAnimating(true);
-        setIsProductVisible(true);
-      }
-      document.body.style.overflow = 'hidden';
-    } else {
-      // When closing the product - no animation
-      setIsProductVisible(false);
-      setIsAnimating(false);
-      if (productRef.current) {
-        productRef.current.style.display = 'none';
-      }
-      document.body.style.overflow = 'auto';
-    }
-  }, [spuId]);
+  const renderItems = () => (
+      <div ref={wrapperRef}>
+        <OptimizedCategoryPageWrapper
+            onAddToFavorite={onAddToFavorite}
+            onAddToCart={onAddToCart}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            isLoading={isLoading}
+            loading={loading}
+            trimCollectionValue={trimCollectionValue}
+        />
+      </div>
+  );
 
   return (
       <Layout style={{
