@@ -307,7 +307,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     },
   });
 
-  useEffect(() => {
+  /*useEffect(() => {
     return () => {
       const header = document.querySelector(`.${styles.contentBlockHeader}`);
       if (header) {
@@ -315,7 +315,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         header.style.pointerEvents = '';
       }
     };
-  }, []);
+  }, []);*/
 
   // Optimized scroll handling for other components
   const handleMainScroll = useCallback(() => {
@@ -496,23 +496,27 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     if (spuId) {
-      // When opening the product
-      if (productRef.current) {
-        productRef.current.style.display = 'block';
-        // Trigger reflow
-        void productRef.current.offsetHeight;
-        setIsAnimating(true);
+      setIsAnimating(true);
+      const timer = setTimeout(() => {
         setIsProductVisible(true);
-      }
+        setIsAnimating(false);
+      }, 50);
+      
+      // Lock body scroll
       document.body.style.overflow = 'hidden';
-    } else {
-      // When closing the product - no animation
-      setIsProductVisible(false);
-      setIsAnimating(false);
-      if (productRef.current) {
-        productRef.current.style.display = 'none';
-      }
-      document.body.style.overflow = 'auto';
+      
+      return () => {
+        clearTimeout(timer);
+        // When closing product
+        setIsProductVisible(false);
+        document.body.style.overflow = '';
+        
+        // Reset pointer events on the header
+        const header = document.querySelector(`.${styles.contentBlockHeader}`);
+        if (header) {
+          header.style.pointerEvents = '';
+        }
+      };
     }
   }, [spuId]);
 
