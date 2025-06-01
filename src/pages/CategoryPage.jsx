@@ -610,7 +610,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
                 style={{
-                  opacity: isScrolled || overlayVisible ? 1 : 0,
+                  //opacity: isScrolled || overlayVisible ? 1 : 0,
                   touchAction: (!isScrolled && !overlayVisible) ? 'none' : 'auto',
                   display: search || overlayVisible ? 'flex' : 'grid',
                   pointerEvents: overlayVisible ? 'none' : 'auto'

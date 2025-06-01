@@ -608,7 +608,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     setOffset(1);
   }
 
-  const opacityRef = useRef(1);
+  const opacityRef = useRef("translateY(-100%)");
   const overlayRef = useRef(null);
   const prevYRef = useRef(0);
   const [_, forceUpdate] = useState(); // Used to force re-render when needed
@@ -618,7 +618,10 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     if (opacityRef.current !== value) {
       opacityRef.current = value;
       if (overlayRef.current) {
-        overlayRef.current.style.opacity = value;
+        //overlayRef.current.style.opacity = value;
+        console.log('value =',value)
+        overlayRef.current.style.transform = `translateY(${value ? "0" : '-100%'})`;
+        console.log('overlayRef.current.style.transform',overlayRef.current.style.transform)
       }
     }
   };
@@ -732,7 +735,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ opacity: 1, transition: 'opacity 0.2s ease-in-out' }}
+                style={{ transition: 'all 0.2s ease-in-out' }}
             >
               <SearchOverlay
                   visible={overlayVisible}

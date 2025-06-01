@@ -17,11 +17,14 @@
   font-weight: 500;
   line-height: 16px;
   z-index: 2;
-  opacity: 0; // Начальная прозрачность
+  //opacity: 0; // Начальная прозрачность
+  transform: translateY(-100%);   // по умолчанию прячем вверх
+  transition: transform 0.2s ease, opacity 0.2s ease;
 
   // Стили при появлении
   &.scrolledHeader {
-    opacity: 1;
+    //opacity: 1;
+    transform: translateY(0);
   }
 
   > img:first-child { justify-self: start; }
