@@ -322,7 +322,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       wasProductOpen.current = false;
       setIsProductVisible(false);
       
-      // Restore scroll position after a small delay
+      // Restore scroll position after a small delay.
       const timer = setTimeout(() => {
         // Hide the product
         if (productRef.current) {
