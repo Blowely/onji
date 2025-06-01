@@ -479,7 +479,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         position: "relative",
         paddingBottom: !isDesktopScreen ? "200px" : 'unset'
       }}>
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
           {spuId && (
               <motion.div
                   className="productWrapper"
