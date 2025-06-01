@@ -535,7 +535,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
               overflowY: 'auto',
               paddingTop: isWebView ? '60px' : 0,
               transform: isProductVisible ? 'translateX(0)' : 'translateX(100%)',
-              transition: isAnimating ? 'transform 0.2s cubic-bezier(0.16, 1, 0.2, 1)' : 'none',
+              transition: isAnimating ? 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
               willChange: 'transform',
               backfaceVisibility: 'hidden',
               WebkitFontSmoothing: 'subpixel-antialiased',
@@ -658,38 +658,34 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
         <div ref={sentinelRef} style={{ position: 'absolute', top: '1px', width: '1px', height: '1px' }} />
 
-        {!isDesktopScreen && (
-            <div
-                className={`${styles.contentBlockHeader}`}
-                ref={headerRef}
-                style={{
-                  display: search || overlayVisible ? 'flex' : 'grid',
-                  transition: 'opacity 0.2s ease-in-out',
-                  opacity: 0, // Start hidden
-                  pointerEvents: 'none',
-                }}
-            >
-              {search && (
-                  <span style={{display: "flex", gap: "10px", alignItems: "center", flex: 1, minWidth: 0}}>
-                    <img src={leftArrow} onClick={onGoBackClick} alt="backButton" style={{flexShrink: 0}}/>
-                    <span style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      flex: 1,
-                      minWidth: 0,
-                    }}>
-                      {search}
-                    </span>
-                  </span>
-              )}
-
-              {selectedCategory && <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>}
-              {selectedCategory && <span style={{display: selectedCategory ? 'block' : 'none'}}>{getCategoryTitle()}</span>}
-
-              <img src={searchSvg} style={{height: '22px'}} onClick={onSearchClick} alt='backButton'/>
-            </div>
-        )}
+        <div
+            className={`${styles.contentBlockHeader}`}
+            ref={headerRef}
+            style={{
+              display: search || overlayVisible ? 'flex' : 'grid',
+              transition: 'opacity 0.2s ease-in-out',
+              opacity: 0, // Start hidden
+              pointerEvents: 'none',
+            }}
+        >
+          {search && (
+              <span style={{display: "flex", gap: "10px", alignItems: "center", flex: 1, minWidth: 0}}>
+                <img src={leftArrow} onClick={onGoBackClick} alt="backButton" style={{flexShrink: 0}}/>
+                <span style={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  flex: 1,
+                  minWidth: 0,
+                }}>
+                  {search}
+                </span>
+              </span>
+          )}
+          {selectedCategory && <img src={leftArrow} onClick={onGoBackClick} alt='backButton'/>}
+          {selectedCategory && <span style={{display: selectedCategory ? 'block' : 'none'}}>{getCategoryTitle()}</span>}
+          <img src={searchSvg} style={{height: '22px'}} onClick={onSearchClick} alt='searchButton'/>
+        </div>
 
         <div className={`
          ${styles.categoryTableWrapper}
