@@ -373,7 +373,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     setSearchParams(searchParams);
   };
 
-
   const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizesParam);
 
   const body = document.body;
@@ -382,14 +381,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     body.style.overflow = 'hidden';
   } else {
     body.style.overflow = '';
-  }
-
-  const getBorderStyle = (selectedBrandId) => {
-    if (brandsParam === selectedBrandId.toString()) {
-      return {border: "1px solid grey"};
-    } else {
-      return {border: "1px solid white"};
-    }
   }
 
   const getCategoryTitle = () => {
@@ -610,7 +601,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
                 style={{
-                  //opacity: isScrolled || overlayVisible ? 1 : 0,
+                  opacity: isScrolled || overlayVisible ? 1 : 0,
                   touchAction: (!isScrolled && !overlayVisible) ? 'none' : 'auto',
                   display: search || overlayVisible ? 'flex' : 'grid',
                   pointerEvents: overlayVisible ? 'none' : 'auto'
