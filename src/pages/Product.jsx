@@ -319,25 +319,6 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
   const root = document.getElementById("root");
 
-
-  useEffect(() => {
-    root.style.overflowY = "hidden";
-    return () => { root.style.overflowY = "unset" };
-  }, [])
-
-  /*window?.onscroll(
-      "scroll",
-      function (event) {
-        try {
-          console.log(event)
-          setIsScrolled(window.scrollY > 100);
-        } catch (e) {
-          console.log("e =", e);
-        }
-      },
-      false,
-  );
-*/
   const onBreadcrumbItemClick = (link) => {
     setOffset(1)
     setLoading(true);
