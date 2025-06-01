@@ -2,7 +2,8 @@ import React, {
   Suspense,
   useEffect,
   useRef,
-  useState
+  useState,
+  useCallback
 } from "react";
 import Card from "../components/Card";
 import {Button, Empty, Layout, Modal} from "antd";
@@ -613,18 +614,20 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
   const prevYRef = useRef(0);
   const [_, forceUpdate] = useState(); // Used to force re-render when needed
 
-  // Update opacity without causing re-renders
-  const updateOpacity = (value) => {
-    if (opacityRef.current !== value) {
-      opacityRef.current = value;
-      if (overlayRef.current) {
-        //overlayRef.current.style.opacity = value;
-        console.log('value =',value)
+  const updateOpacity = useCallback((value) => {
+    if (overlayRef.current) {
+      // Only update if the value is different to prevent unnecessary re-renders
+      if (opacityRef.current !== value) {
+        opacityRef.current = value;
         overlayRef.current.style.transform = `translateY(${value ? "0" : '-100%'})`;
-        console.log('overlayRef.current.style.transform',overlayRef.current.style.transform)
       }
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    // Only update opacity when overlayVisible changes
+    updateOpacity(overlayVisible ? 1 : 0);
+  }, [overlayVisible, updateOpacity]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -650,6 +653,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     // Force initial render to apply opacity
     forceUpdate({});
   }, []);
+
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -735,7 +739,11 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
             <div
                 ref={overlayRef}
                 className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{ transition: 'all 0.2s ease-in-out' }}
+                style={{
+                  transform: 'translateY(-100%)', // Initial state
+                  transition: 'transform 0.2s ease-in-out',
+                  willChange: 'transform' // Optimize for animation
+                }}
             >
               <SearchOverlay
                   visible={overlayVisible}
