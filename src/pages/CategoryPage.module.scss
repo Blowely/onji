@@ -18,7 +18,6 @@
   line-height: 16px;
   z-index: 2;
   opacity: 0; // Начальная прозрачность
-  transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
 
   // Стили при появлении
   &.scrolledHeader {
