@@ -312,12 +312,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       wasProductOpen.current = false;
       setIsProductVisible(false);
       
-      // Reset header pointer events immediately
-      const header = document.querySelector(`.${styles.contentBlockHeader}`);
-      if (header) {
-        header.style.pointerEvents = '';
-      }
-      
       // Hide the product immediately
       if (productRef.current) {
         productRef.current.style.display = 'none';
@@ -334,17 +328,37 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     rootMargin: '1px 0px 0px 0px',
   });
 
-  const [sentinelRef] = useInView({
+  const [sentinelRef, sentinelInView] = useInView({
     threshold: 0,
     initialInView: true,
-    onChange: (inView) => {
-      const header = document.querySelector(`.${styles.contentBlockHeader}`);
-      if (header) {
-        header.style.opacity = inView ? '0' : '1';
-        header.style.pointerEvents = inView ? 'none' : 'auto';
-      }
-    },
   });
+
+  useEffect(() => {
+    if (!spuId && wasProductOpen.current) {
+      wasProductOpen.current = false;
+      
+      // Force update header visibility based on scroll position
+      const handleScroll = () => {
+        const header = document.querySelector(`.${styles.contentBlockHeader}`);
+        if (header) {
+          const shouldShow = window.scrollY > 0;
+          header.style.opacity = shouldShow ? '1' : '0';
+          header.style.pointerEvents = shouldShow ? 'auto' : 'none';
+        }
+      };
+      
+      // Add a small delay to ensure DOM is updated
+      const timer = setTimeout(() => {
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }, 50);
+      
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [spuId]);
 
   useEffect(() => {
     return () => {
@@ -391,7 +405,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const isWebView = navigator.userAgent.includes('OnjiApp');
 
-  /*const renderItems = () => (
+  const renderItems = () => (
       <div ref={wrapperRef}>
         <OptimizedCategoryPageWrapper
             onAddToFavorite={onAddToFavorite}
@@ -403,7 +417,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             trimCollectionValue={trimCollectionValue}
         />
       </div>
-  );*/
+  );
 
   const onMinPriceChange = (val) => {
     setMinPrice(val);
@@ -532,20 +546,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [isProductVisible, setIsProductVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const productRef = useRef(null);
-
-  const renderItems = () => (
-      <div ref={wrapperRef}>
-        <OptimizedCategoryPageWrapper
-            onAddToFavorite={onAddToFavorite}
-            onAddToCart={onAddToCart}
-            onPointerDown={onPointerDown}
-            onPointerUp={onPointerUp}
-            isLoading={isLoading}
-            loading={loading}
-            trimCollectionValue={trimCollectionValue}
-        />
-      </div>
-  );
 
   return (
       <Layout style={{
