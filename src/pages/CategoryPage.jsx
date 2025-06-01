@@ -495,25 +495,46 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const productRef = useRef(null);
 
   useEffect(() => {
-    if (spuId) {
-      // When opening the product
-      if (productRef.current) {
-        productRef.current.style.display = 'block';
-        // Trigger reflow
-        void productRef.current.offsetHeight;
-        setIsAnimating(true);
-        setIsProductVisible(true);
-      }
+    if (!spuId) return;
+
+    // Show and animate product in
+    const showProduct = () => {
+      if (!productRef.current) return;
+
+      productRef.current.style.display = 'block';
+      void productRef.current.offsetHeight; // Trigger reflow
+
+      setIsAnimating(true);
+      setIsProductVisible(true);
       document.body.style.overflow = 'hidden';
-    } else {
-      // When closing the product - no animation
+
+      // End animation after delay
+      const animationTimer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 300);
+
+      return () => clearTimeout(animationTimer);
+    };
+
+    // Hide product with animation
+    const hideProduct = () => {
       setIsProductVisible(false);
-      setIsAnimating(false);
-      if (productRef.current) {
-        productRef.current.style.display = 'none';
-      }
-      document.body.style.overflow = 'auto';
-    }
+      setIsAnimating(true);
+
+      // Wait for animation to complete before hiding
+      const hideTimer = setTimeout(() => {
+        if (productRef.current) {
+          productRef.current.style.display = 'none';
+        }
+        setIsAnimating(false);
+        document.body.style.overflow = '';
+      }, 300);
+
+      return () => clearTimeout(hideTimer);
+    };
+
+    showProduct();
+    return hideProduct;
   }, [spuId]);
 
   return (
