@@ -290,56 +290,50 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const wasProductOpen = useRef(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const header = document.querySelector(`.${styles.contentBlockHeader}`);
-      if (header && !spuId) { // Only update header if not in product view
-        const shouldShow = window.scrollY > 10;
-        header.style.opacity = shouldShow ? '1' : '0';
-        header.style.pointerEvents = shouldShow ? 'auto' : 'none';
-      }
-    };
-
-    // Initial check
-    handleScroll();
-    
-    // Add scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [spuId]); // Re-run when product view changes
-
-  useEffect(() => {
     if (spuId) {
       // When opening the product
       wasProductOpen.current = true;
-      document.body.style.overflow = 'hidden';
+      
+      // Save current scroll position
+      const scrollY = window.scrollY;
       
       // Show and animate product in
       if (productRef.current) {
         productRef.current.style.display = 'block';
         void productRef.current.offsetHeight; // Trigger reflow
         setIsProductVisible(true);
+        setIsAnimating(true);
+        
+        // End animation after it completes
+        const timer = setTimeout(() => {
+          setIsAnimating(false);
+        }, 300);
+        
+        // Store scroll position
+        sessionStorage.setItem('productOpenScrollPos', scrollY);
+        
+        return () => clearTimeout(timer);
       }
       
-      // Force header to be visible when product is open
-      const header = document.querySelector(`.${styles.contentBlockHeader}`);
-      if (header) {
-        header.style.opacity = '1';
-        header.style.pointerEvents = 'auto';
-      }
+      document.body.style.overflow = 'hidden';
       
     } else if (wasProductOpen.current) {
       // When closing the product
       wasProductOpen.current = false;
       setIsProductVisible(false);
-      document.body.style.overflow = 'auto';
       
-      // Hide the product after a small delay
+      // Restore scroll position after a small delay
       const timer = setTimeout(() => {
+        // Hide the product
         if (productRef.current) {
           productRef.current.style.display = 'none';
+        }
+        
+        // Restore scroll position if it was saved
+        const savedScroll = sessionStorage.getItem('productOpenScrollPos');
+        if (savedScroll) {
+          window.scrollTo(0, parseInt(savedScroll));
+          sessionStorage.removeItem('productOpenScrollPos');
         }
         
         // Force update header state
@@ -349,8 +343,16 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
           header.style.opacity = shouldShow ? '1' : '0';
           header.style.pointerEvents = shouldShow ? 'auto' : 'none';
         }
+        
+        // Force a small scroll to ensure pointer events work
+        setTimeout(() => {
+          window.scrollBy(0, 1);
+          setTimeout(() => window.scrollBy(0, -1), 10);
+        }, 50);
+        
       }, 50);
       
+      document.body.style.overflow = 'auto';
       return () => clearTimeout(timer);
     }
   }, [spuId]);
@@ -542,6 +544,27 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     threshold: 0,
     initialInView: true,
   });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector(`.${styles.contentBlockHeader}`);
+      if (header && !spuId) { // Only update header if not in product view
+        const shouldShow = window.scrollY > 10;
+        header.style.opacity = shouldShow ? '1' : '0';
+        header.style.pointerEvents = shouldShow ? 'auto' : 'none';
+      }
+    };
+
+    // Initial check
+    handleScroll();
+    
+    // Add scroll listener with passive true for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [spuId]);
 
   return (
       <Layout style={{
