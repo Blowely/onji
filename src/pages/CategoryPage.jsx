@@ -538,7 +538,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             overflowY: 'auto',
             paddingTop: isWebView ? '60px' : 0,
             transform: isProductVisible ? 'translateX(0)' : 'translateX(100%)',
-            transition: isAnimating ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
+            transition: isAnimating ? 'transform 0.2s cubic-bezier(0.16, 1, 0.2, 1)' : 'none',
             willChange: 'transform',
             backfaceVisibility: 'hidden',
             WebkitFontSmoothing: 'subpixel-antialiased',
