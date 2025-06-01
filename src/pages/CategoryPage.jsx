@@ -307,7 +307,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     },
   });
 
-  /*useEffect(() => {
+  useEffect(() => {
     return () => {
       const header = document.querySelector(`.${styles.contentBlockHeader}`);
       if (header) {
@@ -315,7 +315,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         header.style.pointerEvents = '';
       }
     };
-  }, []);*/
+  }, []);
 
   // Optimized scroll handling for other components
   const handleMainScroll = useCallback(() => {
@@ -496,45 +496,23 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     if (spuId) {
-      // Show the product container
+      // When opening the product
       if (productRef.current) {
         productRef.current.style.display = 'block';
         // Trigger reflow
         void productRef.current.offsetHeight;
-      }
-
-      // Start animation
-      setIsAnimating(true);
-      const timer = setTimeout(() => {
+        setIsAnimating(true);
         setIsProductVisible(true);
-        setIsAnimating(false);
-      }, 50);
-
-      // Lock body scroll
+      }
       document.body.style.overflow = 'hidden';
-
-      return () => {
-        clearTimeout(timer);
-        // When closing product
-        setIsProductVisible(false);
-
-        // Hide the product container after animation
-        const hideTimer = setTimeout(() => {
-          if (productRef.current) {
-            productRef.current.style.display = 'none';
-          }
-        }, 300); // Match this with your animation duration
-
-        document.body.style.overflow = '';
-
-        // Reset pointer events on the header
-        const header = document.querySelector(`.${styles.contentBlockHeader}`);
-        if (header) {
-          header.style.pointerEvents = '';
-        }
-
-        return () => clearTimeout(hideTimer);
-      };
+    } else {
+      // When closing the product - no animation
+      setIsProductVisible(false);
+      setIsAnimating(false);
+      if (productRef.current) {
+        productRef.current.style.display = 'none';
+      }
+      document.body.style.overflow = 'auto';
     }
   }, [spuId]);
 
