@@ -488,12 +488,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
                   animate={{ 
                     x: 0, 
                     opacity: 1,
-                    transition: { 
-                      duration: 0.3,
-                      ease: [0.16, 1, 0.3, 1], // Custom cubic-bezier for smoother motion
-                      when: 'beforeChildren'
-                    }
                   }}
+                  transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
                   style={{
                     position: 'fixed',
                     top: 0,
