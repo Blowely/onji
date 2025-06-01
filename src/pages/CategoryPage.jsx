@@ -377,14 +377,20 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   useEffect(() => {
     if (spuId) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.touchAction = 'none';
+      
+      // Enable scroll after animation completes
+      const timer = setTimeout(() => {
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+      }, 400); // Match this with your animation duration
+
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+      };
     }
-    
-    // Cleanup function to reset overflow when component unmounts
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
   }, [spuId]);
 
   const isWebView = navigator.userAgent.includes('OnjiApp');
@@ -542,6 +548,19 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         setIsProductVisible(true);
       }
       document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      
+      // Enable scroll after animation completes
+      const timer = setTimeout(() => {
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+      }, 400); // Match this with your animation duration
+
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+      };
     } else {
       // When closing the product - no animation
       setIsProductVisible(false);
@@ -553,6 +572,26 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     }
   }, [spuId]);
 
+  const productWrapperStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#fff',
+    zIndex: 1000,
+    overflowY: 'auto',
+    paddingTop: isWebView ? '60px' : 0,
+    transform: isProductVisible ? 'translateX(0)' : 'translateX(100%)',
+    transition: isAnimating ? 'transform 0.4s cubic-bezier(0.16, 1, 0.2, 1)' : 'none',
+    willChange: 'transform',
+    backfaceVisibility: 'hidden',
+    WebkitFontSmoothing: 'subpixel-antialiased',
+    WebkitOverflowScrolling: 'touch',
+    overscrollBehavior: 'contain', // Prevent scroll chaining
+    touchAction: isAnimating ? 'none' : 'pan-y', // Disable touch during animation
+  };
+
   return (
       <Layout style={{
         backgroundColor: "white",
@@ -561,23 +600,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       }}>
         <div 
           ref={productRef}
-          style={{
-            position: 'fixed',
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            backgroundColor: 'white',
-            zIndex: 1000,
-            overflowY: 'auto',
-            paddingTop: isWebView ? '60px' : 0,
-            transform: isProductVisible ? 'translateX(0)' : 'translateX(100%)',
-            transition: isAnimating ? 'transform 0.2s cubic-bezier(0.16, 1, 0.2, 1)' : 'none',
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            WebkitFontSmoothing: 'subpixel-antialiased',
-            display: 'none' // Initially hidden
-          }}
+          style={productWrapperStyle}
         >
           {spuId && (
             <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
