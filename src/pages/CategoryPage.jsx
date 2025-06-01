@@ -3,8 +3,7 @@ import React, {
   useRef,
   useState,
   useCallback,
-  useMemo,
-  memo, Suspense
+  Suspense
 } from "react";
 import { Layout, Button, Modal } from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -51,7 +50,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const [limit] = useState(20);
   const [offset, setOffset] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(minPriceParam || '');
@@ -62,31 +60,11 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [showControls, setShowControls] = useState(false);
   const prevYRef = useRef(0);
-  
-  // Стили для виртуального списка
-  const listStyles = {
-    height: 'calc(100vh - 200px)',
-    width: '100%',
-    margin: '0 auto',
-    padding: '0 10px',
-    boxSizing: 'border-box',
-  };
-  
-  const loadingStyles = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100px',
-    fontSize: '16px',
-    color: '#666',
-  };
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
-  const type = searchParams.get("type");
   const url = searchParams.get("url");
   const spuId = searchParams.get("spuId");
   const sortBy = searchParams.get("sortBy");
@@ -96,7 +74,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const selectedCategory = category1Id || category2Id || category3Id;
 
-  const [sort, setSort] = useState(sortBy || 'by-relevance');
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [recent, setRecent] = useState(['adidas ozweego', 'джорданы', 'худи', 'рубашка']);
 
@@ -241,30 +218,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   }, [searchOrCollection]);
 
   // Load more items function
-  const loadMoreItems = useCallback(async (page) => {
-    if (!hasMore || isLoading) return;
-    
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const result = await refetchProducts(buildRequest(page));
-      
-      if (result.error) {
-        throw new Error('Ошибка при загрузке товаров');
-      }
-      
-      // Check if there are more items to load
-      if (result.data?.items?.length < limit) {
-        setHasMore(false);
-      }
-    } catch (err) {
-      console.error('Ошибка при загрузке товаров:', err);
-      setError('Не удалось загрузить товары. Пожалуйста, попробуйте еще раз.');
-    } finally {
-      setLoading(false);
-    }
-  }, [buildRequest, hasMore, isLoading, refetchProducts]);
 
   useEffect(() => {
     setLoading(false);
@@ -370,34 +323,6 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   // Use optimized scroll hook
   useOptimizedScroll(handleScroll);
 
-  const MemoizedCard = memo(({ item, index, onAddToFavorite, onAddToCart, onPointerDown, onPointerUp, isLoading }) => {
-  const image = item?.images?.[0] || '';
-  const title = item?.name || '';
-  const price = item?.price || '';
-
-  return (
-    <div key={`${item?.spuId}-${index}`} style={{height:'100%'}}>
-      <Card
-        onFavorite={onAddToFavorite}
-        onPlus={onAddToCart}
-        loading={isLoading}
-        image={image}
-        price={price}
-        item={item}
-        name={title}
-        index={index + 1}
-        onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
-        onTouchStart={onPointerDown}
-        onTouchEnd={onPointerUp}
-      />
-    </div>
-  );
-});
-
-const productsItems = useMemo(() => {
-    return productsSlice[trimCollectionValue] || [];
-  }, [productsSlice, trimCollectionValue]);
 
   const renderItems = () => (
     <div ref={wrapperRef}>
@@ -412,21 +337,6 @@ const productsItems = useMemo(() => {
       />
     </div>
   );
-
-  const docElements = document.getElementsByClassName("cards-section-wrapper");
-
-  const onBrandClick = (brand) => {
-    if (brand.toString() === brandsParam) {
-      searchParams.delete('brandIds');
-      return setSearchParams(searchParams);
-    }
-
-    setSelectedBrands((prev) => [...prev, Number(brand)]);
-    setLoading(true);
-    setOffset(1);
-    searchParams.set('brandIds', brand);
-    setSearchParams(searchParams);
-  }
 
   const onMinPriceChange = (val) => {
     setMinPrice(val);
@@ -481,14 +391,6 @@ const productsItems = useMemo(() => {
       return {border: "1px solid white"};
     }
   }
-
-  const handleChange = (value) => {
-    setLoading(true);
-    searchParams.set('sortBy', value);
-    setSearchParams(searchParams);
-    setSort(value);
-    setOffset(1);
-  };
 
   const getCategoryTitle = () => {
     if (!selectedCategory) {
