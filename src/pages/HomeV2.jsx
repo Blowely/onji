@@ -618,7 +618,7 @@ function HomeV2({ onAddToFavorite, onAddToCart }) {
     if (opacityRef.current !== value) {
       opacityRef.current = value;
       if (overlayRef.current) {
-        //overlayRef.current.style.opacity = value;
+        overlayRef.current.style.opacity = value;
       }
     }
   };
