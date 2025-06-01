@@ -289,6 +289,19 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Set initial scroll state when component mounts
+  useEffect(() => {
+    const y = window.scrollY;
+    const show = y > 0;
+    setIsScrolled(show);
+    
+    // Update header immediately on mount
+    if (headerRef.current) {
+      headerRef.current.style.opacity = show ? '1' : '0';
+      headerRef.current.style.pointerEvents = show ? 'auto' : 'none';
+    }
+  }, []);
+
   // Optimized scroll handling
   const handleScroll = useCallback(() => {
     if (overlayVisible) {
@@ -297,10 +310,16 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     }
 
     const y = window.scrollY;
-    const show = y > 10;
+    const show = y > 0;
 
     if (!spuId) {
       setIsScrolled(show);
+      
+      // Update header opacity directly for immediate feedback
+      if (headerRef.current) {
+        headerRef.current.style.opacity = show ? '1' : '0';
+        headerRef.current.style.pointerEvents = show ? 'auto' : 'none';
+      }
     }
 
     const slider = document.getElementsByClassName('beeon-slider');
@@ -642,10 +661,11 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             <div
                 className={`${styles.contentBlockHeader} ${isScrolled ? styles.scrolledHeader : ''}`}
                 style={{
-                  opacity: isScrolled || overlayVisible ? 1 : 0,
-                  touchAction: (!isScrolled && !overlayVisible) ? 'none' : 'auto',
+                  opacity: 1, 
+                  transition: 'opacity 0.2s ease-in-out', 
+                  touchAction: 'auto', 
                   display: search || overlayVisible ? 'flex' : 'grid',
-                  pointerEvents: overlayVisible ? 'none' : 'auto'
+                  pointerEvents: isScrolled && !overlayVisible ? 'auto' : 'none' 
                 }}
                 ref={headerRef}
             >
