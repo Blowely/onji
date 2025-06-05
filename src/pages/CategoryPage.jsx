@@ -546,38 +546,46 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   });
 
   useEffect(() => {
-    const handleScroll = () => {
-      const header = document.querySelector(`.${styles.contentBlockHeader}`);
-      if (header && !spuId) { // Only update header if not in product view
-        const shouldShow = window.scrollY > 10 || overlayVisible;
-        header.style.opacity = shouldShow ? '1' : '0';
-        header.style.pointerEvents = shouldShow ? 'auto' : 'none';
+    const header = document.getElementById("headerEl");
+    if (!header) return;
+    console.log('header',header)
+
+    const updateHeaderVisibility = () => {
+      const shouldHide = !(window.scrollY > 10 || overlayVisible || search);
+      console.log('shouldHide',shouldHide)
+      if (shouldHide) {
+        header.classList.add(styles.hidden);
+      } else {
+        header.classList.remove(styles.hidden);
       }
     };
 
-    // Initial check
-    handleScroll();
+    // Initial update
+    updateHeaderVisibility();
     
-    // Add scroll listener with passive true for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Add scroll listener
+    window.addEventListener('scroll', updateHeaderVisibility, { passive: true });
     
-    // Also update when overlay visibility changes
-    if (overlayVisible) {
-      handleScroll();
-    }
-    
+    // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', updateHeaderVisibility);
+      if (header) {
+        header.classList.remove(styles.hidden);
+      }
     };
-  }, [spuId, overlayVisible]); // Add overlayVisible to dependencies
+  }, [overlayVisible, search]);
 
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(`.${styles.contentBlockHeader}`);
       if (header && !spuId) { // Only update header if not in product view
         const shouldShow = window.scrollY > 10;
-        header.style.opacity = shouldShow ? '1' : '0';
-        header.style.pointerEvents = shouldShow ? 'auto' : 'none';
+        console.log('shouldShow=,', shouldShow);
+        if (shouldShow) {
+          header.classList.remove(styles.hidden);
+        } else {
+          header.classList.add(styles.hidden);
+        }
       }
     };
 
@@ -735,14 +743,12 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         <div ref={sentinelRef} style={{ position: 'absolute', top: '1px', width: '1px', height: '1px' }} />
 
         <div
-            className={`${styles.contentBlockHeader}`}
             ref={headerRef}
+            className={`${styles.contentBlockHeader} ${search ? styles.searchActive : ''}`}
             style={{
-              display: search || overlayVisible ? 'flex' : 'grid',
-              transition: 'opacity 0.2s ease-in-out',
-              opacity: 0, // Start hidden
-              pointerEvents: 'none',
+              display: search ? 'flex' : 'grid',
             }}
+            id="headerEl"
         >
           {search && (
               <span style={{display: "flex", gap: "10px", alignItems: "center", flex: 1, minWidth: 0}}>
