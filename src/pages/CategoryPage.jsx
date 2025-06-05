@@ -747,7 +747,8 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
             className={`${styles.contentBlockHeader} ${search ? styles.searchActive : ''}`}
             style={{
               display: search ? 'flex' : 'grid',
-              marginTop: isWebView && '-60px'
+              marginTop: isWebView && '-60px',
+              paddingTop: isWebView && '71px'
             }}
             id="headerEl"
         >
