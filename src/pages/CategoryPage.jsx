@@ -724,8 +724,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         }
         {!isDesktopScreen &&
             <div
-                className={`overlayWrapper ${overlayVisible ?'overlayVisible':''}`}
-                style={{opacity: overlayVisible ? 1 : 0}}
+                className={`overlayWrapper animated ${overlayVisible ?'overlayVisible overlayVisibleAnimated':''}`}
             >
               <SearchOverlay
                   visible={overlayVisible}

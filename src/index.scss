@@ -531,11 +531,24 @@ footer {
   width: 100%;
   z-index: 3;
   height: fit-content;
-  transition: opacity 0.15s ease, transform 0.15s ease; // Анимация
-  border-bottom: 1px solid #ededed;
+  transition: transform 0.15s ease-in-out, opacity 0.15s ease-in-out;
+  background: white;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
 
   &.overlayVisible {
     height: 100%;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.animated {
+    transform: translateX(100%);
+  }
+
+  &.overlayVisibleAnimated {
+    transform: translateX(0%);
   }
 
   &.scrolledHeader {
