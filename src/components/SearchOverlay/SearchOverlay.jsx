@@ -39,14 +39,33 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             document.body.style.width = '100%';
             
             // Focus the input after the opening animation completes
-            if (showInput && inputRef.current) {
+            if (showInput && inputRef.current && overlayRef.current) {
+                const overlay = overlayRef.current;
+                const handleTransitionEnd = () => {
+                    if (inputRef.current) {
+                        // Use requestAnimationFrame to ensure the browser is ready
+                        requestAnimationFrame(() => {
+                            if (inputRef.current) {
+                                inputRef.current.focus({ preventScroll: true });
+                            }
+                        });
+                    }
+                    overlay.removeEventListener('transitionend', handleTransitionEnd);
+                };
+                
+                overlay.addEventListener('transitionend', handleTransitionEnd, { once: true });
+                
+                // Fallback in case transitionend doesn't fire
                 const timer = setTimeout(() => {
                     if (inputRef.current) {
                         inputRef.current.focus({ preventScroll: true });
                     }
-                }, 300); // Match this with your CSS transition duration
+                }, 500);
                 
-                return () => clearTimeout(timer);
+                return () => {
+                    clearTimeout(timer);
+                    overlay.removeEventListener('transitionend', handleTransitionEnd);
+                };
             }
         } else {
             handleHideOverlay();
