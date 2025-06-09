@@ -548,11 +548,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
   useEffect(() => {
     const header = document.getElementById("headerEl");
     if (!header) return;
-    console.log('header',header)
 
     const updateHeaderVisibility = () => {
       const shouldHide = !(window.scrollY > 10 || overlayVisible || search);
-      console.log('shouldHide',shouldHide)
+
       if (shouldHide) {
         header.classList.add(styles.hidden);
       } else {
@@ -580,7 +579,7 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       const header = document.querySelector(`.${styles.contentBlockHeader}`);
       if (header && !spuId) { // Only update header if not in product view
         const shouldShow = window.scrollY > 10;
-        console.log('shouldShow=,', shouldShow);
+
         if (shouldShow) {
           header.classList.remove(styles.hidden);
         } else {
