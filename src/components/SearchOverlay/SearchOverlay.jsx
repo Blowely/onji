@@ -38,9 +38,15 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             document.body.style.overflow = 'hidden';
             document.body.style.width = '100%';
             
-            // Auto-focus the input when overlay becomes visible
+            // Focus the input after the opening animation completes
             if (showInput && inputRef.current) {
-                inputRef.current.focus({ preventScroll: true });
+                const timer = setTimeout(() => {
+                    if (inputRef.current) {
+                        inputRef.current.focus({ preventScroll: true });
+                    }
+                }, 300); // Match this with your CSS transition duration
+                
+                return () => clearTimeout(timer);
             }
         } else {
             handleHideOverlay();
