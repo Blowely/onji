@@ -40,9 +40,7 @@ const SearchOverlay = ({ visible, onClose, setOverlayVisible, recentSearches, on
             
             // Auto-focus the input when overlay becomes visible
             if (showInput && inputRef.current) {
-                setTimeout(() => {
-                    inputRef.current.focus({ preventScroll: true });
-                }, 250);
+                inputRef.current.focus({ preventScroll: true });
             }
         } else {
             handleHideOverlay();
