@@ -892,7 +892,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
           </div>
       )}
       {!isDesktopScreen && !isLoadingProduct &&
-          <footer className="footer-btn-wrapper">
+          <div className="footer-btn-wrapper">
             <CartButton
                 price={choice?.price || ""}
                 onAddToCart={onAddToCart}
@@ -901,7 +901,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                 //showCounter={checkIsCartItem(product, choice?.size)}
                 counterValue={getCartItemNumberCount(product, choice?.skuId)}
             />
-          </footer>
+          </div>
       }
     </div>
   );

@@ -317,6 +317,11 @@
   transition: background 0.3s ease-in-out;
   border-bottom: 1px solid rgba(236, 236, 236, 0.8);
 
+  @media (max-width: 768px) {
+    position: sticky;
+    top: 0;
+  }
+
   &.solid {
     background: white!important; // Сплошной цвет после 100px скролла
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
