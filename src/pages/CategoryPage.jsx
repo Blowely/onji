@@ -293,74 +293,49 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
     if (spuId) {
       // When opening the product
       wasProductOpen.current = true;
-      
+
       // Save current scroll position
       const scrollY = window.scrollY;
-      
+
       // Show and animate product in
       if (productRef.current) {
-        // Disable animations on fixed elements during transition
-        const fixedElements = document.querySelectorAll('*[style*="position: fixed"]');
-        fixedElements.forEach(el => {
-          el.style.transform = 'translateZ(0)';
-          el.style.willChange = 'transform';
-        });
-        
         productRef.current.style.display = 'block';
         void productRef.current.offsetHeight; // Trigger reflow
         setIsProductVisible(true);
         setIsAnimating(true);
-        
+
         // End animation after it completes
         const timer = setTimeout(() => {
           setIsAnimating(false);
-          // Re-enable animations
-          fixedElements.forEach(el => {
-            el.style.transform = '';
-            el.style.willChange = '';
-          });
         }, 300);
-        
+
         // Store scroll position
         sessionStorage.setItem('productOpenScrollPos', scrollY);
-        
-        return () => {
-          clearTimeout(timer);
-          fixedElements.forEach(el => {
-            el.style.transform = '';
-            el.style.willChange = '';
-          });
-        };
+
+        return () => clearTimeout(timer);
       }
-      
+
       document.body.style.overflow = 'hidden';
-      
+
     } else if (wasProductOpen.current) {
       // When closing the product
       wasProductOpen.current = false;
       setIsProductVisible(false);
-      
-      // Disable animations on fixed elements during transition
-      const fixedElements = document.querySelectorAll('*[style*="position: fixed"]');
-      fixedElements.forEach(el => {
-        el.style.transform = 'translateZ(0)';
-        el.style.willChange = 'transform';
-      });
-      
+
       // Restore scroll position after a small delay.
       const timer = setTimeout(() => {
         // Hide the product
         if (productRef.current) {
           productRef.current.style.display = 'none';
         }
-        
+
         // Restore scroll position if it was saved
         const savedScroll = sessionStorage.getItem('productOpenScrollPos');
         if (savedScroll) {
           window.scrollTo(0, parseInt(savedScroll));
           sessionStorage.removeItem('productOpenScrollPos');
         }
-        
+
         // Force update header state
         const header = document.querySelector(`.${styles.contentBlockHeader}`);
         if (header) {
@@ -368,29 +343,17 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
           header.style.opacity = shouldShow ? '1' : '0';
           header.style.pointerEvents = shouldShow ? 'auto' : 'none';
         }
-        
-        // Re-enable animations
-        fixedElements.forEach(el => {
-          el.style.transform = '';
-          el.style.willChange = '';
-        });
-        
+
         // Force a small scroll to ensure pointer events work
         setTimeout(() => {
           window.scrollBy(0, 1);
           setTimeout(() => window.scrollBy(0, -1), 10);
         }, 50);
-        
+
       }, 50);
-      
+
       document.body.style.overflow = 'auto';
-      return () => {
-        clearTimeout(timer);
-        fixedElements.forEach(el => {
-          el.style.transform = '';
-          el.style.willChange = '';
-        });
-      };
+      return () => clearTimeout(timer);
     }
   }, [spuId]);
 
@@ -598,10 +561,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
     // Initial update
     updateHeaderVisibility();
-    
+
     // Add scroll listener
     window.addEventListener('scroll', updateHeaderVisibility, { passive: true });
-    
+
     // Cleanup
     return () => {
       window.removeEventListener('scroll', updateHeaderVisibility);
@@ -627,10 +590,10 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
 
     // Initial check
     handleScroll();
-    
+
     // Add scroll listener with passive true for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
