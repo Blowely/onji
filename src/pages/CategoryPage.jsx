@@ -299,6 +299,13 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       
       // Show and animate product in
       if (productRef.current) {
+        // Disable animations on fixed elements during transition
+        const fixedElements = document.querySelectorAll('*[style*="position: fixed"]');
+        fixedElements.forEach(el => {
+          el.style.transform = 'translateZ(0)';
+          el.style.willChange = 'transform';
+        });
+        
         productRef.current.style.display = 'block';
         void productRef.current.offsetHeight; // Trigger reflow
         setIsProductVisible(true);
@@ -307,12 +314,23 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
         // End animation after it completes
         const timer = setTimeout(() => {
           setIsAnimating(false);
+          // Re-enable animations
+          fixedElements.forEach(el => {
+            el.style.transform = '';
+            el.style.willChange = '';
+          });
         }, 300);
         
         // Store scroll position
         sessionStorage.setItem('productOpenScrollPos', scrollY);
         
-        return () => clearTimeout(timer);
+        return () => {
+          clearTimeout(timer);
+          fixedElements.forEach(el => {
+            el.style.transform = '';
+            el.style.willChange = '';
+          });
+        };
       }
       
       document.body.style.overflow = 'hidden';
@@ -321,6 +339,13 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       // When closing the product
       wasProductOpen.current = false;
       setIsProductVisible(false);
+      
+      // Disable animations on fixed elements during transition
+      const fixedElements = document.querySelectorAll('*[style*="position: fixed"]');
+      fixedElements.forEach(el => {
+        el.style.transform = 'translateZ(0)';
+        el.style.willChange = 'transform';
+      });
       
       // Restore scroll position after a small delay.
       const timer = setTimeout(() => {
@@ -344,6 +369,12 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
           header.style.pointerEvents = shouldShow ? 'auto' : 'none';
         }
         
+        // Re-enable animations
+        fixedElements.forEach(el => {
+          el.style.transform = '';
+          el.style.willChange = '';
+        });
+        
         // Force a small scroll to ensure pointer events work
         setTimeout(() => {
           window.scrollBy(0, 1);
@@ -353,7 +384,13 @@ function CategoryPage({ onAddToFavorite, onAddToCart }) {
       }, 50);
       
       document.body.style.overflow = 'auto';
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        fixedElements.forEach(el => {
+          el.style.transform = '';
+          el.style.willChange = '';
+        });
+      };
     }
   }, [spuId]);
 
