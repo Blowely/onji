@@ -535,12 +535,12 @@ footer {
   background: white;
   overflow-y: auto;
   opacity: 0;
-  pointer-events: none;
+  //pointer-events: none;
 
   &.overlayVisible {
     height: 100%;
     opacity: 1;
-    pointer-events: auto;
+    //pointer-events: auto;
   }
 
   &.animated {
