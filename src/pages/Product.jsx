@@ -360,7 +360,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   console.log('sizesAndPrices=',sizesAndPrices)
 
   return (
-    <div style={{height: '100%'}} ref={productLayoutRef}>
+    <div ref={productLayoutRef}>
       {measureOpen && (
         <Modal
           title="Таблица размеров"
@@ -418,7 +418,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
           </div>)
       }
       {!isLoadingProduct && (
-          <div style={{height: '100%'}}>
+          <div>
             {!isDesktopScreen &&
                 <div className={`product-bar-wrapper ${isScrolled ? "solid" : ""}`}>
                   <img
